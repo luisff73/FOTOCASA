@@ -19,7 +19,7 @@
                 <td>Ref_catastral: </td>
                 <td><input type="text" id="ref_catastral" name="ref_catastral" placeholder="ref_catastral" value="<?php echo $viviendas['ref_catastral'];?>"/></td>
                 <td><font color="red">
-                    <span id="error_ref_catastral" class="error"></span> 
+                    <span id="error_referencia_catastral" class="error"></span> 
                  </font>
                 </td>
             </tr>
@@ -219,10 +219,9 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="button" name="update" id="update" onclick="validate('update')" value="Modificar"/></td>
+                <td><input type="button" name="update" id="update" onclick="validate('updates')" value="Modificar"/></td>
                 <!-- <td><input type="submit" name="update" id="update"/></td> -->
                 <td align="right"><a href="index.php?page=controller_viviendas&op=list">Volver</a></td>
-            
             </tr>
         </table>
     </form>

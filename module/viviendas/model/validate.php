@@ -12,10 +12,11 @@ function validate_ref_catastral($ref_catastral){
 
 
 function validate(){
-    $check = true;
 
+    $check = true;  // Establece $check en true
     $ref_catastral = $_POST['ref_catastral'];
 	$ref_catastral = validate_ref_catastral($ref_catastral);
+
 
 	//die('<script>console.log('.json_encode( $ref_catastral ) .');</script>');
 

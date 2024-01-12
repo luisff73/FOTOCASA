@@ -1,5 +1,4 @@
 <div id="contenido">
-                                                                                   <!-- el codigo de esta linea no se ejecutara hasta que la funcion validate sea true -->
     <!-- <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda" onsubmit="return validate();" action="index.php?page=controller_viviendas&op=create" >  -->
     <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda"><!-- eliminamos el action -->
     <h1>Crear Inmueble</h1>
@@ -9,7 +8,7 @@
                 <td>Referencia Catastral: </td>
                 <td><input type="text" id="ref_catastral" name="ref_catastral" placeholder="ref_catastral" value=""/></td>
                 <td><font color="red">
-                    <span id="error_Referencia Catastral" class="error"></span>
+                    <span id="error_referencia catastral" class="error"></span>
                 </font></td>
             </tr>
             
@@ -36,7 +35,7 @@
 
             <tr>
                 <td>Habitaciones: </td>
-                <td><input type="text" id= "habitaciones" name="habitaciones" placeholder="habitaciones" value=""/></td>
+                <td><input type="text" id= "habitaciones" name="habitaciones" placeholder="habitaciones" value="0"/></td>
                 <td><font color="red">
                     <span id="error_habitaciones" class="error"></span>
                 </font></td>
@@ -50,8 +49,7 @@
             </tr>
             <tr>
                 <td>Extras: </td>
-                <!-- <td><select multiple size="3" id="extras[]" name="extras[]" placeholder="extras"> -->
-                <td><select multiple size="6" id="extras[]" name="extras[]">
+                    <td><select multiple size="6" id="extras[]" name="extras[]">
                     <option value="Ascensor">Ascensor</option>
                     <option value="Aire acondicionado">Aire acondicionado</option>
                     <option value="Calefaccion central">Calefaccion central</option>
@@ -67,7 +65,7 @@
             <tr>
                 <td>Estado: </td>
                 <td>
-                    <input type="radio" id="estado" name="estado" placeholder="estado" value="A estrenar">A estrenar
+                    <input type="radio" id="estado" name="estado" placeholder="estado" value="A estrenar" checked >A estrenar
 					<input type="radio" id="estado" name="estado" placeholder="estado" value="Buen estado">Buen estado
 					<input type="radio" id="estado" name="estado" placeholder="estado" value="A reformar">A reformar
                 </td>
@@ -93,7 +91,7 @@
             
             <tr>
                 <td>Activo: </td>
-                <td><input type="checkbox" id="activo" name="activo" placeholder="activo" value="1"/></td>
+                <td><input type="checkbox" id="activo" name="activo" placeholder="activo" value="1" checked/></td>
                 <td><font color="red">
                     <span id="error_activo" class="error"></span>
                 </font></td>
@@ -101,6 +99,7 @@
             </tr>
 
             <tr>
+            
                 <td><input type="button" name="create" id="create" onclick="validate('create')" value="Crear"/></td>
                 <!-- <td><input type="submit" name="create" id="create"/></td> -->
                 <td align="right"><a href="index.php?page=controller_viviendas&op=list">Volver</a></td>

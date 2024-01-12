@@ -13,10 +13,10 @@ include("model/connect.php");
 			
 			$extras = "";  // Inicializamos la variable $extras porque nos da error
 			// die('<script>console.log('.json_encode( $datos ) .');</script>');
-			$id=$datos['id'];
+			// $id=$datos['id'];
         	$ref_catastral=$datos['ref_catastral'];
         	$tipo=$datos['tipo'];
-        	$m2=$datos['m2'];	
+        	$m2=$datos['m2'];
         	$habitaciones=$datos['habitaciones'];
         	$localidad=$datos['localidad'];
 			foreach ($datos['extras'] as $indice) {
@@ -95,4 +95,34 @@ include("model/connect.php");
             connect::close($conexion);
             return $res;
 		}
+		function delete_all_viviendas(){
+			$sqldeleteall = "DELETE FROM inmueble";
+			
+			$conexion = connect::con();
+            $res = mysqli_query($conexion, $sqldeleteall);
+            connect::close($conexion);
+
+            return $res;
+		}
+		function dummies_viviendas(){
+			$sqlinsert = "DELETE FROM inmueble;";
+
+			$sqlinsert.= "INSERT INTO inmueble (ref_catastral, tipo, m2, habitaciones, localidad, extras, estado, precio, activo, fecha_publicacion)"
+			." VALUES('asefsxffassfd','Piso','92','3','Fontanars','Aire acondicionado','A estrenar','56000','1','15/12/2023');";
+			$sqlinsert.= "INSERT INTO inmueble (ref_catastral, tipo, m2, habitaciones, localidad, extras, estado, precio, activo, fecha_publicacion)"
+			." VALUES('asefsxffa','Piso','98','2','Ontinyent','Aire acondicionado','A estrenar','1236000','1','18/10/2023');";
+			$sqlinsert.= "INSERT INTO inmueble (ref_catastral, tipo, m2, habitaciones, localidad, extras, estado, precio, activo, fecha_publicacion)"
+			." VALUES('asefsxfsfds','Piso','96','6','Aielo','Aire acondicionado','A reformar','80000','0','20/12/2023');";
+			$sqlinsert.= "INSERT INTO inmueble (ref_catastral, tipo, m2, habitaciones, localidad, extras, estado, precio, activo, fecha_publicacion)"
+			." VALUES('asefsxfsdfs','Adosado','102','3','Benissoda','Aire acondicionado','A estrenar','320000','0','23/11/2023');";		
+			$sqlinsert.= "INSERT INTO inmueble (ref_catastral, tipo, m2, habitaciones, localidad, extras, estado, precio, activo, fecha_publicacion)"
+			." VALUES('aasfsefsasfs','Piso','123','5','Albaida','Aire acondicionado','A reformar','33000','1','01/11/2023');";
+			
+			$conexion = connect::con();
+            $res = mysqli_multi_query($conexion, $sqlinsert);
+            connect::close($conexion);
+
+            return $res;
+		}
+
 	}

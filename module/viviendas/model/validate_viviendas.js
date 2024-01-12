@@ -159,32 +159,23 @@ function validate_aficion(array){
 }
 */
 
-function validate(){
-
+function validate(op){
+    // console.log('hola validate js');
+    // return true;
+    // alert('JAVASCRIPT VALIDATE op');
     var check=true;
     
     var v_ref_catastral=document.getElementById('ref_catastral').value;
-    console.log(v_ref_catastral);
-    console.log(validate_ref_catastral(v_ref_catastral));
-    //return false;
-    check=false;
-    return check
-
-
     var v_tipo_de_inmueble=document.getElementById('tipo').value;
     var v_m2=document.getElementById('m2').value;
     var v_habitaciones=document.getElementById('habitaciones').value;
-    var v_localidad=document.getElementsById('localidad');
-    //var v_extras=document.getElementById('extras[]').value;
+    var v_localidad=document.getElementById('localidad').value;
     var v_estado=document.getElementById('estado').value;
     var v_precio=document.getElementById('precio').value;
     var v_fecha_publicacion=document.getElementById('fecha_publicacion').value;
     var v_activo=document.getElementById('activo').value;
     
     var r_ref_catastral=validate_ref_catastral(v_ref_catastral);
-     console.log(r_ref_catastral);
-     console.log(v_ref_catastral);
-     //return false;    
     var r_tipo_de_inmueble=validate_tipo(v_tipo_de_inmueble);
     var r_m2=validate_m2(v_m2);
     var r_habitaciones=validate_habitaciones(v_habitaciones);
@@ -193,15 +184,15 @@ function validate(){
     var r_precio=validate_precio(v_precio);
     var r_fecha_publicacion=validate_fecha_publicacion(v_fecha_publicacion);
     var r_activo=validate_activo(v_activo);
-    
+
     if(!r_ref_catastral){
-        document.getElementById('error_Referencia Catastral').innerHTML = " * La referencia catastral no es valida";
+        document.getElementById('error_referencia_catastral').innerHTML = " * La referencia catastral no es valida";
         // console.log(r_ref_catastral);
         // return false;
         check=false;
     }else{
-        document.getElementById('error_Referencia Catastral').innerHTML = "";
-    }
+        document.getElementById('error_referencia_catastral').innerHTML = "";
+    }   
     if(!r_tipo_de_inmueble){
         document.getElementById('error_tipo').innerHTML = " * El tipo de inmueble no es valido";
         check=false;
@@ -250,6 +241,39 @@ function validate(){
     }else{
         document.getElementById('error_activo').innerHTML = "";
     }
-    
-    return check;
+
+    if (check){ // Si todo esta correcto, se envian los datos al controlador
+        if (op == 'create'){
+            //alert('JAVASCRIPT VALIDATE CREATE');
+            document.getElementById('alta_vivienda').submit();
+            document.getElementById('alta_vivienda').action = "index.php?page=controller_viviendas&op=create";
+             
+        }
+        if (op == 'updates'){
+            //alert('JAVASCRIPT VALIDATE UPDATE');
+            document.getElementById('update_viviendas').submit();
+            document.getElementById('update_viviendas').action = "index.php?page=controller_viviendas&op=update";                                                                                    
+        }
+    }
+
+    return check; // Si devuelve false, no se envian los datos al controlador
 }
+    function operations_viviendas(op){
+        
+        
+        if (op == 'delete_v'){
+            
+            document.getElementById('delete_viviendas').submit();
+            document.getElementById('delete_viviendas').action="index.php?page=controller_viviendas&op=delete_v";
+            //document.getElementById('delete_viviendas').action="index.php?page=controller_viviendas&op=delete&id=<?php echo $_GET['id']; ?>";
+        }                                                 
+        if (op == 'delete_all'){
+            document.getElementById('delete_all_viviendas').submit();
+            document.getElementById('delete_all_viviendas').action = "index.php?page=controller_viviendas&op=delete_all";
+        }
+        if (op == 'dummies'){
+            document.getElementById('dummies_viviendas').submit();
+            document.getElementById('dummies_viviendas').action = "index.php?page=controller_viviendas&op=dummies";
+        }
+    }     
+ 

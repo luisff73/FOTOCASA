@@ -64,6 +64,26 @@ h1{
 .Button_green:hover {
 	background-color:greenyellow;
 }
+
+	.Button_greey {
+		background-color:rgb(98, 110, 98);
+		-moz-border-radius:15px;
+		-webkit-border-radius:15px;
+		border-radius:15px;
+		border:1px solid rgb(217, 221, 217);
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:15px;
+		padding:5px 20px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #5d605c;
+	}
+	.Button_greey:hover {
+		background-color:rgb(133, 133, 132);
+
+}
 .Button_green:active {
 	position:relative;
 	top:1px;
@@ -111,4 +131,9 @@ h1{
 .Button_red:active {
 	position:relative;
 	top:1px;
+}
+
+.tabla_centrada {
+	margin: auto;
+	text-align: center;
 }

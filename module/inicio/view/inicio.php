@@ -1,6 +1,4 @@
 
-
-<!--/.NAVBAR END-->
         
 <section id="home" class="text-center">
          
@@ -11,19 +9,19 @@
 
                      <img src="view/img/1.jpg" alt="" />
                      <div class="carousel-caption" >
-                         <h4 class="back-light">Aenean faucibus luctus enim. Duis quis sem risu suspend lacinia elementum nunc.</h4>
+                         <h4 class="back-light">Tenemos los mejores Inmuebles, adaptados a sus necesidades.</h4>
                      </div>
                  </div>
                  <div class="item">
                      <img src="view/img/2.jpg" alt="" />
                      <div class="carousel-caption ">
-                         <h4 class="back-light">Aenean faucibus luctus enim. Duis quis sem risu suspend lacinia elementum nunc.</h4>
+                         <h4 class="back-light">Inmuebles de todas las caracteristicas y para todos los publicos.</h4>
                      </div>
                  </div>
                  <div class="item">
                      <img src="view/img/3.jpg" alt="" />
                      <div class="carousel-caption ">
-                         <h4 class="back-light">Aenean faucibus luctus enim. Duis quis sem risu suspend lacinia elementum nunc.</h4>
+                         <h4 class="back-light">Gran surtido de casas, parcelas, naves industriales y terrenos con amplias posiblidades.</h4>
                      </div>
                  </div>
              </div>
@@ -45,48 +43,47 @@
      <div class="col-md-12">
       
           <div class="row text-center pad-row  ">
-<div class="col-md-4 col-sm-4 ">
-                 <img class="img-circle" src="view/img/team1.png" alt="" />
-                    <h3><strong>Jhon Deo Alex</strong> </h3>
-                <p>
-                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                     </p>
-                     <a href="#" class="btn btn-primary" >Read Details</a>
-             </div>
-              <div class="col-md-4 col-sm-4 ">
-                 <img class="img-circle" src="view/img/team2.jpg" alt="" />
-                    <h3><strong>Jhon Deo Alex</strong> </h3>
-                <p>
-                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                     </p>
-                     <a href="#" class="btn btn-primary" >Read Details</a>
-             </div>
-              <div class="col-md-4 col-sm-4" >
-                  <div class="alert alert-success">
-                    <div class="skill-name">CLIENT SATISFACTION 100%</div> 
-                     <div class="progress progress-striped active progress-adjust">
-<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-<span class="sr-only">100% Complete</span>
-</div>
-</div>
+            <div class="col-md-4 col-sm-4 ">
+                            <img class="img-circle" src="view/img/team1.png" alt="" />
+                                <h3><strong>Jhon Deo Alex</strong> </h3>
+                            <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                                <a href="#" class="btn btn-primary" >Read Details</a>
+                        </div>
+                        <div class="col-md-4 col-sm-4 ">
+                            <img class="img-circle" src="view/img/team2.jpg" alt="" />
+                                <h3><strong>Jhon Deo Alex</strong> </h3>
+                            <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                </p>
+                                <a href="#" class="btn btn-primary" >Read Details</a>
+                        </div>
+                        <div class="col-md-4 col-sm-4" >
+                            <div class="alert alert-success">
+                                <div class="skill-name">CLIENT SATISFACTION 100%</div> 
+                                <div class="progress progress-striped active progress-adjust">
+            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+           
+            </div>
+            </div>
                  </div>
                   <div class="alert alert-danger">
                     <div class="skill-name">PERFORMANCE DELIVERED 100%</div> 
                      <div class="progress progress-striped active progress-adjust">
-<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-<span class="sr-only">100% Complete</span>
-</div>
-</div>
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                             </div>
+                        </div>
                  </div>
                   <div class="alert alert-info">
                     <div class="skill-name">DELIVERY DONE 100%</div> 
                      <div class="progress progress-striped active progress-adjust">
-<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-<span class="sr-only">100% Complete</span>
-</div>
-</div>
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        
+                        </div>
+                        </div>
                  </div>
               </div>
                
@@ -94,6 +91,4 @@
          
      </div>
         
-        </div>
  </div>
- </section>

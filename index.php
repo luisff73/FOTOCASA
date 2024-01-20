@@ -10,7 +10,7 @@
 	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "controller_viviendas". 
 	// Si esta condición es verdadera, significa que la página solicitada es "controller_viviendas".
 
-    if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){
+    if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){ //Si la página solicitada es "controller_viviendas"
 		include("view/inc/top_page_viviendas.php");
 	}else{
 		include("view/inc/top_page_viviendas.php");
@@ -20,29 +20,24 @@
 	session_start();
 ?>
 
-<!-- Este código PHP y HTML está estructurado incluye secciones de una página web desde archivos externos, 
+<!-- Este código PHP y HTML está estructurado incluye secciones de otras paginas web como header, menu, pages y footer. 
      utilizando la función INCLUDE.  -->
 
-<div id="wrapper">		
-    <div id="header">    	
+<div id="wrapper"> <!--wrapper es un contenedor que contiene todos los elementos de la página web.-->		
+    <div id="header">   <!-- header es la cabecera de la página web.-->	
     	<?php
     	    include("view/inc/header.php");
     	?>        
-
     </div>  
 
-    <div id="menu">
-		<?php
-		    // include("view/inc/menu.php");
-		?>
-    </div>	
-    <div id="">
+    <div id="pages"> <!-- pages es el cuerpo de la página web.-->
     	<?php 
 		    include("view/inc/pages.php"); 
 		?>        
         <br style="clear:both;" />
     </div>
-    <div id="footer">   	   
+
+    <div id="footer">  <!-- footer es el pie de la página web.-->  	   
 	    <?php
 	        include("view/inc/footer.php");
 	    ?>        
@@ -50,6 +45,6 @@
 	
 </div>
 <?php
-    include("view/inc/bottom_page.php");
+    include("view/inc/bottom_page.php");  // bottom_page es el final de la página web. en este caso esta vacia
 ?>
     

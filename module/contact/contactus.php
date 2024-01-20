@@ -1,8 +1,30 @@
-<h1>Contactanos</h1>
-<p>
-Maecenas libero enim, feugiat non, pretium eu, pellentesque vitae, enim. Fusce vel orci bibendum eros viverra vestibulum. Maecenas suscipit. Cras vel felis sed nunc venenatis tincidunt. Nunc sollicitudin lorem non nulla. Suspendisse potenti. Proin hendrerit accumsan risus! Ut accumsan eros at quam. Quisque eleifend, nulla a auctor dignissim, arcu purus eleifend justo, sagittis feugiat justo odio eget nisl! Etiam ut nibh vel elit pretium scelerisque. Fusce malesuada ultricies risus!
-</p>
 
-<p>
-Praesent turpis libero, commodo accumsan, lobortis eget, feugiat quis, magna. Morbi gravida libero eu augue. Morbi ac magna. Integer at purus. Cras interdum tellus non velit. Vestibulum sodales nisl sit amet eros. Donec hendrerit dapibus erat! Quisque iaculis, magna vitae lacinia porta, leo dolor dapibus est, a lacinia ipsum odio ac felis! Sed congue porta ante. Sed eleifend lorem at dui. Duis a enim. Donec libero erat, gravida vel, molestie eget, hendrerit quis, turpis? Vestibulum viverra facilisis sapien! Nam nec turpis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent massa augue, sollicitudin non, tincidunt ut, interdum rhoncus, nisl. Nunc auctor eros nec arcu pellentesque volutpat. Aliquam fringilla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vitae nibh sed turpis fermentum condimentum!
-</p>
+
+<section  id="contact-sec">
+       <iframe class="cnt" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2999841.293321206!2d-75.80920404999999!3d42.75594204999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew+York!5e0!3m2!1sen!2s!4v1395313088825" ></iframe>
+  <div class="add">
+ <i>Address: </i>234/JK , The Wondre Land,  Newyork Street Junction, JUST USA -10909094
+   </div>
+    <hr />
+     </section>
+      <section  class="note-sec" >
+         
+               <div class="container">
+           <div class="row text-center pad-row" >
+            <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 ">
+                <i class="fa fa-quote-left fa-3x"></i>
+               <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
+                            </p>
+                </div>
+               </div>
+            </div>   
+           
+       </section>
+    
+</body>
+</html>

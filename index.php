@@ -13,7 +13,7 @@
     if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){
 		include("view/inc/top_page_viviendas.php");
 	}else{
-		include("view/inc/top_page.php");
+		include("view/inc/top_page_viviendas.php");
 	}
 
 	// La función session_start() en PHP se utiliza para iniciar una nueva sesión o reanudar la sesión existente en el servidor.
@@ -28,11 +28,12 @@
     	<?php
     	    include("view/inc/header.php");
     	?>        
+
     </div>  
 
     <div id="menu">
 		<?php
-		    include("view/inc/menu.php");
+		    // include("view/inc/menu.php");
 		?>
     </div>	
     <div id="">

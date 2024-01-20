@@ -1,7 +1,9 @@
 <div id="contenido">
     <!-- <form autocomplete="on" method="post" name="update_viviendas" id="update_viviendas" onsubmit="return validate();" action="index.php?page=controller_viviendas&op=update&id=<?php //echo $_GET['id']; ?>">   -->
     <form autocomplete="on" method="post" name="update_viviendas" id="update_viviendas"> <!-- eliminamos el action--> 
+ <br>
  
+
     
         <h1>Modificar ficha Inmueble</h1>
         <table border='0'>

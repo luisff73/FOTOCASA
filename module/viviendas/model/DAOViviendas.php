@@ -4,8 +4,10 @@
 //-----------------------------------------------------------------------------------------------------------------------------------------
 // DAO viviendas MODEL, en este modulo se encuentran las funciones que se comunican con la base de datos para realizar las operaciones CRUD
 //-----------------------------------------------------------------------------------------------------------------------------------------
+$path = $_SERVER['DOCUMENT_ROOT'] . '/fotocasa_MVC/';  // Ruta absoluta de la carpeta del proyecto
+include($path . "model/connect.php");
 
-include("model/connect.php");
+// include("model/connect.php");
     
 	class DAOViviendas{  // Creamos la Clase DAOViviendas
 	
@@ -85,7 +87,6 @@ include("model/connect.php");
             $res = mysqli_query($conexion, $sqlupdate);
             connect::close($conexion);
 			return $res;
-			die('<script>console.log('.json_encode( $res ) .');</script>');
 		}
 		
 		function delete_viviendas($viviendas){ // Creamos la función delete_viviendas

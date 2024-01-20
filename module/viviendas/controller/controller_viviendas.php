@@ -1,11 +1,13 @@
 <?php
      //$data = 'hola controler luis';
      //die('<script>console.log('.json_encode( $data ) .');</script>');
+     $path = $_SERVER['DOCUMENT_ROOT'] . '/fotocasa_MVC/';       // Se define el path de la raíz del servidor                           
+     include($path . "module/viviendas/model/DAOViviendas.php"); // Se incluye el fichero DAOViviendas.php
+    // session_start();
                               
-    include ("module/viviendas/model/DAOViviendas.php");
-    //session_start();
+    //include ("module/viviendas/model/DAOViviendas.php");
     
-    switch($_GET['op']){
+    switch($_GET['op']){ // Se recoge la variable op enviada por get desde el index.php y se ejecuta el case correspondiente
 
         case 'list';
              //$data = 'hola crtl list viviendas';
@@ -71,6 +73,32 @@
             include("module/viviendas/view/create_viviendas.php");
         break;
             
+        case 'read_modal';
+           
+            // die('<scrip>console.log('.json_encode( $data ) .');</script>');
+            // console.log(json_encode( $data ));
+              
+            //echo $_GET['id']; 
+            //exit;
+
+            try{
+                $daoviviendas = new DAOViviendas();
+            	$rdo = $daoviviendas->select_viviendas($_GET['modal']);
+            }catch (Exception $e){
+                echo json_encode("error");
+                exit;
+            }
+            if(!$rdo){
+    			echo json_encode("error");
+                exit;
+    		}else{
+    		    $viviendas=get_object_vars($rdo);
+                echo json_encode($viviendas);
+                //echo json_encode("error");
+                exit;
+    		}
+        break;
+
         case 'update';
             //include("module/viviendas/model/validate.php");
             $check = true;
@@ -79,11 +107,9 @@
             if ($_POST){ // si se ha pulsado el botón submit
                  //$data = 'Inicio controller viviendas update';
                  //die('<script>console.log('.json_encode( $data ) .');</script>');
-                 //$check=validate(); //llamamos a la funcion validate() del archivo validate.php
                 //die('<script>console.log('.json_encode( $check ) .');</script>');
                 
                 if ($check){ // si se ha validado correctamente comienza el update
-                    //die('<script>console.log('.json_encode( $check ) .');</script>');
                     
                     //die('<script>console.log('.json_encode( $_POST ) .');</script>');
                     try{ // se realiza el update
@@ -191,56 +217,57 @@
 
         case 'delete_all';
              
-        if ($_POST){
-            try{
-                $daoviviendas = new DAOviviendas();
-                $rdo = $daoviviendas -> delete_all_viviendas();
-            }catch (Exception $e){
-                $callback = 'index.php?page=controller_viviendas&op=503';
-                die('<script>window.location.href="'.$callback .'";</script>');
+            if ($_POST){
+                try{
+                    $daoviviendas = new DAOviviendas();
+                    $rdo = $daoviviendas -> delete_all_viviendas();
+                }catch (Exception $e){
+                    $callback = 'index.php?page=controller_viviendas&op=503';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }
+                
+                if($rdo){
+                    echo '<script language="javascript">setTimeout(() => {
+                        toastr.success("Lista de viviendas borrada correctamente");
+                    }, 1000);</script>';
+                    $callback = 'index.php?page=controller_viviendas&op=list';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }else{
+                    $callback = 'index.php?page=controller_viviendas&op=503';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }
             }
             
-            if($rdo){
-                echo '<script language="javascript">setTimeout(() => {
-                    toastr.success("Lista de viviendas borrada correctamente");
-                }, 1000);</script>';
-                $callback = 'index.php?page=controller_viviendas&op=list';
-                die('<script>window.location.href="'.$callback .'";</script>');
-            }else{
-                $callback = 'index.php?page=controller_viviendas&op=503';
-                die('<script>window.location.href="'.$callback .'";</script>');
-            }
-         }
+                include("module/viviendas/view/delete_all_viviendas.php");
         
-            include("module/viviendas/view/delete_all_viviendas.php");
-         break;
+        break;
 
-    case 'dummies';
-        if ($_POST){
-            try{
-                $dao_viviendas = new DAOViviendas();
-                $rdo = $dao_viviendas -> dummies_viviendas();
-            }catch (Exception $e){
-                $callback = 'index.php?page=controller_viviendas&op=503';
-                die('<script>window.location.href="'.$callback .'";</script>');
-            }
+        case 'dummies';
+                if ($_POST){
+                try{
+                    $dao_viviendas = new DAOViviendas();
+                    $rdo = $dao_viviendas -> dummies_viviendas();
+                }catch (Exception $e){
+                    $callback = 'index.php?page=controller_viviendas&op=503';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }
 
-            if($rdo){
-                echo '<script language="javascript">setTimeout(() => {
-                    toastr.success("Dummies creados correctamente");
-                }, 1000);</script>';
-                $callback = 'index.php?page=controller_viviendas&op=list';
-                die('<script>window.location.href="'.$callback .'";</script>');
-            }else{
-                $callback = 'index.php?page=controller_viviendas&op=503';
-                die('<script>window.location.href="'.$callback .'";</script>');
-            }
-        }
-        
-        include("module/viviendas/view/dummies_viviendas.php");
-    break;
+                if($rdo){
+                    echo '<script language="javascript">setTimeout(() => {
+                        toastr.success("Dummies creados correctamente");
+                    }, 1000);</script>';
+                    $callback = 'index.php?page=controller_viviendas&op=list';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }else{
+                    $callback = 'index.php?page=controller_viviendas&op=503';
+                    die('<script>window.location.href="'.$callback .'";</script>');
+                }
+             }
+            
+            include("module/viviendas/view/dummies_viviendas.php");
+        break;
 
-    default;
-        include("view/inc/error404.php");
-    break;
+        default;
+            include("view/inc/error404.php");
+        break;
     }

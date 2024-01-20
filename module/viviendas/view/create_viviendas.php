@@ -1,6 +1,63 @@
+
+<style>
+    #contenido {
+    width: 50%;
+    margin: 50px auto;
+}
+
+form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+}
+
+input[type="text"],
+select,
+input[type="checkbox"],
+input[type="radio"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input[type="button"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+.error {
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
+</style>
+
 <div id="contenido">
     <!-- <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda" onsubmit="return validate();" action="index.php?page=controller_viviendas&op=create" >  -->
-    <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda"><!-- eliminamos el action -->
+    <form autocomplete="off" method="post" name="alta_vivienda" id="alta_vivienda"><!-- eliminamos el action -->
     <h1>Crear Inmueble</h1>
         <table border='0'>
 
@@ -99,8 +156,8 @@
             </tr>
 
             <tr>
-            
                 <td><input type="button" name="create" id="create" onclick="validate('create')" value="Crear"/></td>
+                alert 
                 <!-- <td><input type="submit" name="create" id="create"/></td> -->
                 <td align="right"><a href="index.php?page=controller_viviendas&op=list">Volver</a></td>
             </tr>

@@ -1,5 +1,5 @@
 
-function validate_ref_catastral(texto){
+function validate_ref_catastral(texto){ // Validacion de la referencia catastral
     if (texto.length > 0){
         var reg=/^[a-zA-Z]*$/; // verificacion de que solo sean letras  
         return reg.test(texto);
@@ -187,8 +187,6 @@ function validate(op){
 
     if(!r_ref_catastral){
         document.getElementById('error_referencia_catastral').innerHTML = " * La referencia catastral no es valida";
-        // console.log(r_ref_catastral);
-        // return false;
         check=false;
     }else{
         document.getElementById('error_referencia_catastral').innerHTML = "";
@@ -244,7 +242,7 @@ function validate(op){
 
     if (check){ // Si todo esta correcto, se envian los datos al controlador
         if (op == 'create'){
-            //alert('JAVASCRIPT VALIDATE CREATE');
+            alert('JAVASCRIPT VALIDATE CREATE');
             document.getElementById('alta_vivienda').submit();
             document.getElementById('alta_vivienda').action = "index.php?page=controller_viviendas&op=create";
              
@@ -263,8 +261,8 @@ function validate(op){
         
         if (op == 'delete_v'){
             
-            document.getElementById('delete_viviendas').submit();
-            document.getElementById('delete_viviendas').action="index.php?page=controller_viviendas&op=delete_v";
+            document.getElementById('delete_viviendas').submit(); // Enviamos el formulario con el id de la vivienda a eliminar
+            document.getElementById('delete_viviendas').action="index.php?page=controller_viviendas&op=delete_v"; // Al controlador con la operacion delete_viviendas y el id de la vivienda
             //document.getElementById('delete_viviendas').action="index.php?page=controller_viviendas&op=delete&id=<?php echo $_GET['id']; ?>";
         }                                                 
         if (op == 'delete_all'){
@@ -275,5 +273,61 @@ function validate(op){
             document.getElementById('dummies_viviendas').submit();
             document.getElementById('dummies_viviendas').action = "index.php?page=controller_viviendas&op=dummies";
         }
-    }     
- 
+        
+    }
+
+    function showModal(title_vivienda, id) { // Show modal con los detalles vivienda
+        $("#details_vivienda").show(); // Show div con id details_vivienda
+        $("#vivienda_modal").dialog({ // Show modal with vivienda details
+            title: title_vivienda,
+            width : 850,
+            height: 500,
+            resizable: "false",
+            modal: "true",
+            hide: "fold",
+            show: "fold",
+            buttons : {
+                Update: function() {
+                    
+                            window.location.href = 'index.php?page=controller_viviendas&op=update&id=' + id;
+                        },
+                Delete: function() {
+                            window.location.href = 'index.php?page=controller_viviendas&op=delete_v&id=' + id;
+                        }
+            }
+        });
+    }
+    
+    function loadContentModal() {
+        $('.vivienda').click(function () { // When click on a vivienda
+            var id = this.getAttribute('id'); // carga el id de la vivienda
+            // console.log("FUNCION loadcontentmodal id" + id);
+
+            ajaxPromise('module/viviendas/controller/controller_viviendas.php?op=read_modal&modal=' + id, 'GET', 'JSON')
+            .then(function(data) { // muestra los detalles de la vivienda
+            // console.log("data" + data);
+            // alert("data" + data);
+                //return false;
+                $('<div></div>').attr('id', 'details_vivienda', 'type', 'hidden').appendTo('#vivienda_modal'); // Create a div with the id details_vivienda
+                $('<div></div>').attr('id', 'container').appendTo('#details_vivienda'); // Create a div with the id container
+                $('#container').empty(); // Empty the div with the id container
+                $('<div></div>').attr('id', 'vivienda_content').appendTo('#container'); // Crea un div con id vivienda_content
+                $('#vivienda_content').html(function() {  // añade el contenido del div con id vivienda_content
+                    var content = "";
+                    for (row in data) {
+                        content += '<br><span>' + row + ': <span id =' + row + '>' + data[row] + '</span></span>';
+                    }
+                    return content; // Devuelve el contenido del div con id vivienda_content
+                    });
+                    showModal(title_vivienda = data.ref_catastral + " " + data.localidad , data.id); // Show modal with the vivienda details
+            })
+            .catch(function() {
+            //  alert("error catch");
+                window.location.href = 'index.php?module=errors&op=503&desc=List error';
+            });
+        });
+     }
+    
+     $(document).ready(function() { // Cuando el docuemnto esta ready
+        loadContentModal();     // Carga el contenido de la funcion loadContentModal
+    });

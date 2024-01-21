@@ -5,7 +5,7 @@
      include($path . "module/viviendas/model/DAOViviendas.php"); // Se incluye el fichero DAOViviendas.php
     // session_start();
                               
-    //include ("module/viviendas/model/DAOViviendas.php");
+    //include ("module/viviendas/model/DAOViviendas.php");dd
     
     switch($_GET['op']){ // Se recoge la variable op enviada por get desde el index.php y se ejecuta el case correspondiente
 

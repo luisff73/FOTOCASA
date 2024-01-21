@@ -2,8 +2,13 @@
     <form autocomplete="on" method="post" name="delete_all_viviendas" id="delete_all_viviendas">
         <table border='0'>
             <tr>
+                <td>
+                    <br>
+                    <br>
+                </td>
+            <tr>
                 <th width=1500><h3>¿Estás seguro de que quieres eliminar toda la lista de inmuebles?</h3></th>
-                <input type="hidden" id="id" name="id" placeholder="id" value="<?php echo $id['id'];?>"/> //// por que no borra??
+                <input type="hidden" id="id" name="id" placeholder="id" value="<?php echo $id['id'];?>"/> 
             </tr>
         </table>
         <table border='0'>

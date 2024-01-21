@@ -48,6 +48,5 @@
 	<!-- CUSTOM SCRIPTS  -->
 	<script src="view/js/custom.js"></script>
 
-
 </head>
 

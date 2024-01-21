@@ -30,35 +30,34 @@
     		}
         break;
             
-        case 'create';
-        $data = 'Has entrado en create viviendas';
-        echo '<script>console.log("' . $data . '");</script>';
-        
-
-            //include() se utiliza para incorporar el contenido de un archivo dentro de otro.
-            include("module/viviendas/model/validate.php");
+        case 'create';     
+                //echo ('<script>console.log("Has entrado en controler_viviendas_php opcion create");</script>');
+                //include() se utiliza para incorporar el contenido de un archivo dentro de otro.
+                include("module/viviendas/model/validate.php"); 
+                include("module/viviendas/view/create_viviendas.php");
             
-            $check = true;
+                $check = true;
             
             if ($_POST){ // si se ha pulsado el botón submit
-                 $data = 'hola crtl LUIS sumbit';
-                 die('<script>console.log('.json_encode( $_POST ) .');</script>');
+              
+                 //die('<script>console.log("' . json_encode( $_POST ) . '");</script>');
 
-                $check=validate();
-                //die('<script>console.log('.json_encode( $check ) .');</script>');
+                 $check=validate();
+                 //data = 'Has pasado la validacion en create viviendas';
+                 //die('<script>console.log('.json_encode( $data ) .');</script>');
 
-                if ($check){
+                 if ($check){ // si se ha validado correctamente comienza el insert
                     //die('<script>console.log('.json_encode( $_POST ) .');</script>');
                     try{
                         $daoviviendas = new DAOViviendas();
-    		            $rdo = $daoviviendas->insert_viviendas($_POST);
+    		            $viviendas = $daoviviendas->insert_viviendas($_POST);
                         // die('<script>console.log('.json_encode( $rdo ) .');</script>');
                     }catch (Exception $e){
                         $callback = 'index.php?page=503';
         			    die('<script>window.location.href="'.$callback .'";</script>');
                     }
                     
-		            if($rdo){
+		            if($viviendas){ // si se ha insertado correctamente
                         echo '<script language="javascript">setTimeout(() => {
                             toastr.success("Creado en la base de datos correctamente");
                         }, 1000);</script>';
@@ -71,7 +70,6 @@
             		}
                 }
             }
-            include("module/viviendas/view/create_viviendas.php");
         break;
             
         case 'read_modal';
@@ -101,7 +99,7 @@
         break;
 
         case 'update';
-            //include("module/viviendas/model/validate.php");
+            
             $check = true;
             //die('<script>console.log('.json_encode( $_POST ) .');</script>');
             

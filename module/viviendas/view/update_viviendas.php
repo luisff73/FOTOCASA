@@ -1,10 +1,7 @@
 <div id="contenido">
-    <!-- <form autocomplete="on" method="post" name="update_viviendas" id="update_viviendas" onsubmit="return validate();" action="index.php?page=controller_viviendas&op=update&id=<?php //echo $_GET['id']; ?>">   -->
-    <form autocomplete="on" method="post" name="update_viviendas" id="update_viviendas"> <!-- eliminamos el action--> 
+    <form autocomplete="on" method="post" name="update_viviendas" id="update_viviendas"> 
  <br>
- 
-
-    
+     
         <h1>Modificar ficha Inmueble</h1>
         <table border='0'>
 
@@ -18,7 +15,7 @@
             </tr>
 
             <tr>
-                <td>Ref_catastral: </td>
+                <td>Referencia Catastral: </td>
                 <td><input type="text" id="ref_catastral" name="ref_catastral" placeholder="ref_catastral" value="<?php echo $viviendas['ref_catastral'];?>"/></td>
                 <td><font color="red">
                     <span id="error_referencia_catastral" class="error"></span> 
@@ -27,7 +24,7 @@
             </tr>
         
             <tr>
-                <td>Tipo: </td>
+                <td>Tipo de Inmueble: </td>
                 <td><input type="text" id="tipo" name="tipo" placeholder="tipo" value="<?php echo $viviendas['tipo'];?>"/></td>
                 <td><font color="red">
                     <span id="error_tipo" class="error"></span>
@@ -36,7 +33,7 @@
             </tr>
             
             <tr>
-                <td>M2: </td>
+                <td>Metros Cuadrados: </td>
                 <td><input type="text" id="m2" name="m2" placeholder="m2" value="<?php echo $viviendas['m2'];?>"/></td>
                 <td><font color="red">
                     <span id="error_m2" class="error"></span>

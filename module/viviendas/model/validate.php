@@ -1,6 +1,6 @@
 <?php
 
-function validate_ref_catastral($ref_catastral){
+function validate_ref_catastral_ORIGINAL($ref_catastral){  // ESTA ES LA ORIGINAL
 
     $sql = "SELECT * FROM inmueble WHERE ref_catastral='$ref_catastral'";
     $conexion = connect::con();  // 'connect::con()' realiza la conexión a la base de datos
@@ -12,8 +12,30 @@ function validate_ref_catastral($ref_catastral){
     return $res;  // Devuelve el objeto resultado de la consulta
 }
 
+function validate_ref_catastral($ref_catastral) {
+    $sql = "SELECT * FROM inmueble WHERE ref_catastral='$ref_catastral'";
+    $conexion = connect::con();
+    $result = mysqli_query($conexion, $sql);
+
+    if (!$result) {
+        // Manejo de errores si la consulta falla
+        echo '<script>console.error("Error en la consulta SQL: ' . mysqli_error($conexion) . '");</script>';
+        connect::close($conexion);
+        return null;
+    }
+
+    $res = $result->fetch_object();
+    connect::close($conexion);
+
+    echo '<script>console.log('.json_encode($ref_catastral . " valor de ref catastral").');</script>';   
+    return $res;
+}
+
+
 
 function validate(){
+    
+    //die ('<script>console.log('.json_encode( $_POST . " valor de ref catastral") .');</script>');
 
     $check = true;  // Establece $check en true
     $ref_catastral = $_POST['ref_catastral'];

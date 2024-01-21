@@ -1,16 +1,17 @@
-
-
 <div id="contenido">
-    <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda">
+    <form autocomplete="on" method="post" name="create_viviendas" id="create_viviendas">
     <h1>Crear Inmueble</h1>
         <table border='0'>
 <td>
+<br>
+<br>
 </td>
+
             <tr>
                 <td>Referencia Catastral: </td>
                 <td><input type="text" id="ref_catastral" name="ref_catastral" placeholder="ref_catastral" value=""/></td>
                 <td><font color="red">
-                    <span id="error_referencia catastral" class="error"></span>
+                    <span id="error_referencia_catastral" class="error"></span>
                 </font></td>
             </tr>
             
@@ -101,8 +102,10 @@
             </tr>
 
             <tr>
-                <td><input type="button" name="create" id="create" onclick="validate('create')" value="Crear"/></td>
-                <td align="right"><a href="index.php?page=controller_viviendas&op=list">Volver</a></td>
+                <td><input type="button" name="create" id="create" onclick="validate('creates')" value="Crear"/></td>
+                <td><input type="reset" name="reset" id="reset" value="Limpiar"/></td>
+                <td><input type="button" name="volver" id="volver" onclick="window.location.href='index.php?page=controller_viviendas&op=list'" value="Volver"/></td>
+
             </tr>
         </table>
     </form>

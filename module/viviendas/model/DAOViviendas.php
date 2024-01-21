@@ -16,8 +16,7 @@ include($path . "model/connect.php");
 			$extras = "";  // Inicializamos la variable $extras porque nos da error
 			echo '<script>alert("'.json_encode($datos).'");</script>';
 			echo('<script>console.log('.json_encode( $datos ) .');</script>');
-			// $id=$datos['id'];
-        	$ref_catastral=$datos['ref_catastral'];
+	     	$ref_catastral=$datos['ref_catastral'];
         	$tipo=$datos['tipo'];
         	$m2=$datos['m2'];
         	$habitaciones=$datos['habitaciones'];
@@ -39,8 +38,7 @@ include($path . "model/connect.php");
             $res = mysqli_query($conexion, $sqlinsert);
             connect::close($conexion);
 			return $res;
-		}
-		
+		}		
 		function select_all_viviendas(){ // Creamos la función select_all_viviendas
 			// $data = 'hola DAO select_all_viviendas';
             // die('<script>console.log('.json_encode( $data ) .');</script>');
@@ -49,8 +47,7 @@ include($path . "model/connect.php");
             $res = mysqli_query($conexion, $sqlselectall);
 			connect::close($conexion);
             return $res;
-		}
-		
+		}		
 		function select_viviendas($viviendas){ // Creamos la función select_viviendas
 			// $data = 'hola DAO select_vivienda;
             // die('<script>console.log('.json_encode( $data ) .');</script>');
@@ -60,8 +57,7 @@ include($path . "model/connect.php");
             $res = mysqli_query($conexion, $sqlselectid)->fetch_object();  // fetch_object() devuelve un objeto con la información de la fila obtenida
             connect::close($conexion);
             return $res;
-		}
-		
+		}		
 		function update_viviendas($datos){ // Creamos la función update_viviendas
 			//die('<script>console.log('.json_encode( $datos ) .');</script>');
 			$extras = "";  // Inicializamos la variable $extras porque nos da error
@@ -88,8 +84,7 @@ include($path . "model/connect.php");
             $res = mysqli_query($conexion, $sqlupdate);
             connect::close($conexion);
 			return $res;
-		}
-		
+		}		
 		function delete_viviendas($viviendas){ // Creamos la función delete_viviendas
 			$sqldelete = "DELETE FROM inmueble WHERE id='$viviendas'"; // Elimina la vivienda con el ID proporcionado
 			$conexion = connect::con();

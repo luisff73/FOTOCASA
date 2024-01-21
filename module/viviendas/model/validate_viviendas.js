@@ -160,8 +160,17 @@ function validate_aficion(array){
 */
 
 function validate(op){
-    // console.log('hola validate js');
-    // return true;
+
+    var elemento = document.getElementById('$id');
+if (elemento) {
+    // Realiza las operaciones con el elemento aquí, por ejemplo:
+    elemento.innerHTML = 'Nuevo contenido';
+} else {
+    console.error('El elemento no se encontró en el DOM');
+}
+
+     console.log('hola validate js');
+     return true;
     // alert('JAVASCRIPT VALIDATE op');
     var check=true;
     

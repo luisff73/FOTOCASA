@@ -1,11 +1,11 @@
 
 
 <div id="contenido">
-    <!-- <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda" onsubmit="return validate();" action="index.php?page=controller_viviendas&op=create" >  -->
-    <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda"><!-- eliminamos el action -->
+    <form autocomplete="on" method="post" name="alta_vivienda" id="alta_vivienda">
     <h1>Crear Inmueble</h1>
         <table border='0'>
-
+<td>
+</td>
             <tr>
                 <td>Referencia Catastral: </td>
                 <td><input type="text" id="ref_catastral" name="ref_catastral" placeholder="ref_catastral" value=""/></td>
@@ -102,7 +102,6 @@
 
             <tr>
                 <td><input type="button" name="create" id="create" onclick="validate('create')" value="Crear"/></td>
-                <!-- <td><input type="submit" name="create" id="create"/></td> -->
                 <td align="right"><a href="index.php?page=controller_viviendas&op=list">Volver</a></td>
             </tr>
         </table>

@@ -334,8 +334,11 @@ border: 1px solid #e1e1e1;
     padding:30px;
 }
 #contact-sec {
-  padding-top:0px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  /*height: 200px; /* Ajusta la altura según tus necesidades */
 }
+
 
 
 /* FOOTER STYLE*/
@@ -347,7 +350,8 @@ border: 1px solid #e1e1e1;
 }
     #footer-sec h4 {
         text-transform:uppercase;
-        color:#fff;
+        color:#7b4444;
     }
 
    
+

@@ -14,7 +14,8 @@ include($path . "model/connect.php");
 		function insert_viviendas($datos){ // Creamos la función insert_viviendas
 			
 			$extras = "";  // Inicializamos la variable $extras porque nos da error
-			// die('<script>console.log('.json_encode( $datos ) .');</script>');
+			echo '<script>alert("'.json_encode($datos).'");</script>';
+			echo('<script>console.log('.json_encode( $datos ) .');</script>');
 			// $id=$datos['id'];
         	$ref_catastral=$datos['ref_catastral'];
         	$tipo=$datos['tipo'];

@@ -31,8 +31,9 @@
         break;
             
         case 'create';
-            //$data = 'hola crtl LUIS create';
-            //die('<script>console.log('.json_encode( $data ) .');</script>');
+        $data = 'Has entrado en create viviendas';
+        echo '<script>console.log("' . $data . '");</script>';
+        
 
             //include() se utiliza para incorporar el contenido de un archivo dentro de otro.
             include("module/viviendas/model/validate.php");
@@ -40,8 +41,8 @@
             $check = true;
             
             if ($_POST){ // si se ha pulsado el botón submit
-                 
-                 //die('<script>console.log('.json_encode( $_POST ) .');</script>');
+                 $data = 'hola crtl LUIS sumbit';
+                 die('<script>console.log('.json_encode( $_POST ) .');</script>');
 
                 $check=validate();
                 //die('<script>console.log('.json_encode( $check ) .');</script>');

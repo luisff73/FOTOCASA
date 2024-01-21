@@ -7,6 +7,8 @@ function validate_ref_catastral($ref_catastral){
     $res = mysqli_query($conexion, $sql)->fetch_object();  // Realiza la consulta y obtiene el primer resultado como objeto
     connect::close($conexion);  // Cierra la conexión a la base de datos
     //die('<script>console.log('.json_encode( $res ) .');</script>');
+    
+    echo ('<script>console.log('.json_encode( $ref_catastral . " valor de ref catastral") .');</script>');   
     return $res;  // Devuelve el objeto resultado de la consulta
 }
 
@@ -17,7 +19,8 @@ function validate(){
     $ref_catastral = $_POST['ref_catastral'];
 	$ref_catastral = validate_ref_catastral($ref_catastral);
 
-
+    echo ('<script>console.log('.json_encode( $ref_catastral . " valor de ref catastral") .');</script>');
+        
 	//die('<script>console.log('.json_encode( $ref_catastral ) .');</script>');
 
     if ($ref_catastral !== null) {  // Verifica que la referencia catastral no esté vacía

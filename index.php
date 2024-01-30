@@ -11,9 +11,9 @@
 	// Si esta condición es verdadera, significa que la página solicitada es "controller_viviendas".
 
     if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){ //Si la página solicitada es "controller_viviendas"
-		include("view/inc/top_page_viviendas.php");
+		include("view/inc/top_page_home.php");
 	}else{
-		include("view/inc/top_page_viviendas.php");
+		include("view/inc/top_page_home.php");
 	}
 
 	// La función session_start() en PHP se utiliza para iniciar una nueva sesión o reanudar la sesión existente en el servidor.

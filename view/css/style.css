@@ -12,11 +12,17 @@
 /* =============================================================
    GENERAL STYLES
  ============================================================ */
+
+ .table {
+  margin-left: 100px;
+ }
+ 
  .Button_green {
+  
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
 	background-color:green;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
 	border:1px solid green;
 	display:inline-block;
 	cursor:pointer;
@@ -55,11 +61,11 @@
 	top:1px;
 }
 .Button_blue {
-	background-color:blue;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
-	border:1px solid blue;
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
+  border: 0px solid #000000;
+	background-color:rgb(0, 0, 0);
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -77,10 +83,10 @@
 	top:1px;
 }
 .Button_red {
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
 	background-color:crimson;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
 	border:1px solid crimson;
 	display:inline-block;
 	cursor:pointer;

@@ -1,9 +1,9 @@
 
 function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
     return new Promise((resolve, reject) => {        
-         console.log(sUrl);
-         console.log(sType);
-         console.log(sTData);
+         //console.log(sUrl);
+         //console.log(sType);
+         //console.log(sTData);
          //console.log(sData); //NO ESTA PASANDO ESTE CAMPO UNDEFINED  
         
         $.ajax({
@@ -13,10 +13,10 @@ function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
             data: sData,
 
         }).done((data) => {
-            console.log('AJAX call successful');
+            //console.log('AJAX call successful');
             resolve(data);
         }).fail((jqXHR, textStatus, errorThrow) => {
-            console.log('AJAX call failed');
+            //console.log('AJAX call failed');
             reject(errorThrow);
         });
     });

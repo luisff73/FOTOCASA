@@ -32,6 +32,7 @@
 	<script src="view/plugins/bootstrap.js"></script>
 	<!-- CUSTOM SCRIPTS  -->
 	<script src="view/js/custom.js"></script>
+	<script src="view/plugins/jquery-1.10.2.js"></script>
 
 </head>
 

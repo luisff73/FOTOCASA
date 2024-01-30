@@ -1,7 +1,7 @@
 <?php
     echo json_encode ("hola acabas de entrar en ctrl_home");  //comprobar que entra en el case
     $path = $_SERVER['DOCUMENT_ROOT'] . '/fotocasa_MVC_v2';
-    include($path . "/module/home/model/DAOhome.php");
+    //include($path . "/module/home/model/DAOhome.php");
     include("C:/xampp/htdocs/fotocasa_MVC_v2/module/home/model/DAOhome.php");
       
 
@@ -25,7 +25,7 @@
 
         case 'homePageCategory';
             echo json_encode ("hola acabas de entrar en homePageCategory");  //comprobar que entra en el case
-            break;       
+            //break;       
             try{
                 $daohome = new DAOHome();
                 $SelectCategory = $daohome->select_categories();
@@ -33,8 +33,7 @@
                 echo json_encode ("hola acabas de entrar en homePageCategory");
                 echo json_encode($SelectCategory);
 
-                //comprobar que entra en el case
-            
+       
             
             } catch(Exception $e){
                 echo json_encode("error");
@@ -69,4 +68,3 @@
             include("module/exceptions/views/pages/error404.php");
         break;
     }
-?>

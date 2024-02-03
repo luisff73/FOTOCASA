@@ -12,11 +12,24 @@
 /* =============================================================
    GENERAL STYLES
  ============================================================ */
+h5{
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+ .table {
+  margin-left: 100px;
+ }
+ 
  .Button_green {
+  
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
 	background-color:green;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
 	border:1px solid green;
 	display:inline-block;
 	cursor:pointer;
@@ -55,11 +68,11 @@
 	top:1px;
 }
 .Button_blue {
-	background-color:blue;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
-	border:1px solid blue;
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
+  border: 0px solid #000000;
+	background-color:rgb(0, 0, 0);
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -77,10 +90,10 @@
 	top:1px;
 }
 .Button_red {
+  border-radius: 79px 0px 78px 10px;
+  -moz-border-radius: 79px 0px 78px 10px;
+  -webkit-border-radius: 79px 0px 78px 10px;
 	background-color:crimson;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
 	border:1px solid crimson;
 	display:inline-block;
 	cursor:pointer;
@@ -100,6 +113,8 @@
 }
 body {
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
    
 }
 .pad-top {
@@ -277,21 +292,40 @@ border-radius: 0px;
 .portfolio-item .item-main {
   margin: 0 10px 10px 0;
   text-align: center;
-  background: #fff;
-  padding: 10px;
-  border:1px solid #E8EAEE;
+  background: #fafafa;
+  padding: 20px;
+  border:1px solid #124ec6;  
   
 }
+
+.portfolio-container {
+  display: flex;
+  flex-wrap: nowrap; /* Evita que se envuelvan a la siguiente fila */
+  overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+  margin: 30; /* Elimina el margen del contenedor principal */
+  padding: 10px;
+}
+
+.portfolio-item {
+  flex: 0 0 auto; /* Establece el tamaño inicial de los elementos para que no se estiren */
+  /*margin-right: 20px; /* Espacio entre los elementos del portfolio */
+  margin:0% 0% 0% 0%; 
+  width: 300px; /* añadido luis */
+}
+
 .portfolio-item img {
   width: 100%;
+  height: auto;
 }
 .portfolio-item .portfolio-image {
   position: relative;
+  height: 150px;
+  
 }
 .portfolio-item h5 {
-  margin: 0;
-padding: 30px 0 30px 0;
-background-color: #000;
+margin: 0;
+padding: 20px 0px 20px 0px;
+background-color: #7286e0;
 color: #fff;
 font-size: 20px;
 }
@@ -318,6 +352,35 @@ font-size: 20px;
 }
 .portfolio-item:hover .overlay {
   opacity: 1;
+}
+
+/*codigo de luis*/
+
+
+#port-sec {
+  margin: 0px;
+  padding: 0px; 
+  padding-top: 80px;
+  padding-bottom: 50px;
+  /*height: 200px; /* Ajusta la altura según tus necesidades */
+}
+
+#containercategories {
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  overflow-x: auto;
+  margin: 0; /* Elimina el margen del contenedor principal */
+  padding: 10px; /* Agrega un pequeño espacio interior al contenedor principal */
+}
+.div_cate {
+  flex: 0 0 auto;
+  margin-right: 20px; /* Espacio entre las imágenes */
+}
+
+.col-md-12 col-sm-12 col-xs-12 {
+  margin: 0;
+  padding: 0;
 }
 
 /*CONTACT STYLES*/

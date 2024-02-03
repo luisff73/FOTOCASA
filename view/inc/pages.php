@@ -2,12 +2,16 @@
 
 // ENRUTADOR A CONTROLADORES.
 if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
+
+	echo "Error al incluir pages_viviendas.php: " . ($_GET['page']);
+	// Según el valor de $_GET['page'] se incluirá un controlador u otro.
+	
 	switch($_GET['page']){
 		case "homepage";
-			include("module/inicio/view/inicio.php"); // Incluye la vista de inicio.
+			include("module/home/view/home.html"); // Incluye la vista de inicio.
 			break;
-		case "controller_viviendas";
-			include("module/viviendas/controller/".$_GET['page'].".php"); // Incluye el controlador de viviendas.
+		case "ctrl_home";
+			include("module/home/controller/".$_GET['page'].".php"); // Incluye el controlador de viviendas.
 			break;
 		case "services";
 			include("module/services/".$_GET['page'].".php"); // Incluye el controlador de servicios.
@@ -25,11 +29,22 @@ if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
 			include("view/inc/error".$_GET['page'].".php");	// Incluye la vista de error.
 			break;
 		default;
-			include("module/inicio/view/inicio.php"); // Incluye la vista de inicio.
+			include("module/home/view/home.html"); // Incluye la vista de inicio.
 			break;
 
 	}
 } else{ // Si no existe la variable $_GET['page']...
-	include("module/inicio/view/inicio.php");
+// Intenta incluir el primer archivo
+include_once("module/home/view/home.html");
+if ($php_errormsg) {
+    echo "Error al incluir home.html: " . $php_errormsg;
+	die('<script>console.log('.json_encode( $data ) .');</script>');
 }
-?>
+
+// Intenta incluir el segundo archivo
+include_once($path . "/view/inc/top_page_home.php");
+if ($php_errormsg) {
+    echo "Error al incluir top_pages_viviendas.php: " . $php_errormsg;
+}
+
+}

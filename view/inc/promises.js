@@ -1,11 +1,12 @@
 
 function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
+
     return new Promise((resolve, reject) => {        
-        // console.log(sUrl);
-        // console.log(sType);
-        // console.log(sTData);
-        // console.log(sData); //NO ESTA PASANDO ESTE CAMPO UNDEFINED  
-        // alert('Has ENTRADO al ajaxprimomise');
+         //console.log(sUrl);
+         //console.log(sType);
+         //console.log(sTData);
+         //console.log(sData); //NO ESTA PASANDO ESTE CAMPO UNDEFINED  
+         //alert('Has ENTRADO al ajaxprimomise');
         
         $.ajax({
             url: sUrl,
@@ -14,10 +15,10 @@ function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
             data: sData,
 
         }).done((data) => {
-            // console.log('done' . data);
-            // alert('Has salido del done');
+            //alert('Has salido del done en el resolve');
             resolve(data);
         }).fail((jqXHR, textStatus, errorThrow) => {
+            alert('Error en la promesa ajax, en el resolve')
             // console.log('fail' . textStatus);
             reject(errorThrow);
         }); 

@@ -66,6 +66,15 @@
         </tr>
 
         <tr>
+            <td>Categoria: </td>
+            <td>
+                <?php
+                    echo $viviendas['categoria'];
+                ?>
+            </td>
+        </tr>
+
+        <tr>
             <td>Estado: </td>
             <td>
                 <?php
@@ -102,7 +111,16 @@
             </td>
         </tr>
 
+        <tr>
+            <td>Visible: </td>
+            <td>
+                <?php
+                    echo $viviendas['visible'];
+                ?>
+            </td>
+        </tr>
+
     </table>
     </p>
-    <p><a href="index.php?page=controller_viviendas&op=list">Volver</a></p>
+    <p><a href="index.php?page=ctrl_home&op=list">Volver</a></p>
 </div>

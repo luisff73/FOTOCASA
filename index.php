@@ -6,14 +6,14 @@
 	//$_GET es una superglobal en PHP que se utiliza para recoger datos enviados a través de una solicitud GET. 
 	//Si page está presente en la URL, entonces isset devuelve true.
 
-	// $_GET['page']==="controller_viviendas":
-	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "controller_viviendas". 
-	// Si esta condición es verdadera, significa que la página solicitada es "controller_viviendas".
+	// $_GET['page']==="ctrl_home":
+	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "ctrl_home". 
+	// Si esta condición es verdadera, significa que la página solicitada es "ctrl_home".
 
-    if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){ //Si la página solicitada es "controller_viviendas"
-		include("view/inc/top_page_viviendas.php");
+    if ((isset($_GET['page'])) && ($_GET['page']==="ctrl_home") ){ //Si la página solicitada es "ctrl_home"
+		include("view/inc/top_page_home.php");
 	}else{
-		include("view/inc/top_page_viviendas.php");
+		include("view/inc/top_page_home.php");
 	}
 
 	// La función session_start() en PHP se utiliza para iniciar una nueva sesión o reanudar la sesión existente en el servidor.

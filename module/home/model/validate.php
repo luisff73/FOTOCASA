@@ -41,7 +41,7 @@ function validate(){
     $ref_catastral = $_POST['ref_catastral'];
 	$ref_catastral = validate_ref_catastral($ref_catastral);
 
-    echo ('<script>console.log('.json_encode( $ref_catastral . " valor de ref catastral") .');</script>');
+    // echo ('<script>console.log('.json_encode( $ref_catastral . " valor de ref catastral") .');</script>');
         
 	//die('<script>console.log('.json_encode( $ref_catastral ) .');</script>');
 

@@ -10,8 +10,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php?page=inicio.php">Inicio</a></li>
-                    <li><a href="index.php?page=controller_viviendas&op=list">Viviendas</a></li>
+                    <li><a href="index.php?page=homepage">Inicio</a></li>
+                    <li><a href="index.php?page=ctrl_home&op=list">Viviendas</a></li>
                     <li><a href="index.php?page=aboutus">Conocenos</a></li>
                     <li><a href="index.php?page=contactus">Contacto</a></li>
                 </ul>   

@@ -4,7 +4,6 @@
 
 	<meta charset="utf-8">
 	<title>Gestión de Inmuebles</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 	<link href="view/css/prettyPhoto.css" rel="stylesheet" />
 	<!-- BOOTSTRAP CORE STYLE CSS -->
 	<link href="view/css/bootstrap.css" rel="stylesheet" />
@@ -16,32 +15,19 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" /> 
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-
-	<script type="text/javascript">
-		$(function() {
-			$('#fecha_publicacion').datepicker({
-				dateFormat: 'dd/mm/yy',
-				changeMonth: true,
-				changeYear: true,
-				yearRange: '1900:2036',
-				onSelect: function(selectedDate) {
-        			}
-			});
-		});
-	</script>
 
 	<link href="view/css/style.css" rel="stylesheet" type="text/css" />
 	<script src="view/inc/promises.js"></script>
-	<script src="module/viviendas/model/validate_viviendas.js"></script>
+	<script src="module/home/model/validate_viviendas.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
-
-
-
+	<script src="view/plugins/glider.js"></script>
+    <link href="view/plugins/glider.css" rel="stylesheet" type="text/css"/>
 	<script src="view/plugins/jquery.prettyPhoto.js"></script>
+	<script src="module/home/model/ctrl_home.js"></script>
 
 	<!-- BOOTSTRAP SCRIPTS  -->
 	<script src="view/plugins/bootstrap.js"></script>

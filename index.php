@@ -10,9 +10,14 @@
 	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "ctrl_home". 
 	// Si esta condición es verdadera, significa que la página solicitada es "ctrl_home".
 
-    if ((isset($_GET['page'])) && ($_GET['page']==="ctrl_home") ){ //Si la página solicitada es "ctrl_home"
+    if ((isset($_GET['page'])) && ($_GET['page']==="homepage") ){ //Si la página solicitada es "ctrl_home"
 		include("view/inc/top_page_home.php");
-	}else{
+
+	}else if ((isset($_GET['page'])) && ($_GET['page']==="shop") ){ //Si la página solicitada es "ctrl_shop"
+
+		include("view/inc/top_page_shop.php");
+	}
+	else{
 		include("view/inc/top_page_home.php");
 	}
 

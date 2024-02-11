@@ -6,14 +6,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">FOTOCASA</a>
+                <a class="navbar-brand" href="#">COMPRACASA</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php?page=homepage">Inicio</a></li>
-                    <li><a href="index.php?page=ctrl_home&op=list">Viviendas</a></li>
-                    <li><a href="index.php?page=aboutus">Conocenos</a></li>
-                    <li><a href="index.php?page=contactus">Contacto</a></li>
+                    <li><a href="index.php?page=homepage">Home</a></li>
+                    <!-- <li><a href="index.php?page=ctrl_home&op=list">Viviendas</a></li> -->
+                    <li><a href="index.php?page=shop">Shop </a></li> 
+                    <!-- <li><a href="index.php?page=ctrl_shop&op=all_viviendas">Viviendas2</a></li> -->
+                    <!-- <li><a href="index.php?page=aboutus">Conocenos</a></li>
+                    <li><a href="index.php?page=contactus">Contacto</a></li> -->
                 </ul>   
             </div>
            

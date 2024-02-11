@@ -102,7 +102,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
       $parent.trigger('closed.bs.alert').remove()
     }
 
-    $.support.transition && $parent.hasClass('fade') ?
+    $.support.transition && $parent.hasClass('date_img') ?
       $parent
         .one($.support.transition.end, removeElement)
         .emulateTransitionEnd(150) :
@@ -832,7 +832,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
     this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
 
     this.backdrop(function () {
-      var transition = $.support.transition && that.$element.hasClass('fade')
+      var transition = $.support.transition && that.$element.hasClass('date_img')
 
       if (!that.$element.parent().length) {
         that.$element.appendTo(document.body) // don't move modals dom position
@@ -884,7 +884,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
       .attr('aria-hidden', true)
       .off('click.dismiss.bs.modal')
 
-    $.support.transition && this.$element.hasClass('fade') ?
+    $.support.transition && this.$element.hasClass('date_img') ?
       this.$element
         .one($.support.transition.end, $.proxy(this.hideModal, this))
         .emulateTransitionEnd(300) :
@@ -926,7 +926,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
   }
 
   Modal.prototype.backdrop = function (callback) {
-    var animate = this.$element.hasClass('fade') ? 'fade' : ''
+    var animate = this.$element.hasClass('date_img') ? 'date_img' : ''
 
     if (this.isShown && this.options.backdrop) {
       var doAnimate = $.support.transition && animate
@@ -956,7 +956,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
     } else if (!this.isShown && this.$backdrop) {
       this.$backdrop.removeClass('in')
 
-      $.support.transition && this.$element.hasClass('fade') ?
+      $.support.transition && this.$element.hasClass('date_img') ?
         this.$backdrop
           .one($.support.transition.end, callback)
           .emulateTransitionEnd(150) :
@@ -1158,7 +1158,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
 
       this.setContent()
 
-      if (this.options.animation) $tip.addClass('fade')
+      if (this.options.animation) $tip.addClass('date_img')
 
       var placement = typeof this.options.placement == 'function' ?
         this.options.placement.call(this, $tip[0], this.$element[0]) :
@@ -1208,7 +1208,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
         that.$element.trigger('shown.bs.' + that.type)
       }
 
-      $.support.transition && this.$tip.hasClass('fade') ?
+      $.support.transition && this.$tip.hasClass('date_img') ?
         $tip
           .one($.support.transition.end, complete)
           .emulateTransitionEnd(150) :
@@ -1285,7 +1285,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
     var title = this.getTitle()
 
     $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
-    $tip.removeClass('fade in top bottom left right')
+    $tip.removeClass('date_img in top bottom left right')
   }
 
   Tooltip.prototype.hide = function () {
@@ -1304,7 +1304,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
 
     $tip.removeClass('in')
 
-    $.support.transition && this.$tip.hasClass('fade') ?
+    $.support.transition && this.$tip.hasClass('date_img') ?
       $tip
         .one($.support.transition.end, complete)
         .emulateTransitionEnd(150) :
@@ -1471,7 +1471,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
       this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
     ](content)
 
-    $tip.removeClass('fade top bottom left right in')
+    $tip.removeClass('date_img top bottom left right in')
 
     // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
     // this manually by checking the contents.
@@ -1741,7 +1741,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
     var $active    = container.find('> .active')
     var transition = callback
       && $.support.transition
-      && $active.hasClass('fade')
+      && $active.hasClass('date_img')
 
     function next() {
       $active
@@ -1755,7 +1755,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap requires jQuery'
         element[0].offsetWidth // reflow for transition
         element.addClass('in')
       } else {
-        element.removeClass('fade')
+        element.removeClass('date_img')
       }
 
       if (element.parent('.dropdown-menu')) {

@@ -2343,12 +2343,12 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
 }
-.fade {
+. {
   opacity: 0;
   -webkit-transition: opacity .15s linear;
           transition: opacity .15s linear;
 }
-.fade.in {
+..in {
   opacity: 1;
 }
 .collapse {
@@ -3696,7 +3696,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding-left: 0;
   }
 }
-.container > .navbar-header,
+.container > .navbar-header, 
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse {
@@ -4027,9 +4027,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-inverse {
   background-color: #222;
   border-color: #080808;
+  width: 100%;
 }
 .navbar-inverse .navbar-brand {
   color: #999;
+  width: 100%;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4052,6 +4054,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
   background-color: #080808;
+  width: 100%;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
@@ -5106,7 +5109,7 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0;
 }
-.modal.fade .modal-dialog {
+.modal.date_img .modal-dialog {
   -webkit-transition: -webkit-transform .3s ease-out;
      -moz-transition:    -moz-transform .3s ease-out;
        -o-transition:      -o-transform .3s ease-out;
@@ -5145,7 +5148,7 @@ button.close {
   z-index: 1040;
   background-color: #000;
 }
-.modal-backdrop.fade {
+.modal-backdrop.date_img {
   filter: alpha(opacity=0);
   opacity: 0;
 }

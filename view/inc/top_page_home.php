@@ -20,12 +20,11 @@
 
 	<link href="view/css/style.css" rel="stylesheet" type="text/css" />
 	<script src="view/inc/promises.js"></script>
-	<script src="module/home/model/validate_viviendas.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
 	<script src="view/plugins/glider.js"></script>
-    <link href="view/plugins/glider.css" rel="stylesheet" type="text/css"/>
+    <link href="view/css/glider.css" rel="stylesheet" type="text/css"/>
 	<script src="view/plugins/jquery.prettyPhoto.js"></script>
 	<script src="module/home/model/ctrl_home.js"></script>
 

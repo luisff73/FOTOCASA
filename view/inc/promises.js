@@ -13,16 +13,24 @@ function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
             type: sType,
             dataType: sTData,
             data: sData,
+            
 
         }).done((data) => {
             //alert('Has salido del done en el resolve');
+            console.log("Luis respuesta del servidor en el promise: ", data);
             resolve(data);
         }).fail((jqXHR, textStatus, errorThrow) => {
-            alert('Error en la promesa ajax, en el resolve')
+            //console.log(data)
+            //console.log("Respuesta del servidor en el promise: ", jqXHR.responseText);
+            //console.log("Respuesta del servidor en el promise: ", jqXHR.log);
+            //alert('Error en la promesa ajax, en el resolve ' + jqXHR.responseText);
             // console.log('fail' . textStatus);
             reject(errorThrow);
         }); 
     });
+
+
+
 };
 
 

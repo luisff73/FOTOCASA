@@ -6,10 +6,11 @@
 	   <div class="row  pad-bottom" >
 		<div class="col-md-4">
 			<h4> <strong>SOBRE NOSOTROS</strong> </h4>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					 Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						<p style="text-align: justify;"> 
+						Somos un equipo comprometido con tu búsqueda del hogar perfecto. 
+						Nuestra pasión por encontrar la vivienda ideal se refleja en cada interacción. 
+						Con años de experiencia y un enfoque centrado en el cliente, estamos aquí para 
+						hacer realidad tus sueños de hogar.
 						</p>
 			<a href="#" >read more</a>
 			</div>
@@ -23,12 +24,14 @@
 			   </p>
 			</div>
 		   <div class="col-md-4">
-			   <h4> <strong>DONDE ENCONTRARNOS</strong> </h4>
-						<p>
-						   234/JK , The Wondre Land, <br />
-						   Newyork Street Junction  <br />
-						   JUST USA -10909094
-						</p>
+			   <h4> <strong>  DONDE ENCONTRARNOS</strong> </h4>
+			   <p style="text-align: justify;"> 
+					Avenida Diagonal, 48, <br />
+					46870 - Ontinyent  <br />
+					Valencia (Spain) <br />
+					+34 962 389 347 <br />
+				</p>
+
 				<a href="#" class="btn btn-primary" >ENVIAR CONSULTA</a>
 			</div>
 		   </div>

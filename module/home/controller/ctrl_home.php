@@ -6,7 +6,7 @@
         case 'list';
                 try{
                     $daoviviendas = new DAOhome();
-                    $rdo = $daoviviendas->select_categories(); // Se llama al método select_all_viviendas() de la clase DAOViviendas
+                    $rdo = $daoviviendas->select_type(); // Se llama al método select_type() de la clase DAOViviendas
                     //die('<script>console.log('.json_encode( $rdo->num_rows ) .');</script>');
                 }catch (Exception $e){
                     $callback = 'index.php?page=503';
@@ -23,18 +23,18 @@
         break;
 
         case 'carrousel_categories';
-            try{
+            try{ 
                 $daohome = new DAOHome();
-                $Selectcategories = $daohome->select_categories();
-            } catch(Exception $e){
+                $Selectcategories = $daohome->select_categories(); 
+            } catch(Exception $e){  
                 echo json_encode("error");
             }
             
-            if(!empty($Selectcategories)){
+            if(!empty($Selectcategories)){  // Si la consulta no devuelve ningún resultado, se devuelve un array vacío
                 echo json_encode($Selectcategories); 
             }
             else{
-                echo json_encode("error");
+                echo json_encode("error");  // Si la consulta devuelve un error, se devuelve un mensaje de error
             }
         break;
 
@@ -54,6 +54,22 @@
             }
         break;
 
+        case 'homepagecity';
+        try{
+            $daohome = new DAOHome();
+            $SelectCity = $daohome->select_city();
+        } catch(Exception $e){
+            echo json_encode("error");
+        }
+        
+        if(!empty($SelectCity)){
+            echo json_encode($SelectCity); 
+        }
+        else{
+            echo json_encode("error");
+        }
+    break;
+
         case 'homepagetype';
             try{
                 $daohome = new DAOHome();
@@ -69,6 +85,22 @@
                 echo json_encode("error");
             }
         break;
+
+        case 'homepageoperation';
+        try{
+            $daohome = new DAOHome();
+            $SelectType = $daohome->select_operation();
+        } catch(Exception $e){
+            echo json_encode("error");
+        }
+        
+        if(!empty($SelectType)){
+            echo json_encode($SelectType); 
+        }
+        else{
+            echo json_encode("error");
+        }
+    break;
 
         default;
             include("module/exceptions/views/pages/error404.php");

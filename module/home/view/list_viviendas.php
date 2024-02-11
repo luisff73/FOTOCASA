@@ -4,7 +4,7 @@
         <br>
             <br>
             <br>
-             &nbsp;&nbsp;&nbsp;<h3>LISTADO DE VIVIENDAS</h3>                
+             &nbsp;&nbsp;&nbsp;<h3>LISTADO DE TYPE</h3>                
             </div>
             <br>
 
@@ -17,8 +17,8 @@
 <br>
     		<table>
                 <tr>
-                    <td width=25><b>Id_category</b></td>
-                    <td width=125><b>category_name</b></td>
+                    <td width=25><b>Id_type</b></td>
+                    <td width=125><b>type_name</b></td>
                     <td width=125><b>image_name</b></td>
                 </tr>
                 <?php
@@ -29,13 +29,13 @@
                     }else{
                         foreach ($rdo as $row) {
                        		echo '<tr>';
-                    	   	echo '<td width=25>'. $row['id_category'] . '</td>';
-                    	   	echo '<td width=125>'. $row['category_name'] . '</td>';
+                    	   	echo '<td width=25>'. $row['id_type'] . '</td>';
+                    	   	echo '<td width=125>'. $row['type_name'] . '</td>';
                     	   	echo '<td width=125>'. $row['image_name'] . '</td>';
                     	   	echo '<td width=350>';  
                             echo('<script>console.log('.json_encode( $row ) .');</script>');
                                               
-                            print ("<div class='vivienda' id_category='".$row['id_category']."'><a class='Button_blue' data-tr='Read'>Read</a></div>");  
+                            print ("<div class='vivienda' id_category='".$row['id_type']."'><a class='Button_blue' data-tr='Read'>Read</a></div>");  
                     	   	//echo '<a class="Button_blue" href="index.php?page=ctrl_home&op=read&id='.$row['id'].'">Read</a>';                         
                     	   	//echo '&nbsp;';
                     	   	//echo '<a class="Button_green" href="index.php?page=ctrl_home&op=update&id='.$row['id'].'">Update</a>';

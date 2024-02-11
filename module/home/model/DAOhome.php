@@ -21,12 +21,7 @@
 		}
 
 		function select_categories() {
-<<<<<<< HEAD
 			$sql= "SELECT * FROM category";
-=======
-		
-			$sql= "SELECT * FROM category;";
->>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
 
 			$conexion = connect::con();
 			$res = mysqli_query($conexion, $sql);
@@ -39,7 +34,6 @@
 				}
 			}
 			return $retrArray;
-<<<<<<< HEAD
 		}
 
 		function select_operation() {
@@ -59,13 +53,6 @@
 		}
 		function select_type() {
 			$sql= "SELECT * FROM type";
-=======
-			
-		}
-
-		function select_type() {
-			$sql= "SELECT * FROM type ORDER BY type_name DESC";
->>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
 
 			$conexion = connect::con();
 			$res = mysqli_query($conexion, $sql);
@@ -80,7 +67,6 @@
 			return $retrArray;
 		}
 	
-<<<<<<< HEAD
 		function select_city() {
 			$sql= "SELECT * FROM city";
 
@@ -96,7 +82,5 @@
 			}
 			return $retrArray;
 		}
-=======
->>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
 		
 	}

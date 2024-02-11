@@ -6,9 +6,9 @@
     		$pass = "";                             
     		$db = "fotocasa";                      
     		$port = 3306;                           
-    		$tabla="category";
+    		$tabla="inmueble";
     		
-$conexion = mysqli_connect($host, $user, $pass, $db, $port) or die(mysqli_error($conexion));
+    		$conexion = mysqli_connect($host, $user, $pass, $db, $port)or die();
 			return $conexion;
 		}
 		public static function close($conexion){

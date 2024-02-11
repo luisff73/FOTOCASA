@@ -10,6 +10,7 @@
 	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "ctrl_home". 
 	// Si esta condición es verdadera, significa que la página solicitada es "ctrl_home".
 
+<<<<<<< HEAD
     if ((isset($_GET['page'])) && ($_GET['page']==="homepage") ){ //Si la página solicitada es "ctrl_home"
 		include("view/inc/top_page_home.php");
 
@@ -18,6 +19,11 @@
 		include("view/inc/top_page_shop.php");
 	}
 	else{
+=======
+    if ((isset($_GET['page'])) && ($_GET['page']==="controller_viviendas") ){ //Si la página solicitada es "controller_viviendas"
+		include("view/inc/top_page_home.php");
+	}else{
+>>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
 		include("view/inc/top_page_home.php");
 	}
 

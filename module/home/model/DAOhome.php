@@ -1,12 +1,4 @@
 <?php
-<<<<<<< HEAD
-	$path = $_SERVER['DOCUMENT_ROOT'] . '/compracasa/';
-	include($path . "model/connect.php");
-    
-	class DAOHome {
-		function select_viviendas() {
-			$sql= "SELECT * FROM viviendas";
-=======
 	//$path = $_SERVER['DOCUMENT_ROOT'] . '/fotocasa_MVC_v2';
 	include("C:/xampp/htdocs/fotocasa_MVC_v2/model/connect.php");
     
@@ -14,7 +6,6 @@
 	class DAOHome {
 		function select_viviendas() {
 			$sql= "SELECT * FROM `viviendas` ORDER BY vivienda_name ASC LIMIT 30";
->>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
 
 			$conexion = connect::con();
 			$res = mysqli_query($conexion, $sql);

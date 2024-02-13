@@ -23,6 +23,9 @@
 	<!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
 	<script src="view/plugins/glider.js"></script>
 	<script src="view/plugins/slick.js"></script>
+	<script type="text/javascript" src="view/plugins/slick.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="view/css/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="view/css/slick-theme.css"/>
     <link href="view/css/glider.css" rel="stylesheet" type="text/css"/>
 	<link href="view/css/slick.css" rel="stylesheet" type="text/css"/>
 	<script src="view/plugins/jquery.prettyPhoto.js"></script>
@@ -35,6 +38,5 @@
 	<script src="view/js/custom.js"></script>
 	<script src="https://kit.fontawesome.com/03b29eeaba.js" crossorigin="anonymous"></script>
 	
-
 </head>
 

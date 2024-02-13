@@ -24,7 +24,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
 	<script src="view/plugins/glider.js"></script>
-    <link href="view/css/glider.css" rel="stylesheet" type="text/css"/>
+    <link href="view/plugins/glider.css" rel="stylesheet" type="text/css"/>
 	<script src="view/plugins/jquery.prettyPhoto.js"></script>
 	<script src="module/home/model/ctrl_home.js"></script>
 
@@ -32,7 +32,6 @@
 	<script src="view/plugins/bootstrap.js"></script>
 	<!-- CUSTOM SCRIPTS  -->
 	<script src="view/js/custom.js"></script>
-	<script src="view/plugins/jquery-1.10.2.js"></script>
 
 </head>
 

@@ -12,7 +12,6 @@
 /* =============================================================
    GENERAL STYLES
  ============================================================ */
-<<<<<<< HEAD
 h5{
     font-size: 18px;
     font-weight: 600;
@@ -24,11 +23,6 @@ h5{
  .table {
   /* margin-left: 100px; original */
   margin-left: 10px;
-=======
-
- .table {
-  margin-left: 100px;
->>>>>>> d3de0469915f3e9ceeacbce45fd4b95057494b57
  }
  
  .Button_green {
@@ -486,7 +480,12 @@ border: 1px solid #e1e1e1;
       flex: 1;
       text-align :justify;
   }
+
+  /* //añadido luis */
   
+  .content-img-details {
+    max-width: 300px;
+  }
 
   
 

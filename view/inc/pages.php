@@ -1,16 +1,20 @@
 <?php
 
 // ENRUTADOR A CONTROLADORES.
-// El enrutador es un archivo que se encarga de redirigir las peticiones a los controladores correspondientes.
-// El enrutador es el encargado de decidir qué controlador se ejecutará en función de la petición que se le haga.
-
 if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
+
+	// echo "El valor de page es " . ($_GET['page']);
+	// Según el valor de $_GET['page'] se incluirá un controlador u otro.
+	
 	switch($_GET['page']){
 		case "homepage";
-			include("module/inicio/view/inicio.php"); // Incluye la vista de inicio.
+			include("module/home/view/home.html"); // Incluye la vista de inicio.
 			break;
-		case "controller_viviendas";
-			include("module/viviendas/controller/".$_GET['page'].".php"); // Incluye el controlador de viviendas.
+		case "shop";	
+			include("module/shop/view/".$_GET['page'].".html"); // Incluye el controlador del modulo shop.
+			break;
+		case "ctrl_home";
+			include("module/home/controller/".$_GET['page'].".php"); // Incluye el controlador de viviendas.
 			break;
 		case "services";
 			include("module/services/".$_GET['page'].".php"); // Incluye el controlador de servicios.
@@ -32,7 +36,19 @@ if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
 			break;
 
 	}
-} else{ // Si no existe la variable $_GET['page']...
-	include("module/inicio/view/inicio.php");
+} else{ // Si no existe la variable $_GET['page']...(es la primera vez que entrammos)
+// Intenta incluir el primer archivo
+include_once("module/home/view/home.html");
+              
+if ($php_errormsg) {
+    echo "Error al incluir home.html: " . $php_errormsg;
+	die('<script>console.log('.json_encode( $data ) .');</script>');
 }
-?>
+
+// Intenta incluir el segundo archivo
+include_once($path . "/view/inc/top_page_home.php");
+if ($php_errormsg) {
+    echo "Error al incluir top_pages_viviendas.php: " . $php_errormsg;
+}
+
+}

@@ -2,8 +2,8 @@
 .slick-slider
 {
     position: relative;
-    max-width: 550px;
-    display:inline-block;
+
+    display: block;
     box-sizing: border-box;
 
     -webkit-user-select: none;
@@ -53,7 +53,6 @@
     position: relative;
     top: 0;
     left: 0;
-    size: 200px;
 
     display: block;
     margin-left: auto;
@@ -89,8 +88,8 @@
 }
 .slick-slide img
 {
-    display: inline-block;
-    max-block-size: 300px;
+    display: block;
+    height: 300px;
 }
 .slick-slide.slick-loading img
 {
@@ -99,13 +98,6 @@
 .slick-slide.dragging img
 {
     pointer-events: none;
-}
-.content-img-details {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 100%;
-    width: 300px;
 }
 .slick-initialized .slick-slide
 {

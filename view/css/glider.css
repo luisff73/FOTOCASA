@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.carousel__container {
+.carousel_categorias {
   display: flex;
   flex-direction: row;
   transition: transform 0.3s ease-in-out;
@@ -95,7 +95,7 @@
   border: 0;
   top: 30%;
   cursor: pointer;
-  color: #040404;
+  color: #ea1616;
   opacity: 1;
   line-height: 1;
   transition: opacity .5s cubic-bezier(.17,.67,.83,.67),

@@ -33,6 +33,8 @@
 	<!-- CUSTOM SCRIPTS  -->
 	<script src="view/js/custom.js"></script>
 	<script src="view/plugins/jquery-1.10.2.js"></script>
+	<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 

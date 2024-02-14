@@ -59,6 +59,45 @@ switch ($_GET['op']) {
         }
         break;
 
+    case 'print_filters_home':
+        $homeQuery = new DAOShop();
+        $selSlide = $homeQuery -> print_filters_home();
+        if (!empty($selSlide)) {
+            echo json_encode($selSlide);
+        }
+        else {
+            echo "error";
+        }
+        break;
+
+     case 'filter':
+        echo "<script>";
+        echo "console.log(" . json_encode($selSlide) . ");";
+        echo "</script>";
+        
+            print_r($_POST['filters_home'], true); // Suponiendo que estás pasando los datos de los filtros por POST
+            $homeQuery = new DAOShop();
+            $selSlide = $homeQuery->filters_home($_POST['filters_home']); // ¿¿post o get??
+            if (!empty($selSlide)) {
+                echo json_encode($selSlide);
+            } else {
+                echo "error";
+            }
+            break;
+        
+
+    case 'redirect':
+        $homeQuery = new DAOShop();
+        $selSlide = $homeQuery -> redirect($_POST['filtros'],$_POST['total_prod'],$_POST['items_page']);
+        if (!empty($selSlide)) {
+            echo json_encode($selSlide);
+        }
+        else {
+            echo "error";
+        }
+        break;
+
+
     default;
         include("module/exceptions/views/pages/error404.php");
         break;

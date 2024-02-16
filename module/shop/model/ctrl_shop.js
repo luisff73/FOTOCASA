@@ -24,7 +24,6 @@ function ajaxForSearch(url) {
             $('#content_shop_viviendas').empty();
             $('.date_viviendas' && '.date_img').empty();
 
-            //Mejora para que cuando no hayan resultados en los filtros aplicados
             if (data == "error") {
                 $('<div></div>').appendTo('#content_shop_viviendas')
                     .html(
@@ -159,13 +158,13 @@ function loadDetails(id_vivienda) {
                 //   });
    
                   
-                $('.date_img').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    date_img: true,
-                    cssEase: 'linear'
-                  });
+                // $('.date_img').slick({
+                //     dots: true,
+                //     infinite: true,
+                //     speed: 500,
+                //     date_img: true,
+                //     cssEase: 'linear'
+                //   });
                 
             }).catch(function() {
                  //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
@@ -173,7 +172,7 @@ function loadDetails(id_vivienda) {
         }
         function load_salto() {
             var filtros = JSON.parse(localStorage.getItem('filters_home'));
-            ajaxPromise('module/shop/controller/crtl_shop.php?op=redirect', 'POST', 'JSON', { 'filtros': filtros })
+            ajaxPromise('module/shop/controller/crtl_shop.php?op=redirect', 'POST', 'JSON', { 'filters_home': filtros })
                 .then(function(shop) {
                     $("#containerShop").empty(); //limpiamos el contenedor
                     for (row in shop) { //recorremos el array de objetos

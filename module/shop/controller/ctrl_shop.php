@@ -29,8 +29,8 @@ switch ($_GET['op']) {
         break;
 
     case 'details_vivienda':  //request al servidor
-    //echo json_encode('Has entrado en details vivienda con el id ' . $_GET['id']);
-    //break;  //response del servidor
+        //echo json_encode('Has entrado en details vivienda con el id ' . $_GET['id']);
+        //break;  //response del servidor
         try {
             $daoshop = new DAOShop();
             $Details_viviendas = $daoshop->select_one_vivienda($_GET['id']);
@@ -92,13 +92,14 @@ switch ($_GET['op']) {
         
 
     case 'redirect':
-
-        echo "console.log(" . json_encode('hola') . ");";
-        echo "Este es un mensaje de prueba en la consola redirect";
+        // echo "console.log(" . json_encode('hola') . ");"; ojo que esto aparece en la cabecera de la pagina
+        // echo "Este es un mensaje de prueba en la consola redirect"; 
+        //die('<script>console.log('.json_encode( 'Has entrado en Ctrl_shop opcion redirect' ) .');</script>');
         echo json_encode($_POST['filters_home']);
-        echo "console.log(" . json_encode('hola') . ");";
+        echo "console.log(" . json_encode('filters_home') . ");";
         
-        
+        die('<script>console.log("El valor actual de filters home es: ' . json_encode($_POST['filters_home']) . '");</script>');
+
         $homeQuery = new DAOShop();
         $selSlide = $homeQuery -> redirect($_POST['filters_home']);
         if (!empty($selSlide)) {

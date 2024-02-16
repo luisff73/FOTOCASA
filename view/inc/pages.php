@@ -8,7 +8,7 @@ if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
 
 	switch($_GET['page']){
 		case "homepage":
-		echo "Este es un mensaje de prueba en la consola all viviendas";
+		echo "Este es un mensaje de prueba en la consola all viviendas has entrado en homepage";
 			include("module/home/view/home.html"); // Incluye la pagina de inicio
 			 echo $_GET['page'];
 			 //return $_GET['page'];
@@ -40,7 +40,9 @@ if(isset($_GET['page'])){ // Si existe la variable $_GET['page']...
 			include("view/inc/error".$_GET['page'].".php");	// Incluye la vista de error.
 			break;
 		default;
+		echo "Este es un mensaje de prueba en la consola all viviendas has entrado en homehtml";
 			include("module/home/view/home.html"); // Incluye la vista de inicio.
+			echo $_GET['page'];
 			break;
 
 	}
@@ -54,6 +56,8 @@ if ($php_errormsg) {
 }
 
 // Intenta incluir el segundo archivo
+echo "Este es un mensaje de prueba en la consola all viviendas has entrado en homehtml";
+echo $_GET['page'];
 include_once($path . "/view/inc/top_page_home.php");
 if ($php_errormsg) {
     echo "Error al incluir top_pages_viviendas.php: " . $php_errormsg;

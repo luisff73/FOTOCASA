@@ -119,6 +119,7 @@ function clicks(){ //función que se encarga de redirigir a la página de shop c
       filters_home.push({"id_operation":[this.getAttribute('id')]});
       localStorage.removeItem('filters_home')
       localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+      alert (filters_home);
       setTimeout(function(){ 
         //alert('Redirigiendo a la página de shop con los productos filtrados por la operación seleccionada');
           window.location.href = 'index.php?page=ctrl_shop&op=redirect'; //redirige a la página de shop con la opcion de ver los productos filtrados.

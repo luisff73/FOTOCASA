@@ -68,8 +68,10 @@ class DAOShop{
         // FROM car c INNER JOIN car_img i INNER JOIN categoria ca INNER JOIN type t INNER JOIN brand b
         // ON c.id = i.car AND  i.img LIKE ('%1%') AND c.categoria = ca.id_categoria AND c.combustible = t.id_type AND c.marca = b.id_brand";
         
-        $consulta="SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name 
-        FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type;";
+        // $consulta="SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name 
+        // FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type;";
+      
+        $consulta = "SELECT * FROM viviendas where id_vivienda > 0";
 
             for ($i=0; $i < count($filter); $i++){
                 if ($i==0){
@@ -103,25 +105,25 @@ class DAOShop{
         return $retrArray;
     }
 
-    function redirect($filtros){
-        //return $filtros;  
-        $select = "SELECT * FROM viviendas where id_vivienda > 0";
+    function redirect($filters_home){
+        //return $filters_home;  
+        $select = "SELECT * FROM viviendas";
 
-        if (isset($filtros[0]['id_operation'])){
-            $add_filter = $filtros[0]['id_operation'][0];
-            $select.= " AND id_operation = '$add_filter'";
+        if (isset($filters_home[0]['id_operation'])){  // Si el array de filtros contiene el índice id_operation
+            $add_filter = $filters_home[0]['id_operation'][0];
+            $select.= " where id_operation = '$add_filter'";
         }
-        else if(isset($filtros[0]['id_category'])) {
-            $add_filter = $filtros[0]['id_category'][0];
-            $select.= " AND id_category = '$add_filter'";
+        else if(isset($filters_home[0]['id_category'])) { // Si el array de filtros contiene el índice id_category
+            $add_filter = $filters_home[0]['id_category'][0];
+            $select.= " where id_category = '$add_filter'";
         }
-        else if(isset($filtros[0]['id_city'])) {
-            $add_filter = $filtros[0]['id_city'][0];
-            $select.= " AND id_city = '$add_filter'";
+        else if(isset($filters_home[0]['id_city'])) { // Si el array de filtros contiene el índice id_city
+            $add_filter = $filters_home[0]['id_city'][0];
+            $select.= " where id_city = '$add_filter'";
         }
-        else if(isset($filtros[0]['id_type'])) {
-            $add_filter = $filtros[0]['id_type'][0];
-            $select.= " AND id_type = '$add_filter'";
+        else if(isset($filters_home[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
+            $add_filter = $filters_home[0]['id_type'][0];
+            $select.= " where id_type = '$add_filter'";
         }
         //$select.= " LIMIT $total_prod, $items_page";
        

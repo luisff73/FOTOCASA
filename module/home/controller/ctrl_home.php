@@ -3,26 +3,26 @@
     include($path . "/module/home/model/DAOhome.php");
 
     switch ($_GET['op']) {
-        case 'list';
-                try{
-                    $daoviviendas = new DAOhome();
-                    $rdo = $daoviviendas->select_type(); // Se llama al método select_type() de la clase DAOViviendas
-                    //die('<script>console.log('.json_encode( $rdo->num_rows ) .');</script>');
-                }catch (Exception $e){
-                    $callback = 'index.php?page=503';
-                    die('<script>window.location.href="'.$callback .'";</script>');
-                }
+        case 'list':
+                // try{
+                //     $daoviviendas = new DAOhome();
+                //     $rdo = $daoviviendas->select_type(); // Se llama al método select_type() de la clase DAOViviendas
+                //     //die('<script>console.log('.json_encode( $rdo->num_rows ) .');</script>');
+                // }catch (Exception $e){
+                //     $callback = 'index.php?page=503';
+                //     die('<script>window.location.href="'.$callback .'";</script>');
+                // }
                 
-                if(!$rdo){
-                    $callback = 'index.php?page=503';
-                    die('<script>window.location.href="'.$callback .'";</script>');
-                }else{                        
-                    include("module/home/view/list_viviendas.php");
-                }
+                // if(!$rdo){
+                //     $callback = 'index.php?page=503';
+                //     die('<script>window.location.href="'.$callback .'";</script>');
+                // }else{                        
+                    include("module/home/view/home.html");
+                // }
 
         break;
 
-        case 'carrousel_categories';
+        case 'carrousel_categories':
             try{ 
                 $daohome = new DAOHome();
                 $Selectcategories = $daohome->select_categories(); 
@@ -38,7 +38,7 @@
             }
         break;
 
-        case 'homepagecategory';
+        case 'homepagecategory':
             try{
                 $daohome = new DAOHome();
                 $SelectCategory = $daohome->select_categories();
@@ -54,7 +54,7 @@
             }
         break;
 
-        case 'homepagecity';
+        case 'homepagecity':
         try{
             $daohome = new DAOHome();
             $SelectCity = $daohome->select_city();
@@ -70,7 +70,7 @@
         }
     break;
 
-        case 'homepagetype';
+        case 'homepagetype':
             try{
                 $daohome = new DAOHome();
                 $SelectType = $daohome->select_type();
@@ -86,7 +86,7 @@
             }
         break;
 
-        case 'homepageoperation';
+        case 'homepageoperation':
         try{
             $daohome = new DAOHome();
             $SelectType = $daohome->select_operation();

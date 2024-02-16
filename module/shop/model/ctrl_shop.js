@@ -1,7 +1,20 @@
+function clicks() {
+    $(document).on("click", ".detalles_inmueble", function() {
+        var id_vivienda = this.getAttribute('id');
+        //console.log('id_vivienda en click ' + id_vivienda);
+        loadDetails(id_vivienda);
+    });
+}
 function loadviviendas() {
     //alert('has entrado en loadviviendas');
     //console.log("has entrado en loadviviendas");
+    var verificate_filters = localStorage.getItem('filters_shop') || false; //recogemos los filtros de la página de shop
+    if (verificate_filters != false) {
+            loadviviendas_filters();
+    } else {
+
     ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas');
+}
 }     
 
 function ajaxForSearch(url) {
@@ -41,7 +54,7 @@ function ajaxForSearch(url) {
                                         "</ul>" +
                                         
                                         "<div class='buttons'>" +
-                                             "<button id='" + data[row].id_vivienda + "' class='more_info_list button add' >Detalles</button>" +
+                                             "<button id='" + data[row].id_vivienda + "' class='detalles_inmueble button add' >Detalles</button>" +
                                              "<button class='button buy' >Comprar</button>" + "&nbsp;&nbsp;&nbsp;" +
                                             "<h1><b><span class='button' id='price'>" + data[row].vivienda_price + ' €' + "</span></b></h1>" +
                                         "</div>" +
@@ -60,14 +73,6 @@ function ajaxForSearch(url) {
         });
 }
 
-function clicks() {
-    $(document).on("click", ".more_info_list", function() {
-        var id_vivienda = this.getAttribute('id');
-        //console.log('id_vivienda en click ' + id_vivienda);
-
-        loadDetails(id_vivienda);
-    });
-}
 
 function loadDetails(id_vivienda) {
     
@@ -130,7 +135,7 @@ function loadDetails(id_vivienda) {
                 //     slidesToShow: 1,
                 //     adaptiveHeight: true,
                 //     autoplay: true,
-                //     autoplaySpeed: 1300,
+                //     autoplaySpeed: 1300,    
                 //     adaptiveHeight: true,
                     
                 // });
@@ -144,7 +149,7 @@ function loadDetails(id_vivienda) {
                     arrows: true,
                   });
    
-                  
+              
                 // $('.date_img').slick({
                 //     dots: true,
                 //     infinite: true,
@@ -152,15 +157,92 @@ function loadDetails(id_vivienda) {
                 //     date_img: true,
                 //     cssEase: 'linear'
                 //   });
+   
+                  
+                $('.date_img').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    date_img: true,
+                    cssEase: 'linear'
+                  });
                 
             }).catch(function() {
-                 window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
+                 //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
             });
+        }
+        function load_salto() {
+            var filtros = JSON.parse(localStorage.getItem('filters_home'));
+            ajaxPromise('module/shop/controller/crtl_shop.php?op=redirect', 'POST', 'JSON', { 'filtros': filtros })
+                .then(function(shop) {
+                    $("#containerShop").empty(); //limpiamos el contenedor
+                    for (row in shop) { //recorremos el array de objetos
+                        //$('<div></div>').appendTo('#containerShop') //añadimos un div al contenedor
+                        $('<div></div>').appendTo('#content_shop_viviendas') //añadimos un div al contenedor
+                            .html(
+                                '<div id="overlay">' +
+                                '<div class= "cv-spinner" >' +
+                                '<span class="spinner"></span>' +
+                                '</div >' +
+                                '</div > ' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="page">' +
+                                '<section class="section section-md bg-white">' +
+                                '<div class="shell">' +
+                                '<div class="range range-50 range-sm-center range-md-left range-md-middle range-md-reverse">' +
+                                '<div class="cell-sm-6 wow fadeInRightSmall">' +
+                                ' <div class="thumb-line"><img src="' + shop[row].image_name + '" alt="" width="531" height="640"/>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="cell-sm-6">' +
+                                '<div class="box-width-3">' +
+                                '<p class="heading-1 wow fadeInLeftSmall">' + shop[row].id_city + '</p>' +
+                                '<article class="quote-big wow fadeInLeftSmall" data-wow-delay=".1s">' +
+                                '<p class="q">' + shop[row].id_operation + '</p>' +
+                                '<p class="q">' + shop[row].id_type + '€</p>' +
+                                '<p class="q">' + shop[row].id_category + '</p>' +
+                                '</article>' +
+                                '<div class="divider wow fadeInLeftSmall" data-wow-delay=".2s"></div>' +
+                                '<p class="q">' + shop[row].id_type + '<i class="fa-thin fa-gas-pump fa-2xl"></i></p>' +
+                                '<p class="wow fadeInLeftSmall" data-wow-delay=".3s">' + shop[row].m2 + '<i class="fa-solid fa-door-open fa-2xl"></i></p><a class="button button-primary-outline button-ujarak button-size-1 wow fadeInLeftSmall link button_spinner" data-wow-delay=".4s" id="' + shop[row].id + '">Read More</a>' +
+                                '</div>' +
+                                '</div>' +
+                                '</section>' +
+                                '</div>');
+                    }
+                    // mapBox_all(shop); //llamamos a la función que pinta el mapa
+                }).catch(function() {
+                    //window.location.href = "index.php?modules=exception&op=503&error=fail_salto&type=503";
+                });
+        }
+
+        function mapBox_all(shop) {
+            mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [-0.61667, 38.83966492354664], // starting position [lng, lat]
+                zoom: 6 // starting zoom
+            });
+        
+            for (row in shop) {
+                const marker = new mapboxgl.Marker()
+                const minPopup = new mapboxgl.Popup()
+                minPopup.setHTML('<h3 style="text-align:center;">' + shop[row].brand_name + '</h3><p style="text-align:center;">Modelo: <b>' + shop[row].modelo + '</b></p>' +
+                    '<p style="text-align:center;">Precio: <b>' + shop[row].precio + '€</b></p>' +
+                    '<img src=" ' + shop[row].img + '"/>' +
+                    '<a class="button button-primary-outline button-ujarak button-size-1 wow fadeInLeftSmall link" data-wow-delay=".4s" id="' + shop[row].id + '">Read More</a>')
+                marker.setPopup(minPopup)
+                    .setLngLat([shop[row].longi, shop[row].lat])
+                    .addTo(map);
+            }
         }
 
         $(document).ready(function() {
-            loadviviendas();
             clicks();
+            loadviviendas();
+            load_salto();
         });
 
 

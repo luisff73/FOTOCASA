@@ -23,7 +23,7 @@
 	<!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
 	<script src="view/plugins/glider.js"></script>
 	<script src="view/plugins/slick.js"></script>
-<script type="text/javascript" src="view/plugins/slick.min.js"></script>
+    <script type="text/javascript" src="view/plugins/slick.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="view/css/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="view/css/slick-theme.css"/>
     <link href="view/css/glider.css" rel="stylesheet" type="text/css"/>

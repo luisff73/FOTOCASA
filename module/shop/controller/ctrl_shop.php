@@ -9,11 +9,13 @@ switch ($_GET['op']) {
         include('module/shop/view/shop.html');
         break;
 
-    case 'all_viviendas':
-        //echo "Este es un mensaje de prueba en la consola all viviendas";
+    case 'all_viviendas':  // a esta opcion se accede desde el menu principal
+        // echo "Este es un mensaje de prueba en la consola all viviendas";
+        // echo "console.log(" . json_encode('hola') . ");"; esto si que funciona
+        // die('<script>console.log('.json_encode( 'hola' ) .');</script>'); esto si que funciona
         try {
             $daoshop = new DAOShop();
-            $Dates_Viviendas = $daoshop->select_all_viviendas();
+            $Dates_Viviendas = $daoshop->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
         } catch (Exception $e) {
             echo json_encode("error");
         }
@@ -33,8 +35,7 @@ switch ($_GET['op']) {
             $daoshop = new DAOShop();
             $Details_viviendas = $daoshop->select_one_vivienda($_GET['id']);
             //echo json_encode($Details_viviendas);
-            //print_r($Details_viviendas);
-            //var_dump($Details_viviendas);
+
         } catch (Exception $e) {
             echo json_encode("error");
         }
@@ -70,25 +71,36 @@ switch ($_GET['op']) {
         }
         break;
 
-     case 'filter':
-        echo "<script>";
-        echo "console.log(" . json_encode($selSlide) . ");";
-        echo "</script>";
+    //  case 'filter':
+    //     echo "Este es un mensaje de prueba en la consola filter";
+    //     echo "console.log(" . json_encode($selSlide) . ");";
+    //     echo "</script>";
         
-            print_r($_POST['filters_home'], true); // Suponiendo que estás pasando los datos de los filtros por POST
-            $homeQuery = new DAOShop();
-            $selSlide = $homeQuery->filters_home($_POST['filters_home']); // ¿¿post o get??
-            if (!empty($selSlide)) {
-                echo json_encode($selSlide);
-            } else {
-                echo "error";
-            }
-            break;
+    //     echo json_encode('Has entrado en filters vivienda con el id ' . $_GET['id']);
+    //     echo json_encode('Has entrado en filters vivienda el valor de filters_home es ' . $_GET['filters_home']);
+        
+    //     //break;  //response del servidor
+    //         print_r($_POST['filters_home'], true); // Suponiendo que estás pasando los datos de los filtros por POST
+    //         $homeQuery = new DAOShop();
+    //         $selSlide = $homeQuery->filters_home($_POST['filters_home']); // ¿¿post o get??
+    //         if (!empty($selSlide)) {
+    //             echo json_encode($selSlide);
+    //         } else {
+    //             echo "error";
+    //         }
+    //         break;
         
 
     case 'redirect':
+
+        echo "console.log(" . json_encode('hola') . ");";
+        echo "Este es un mensaje de prueba en la consola redirect";
+        echo json_encode($_POST['filters_home']);
+        echo "console.log(" . json_encode('hola') . ");";
+        
+        
         $homeQuery = new DAOShop();
-        $selSlide = $homeQuery -> redirect($_POST['filtros'],$_POST['total_prod'],$_POST['items_page']);
+        $selSlide = $homeQuery -> redirect($_POST['filters_home']);
         if (!empty($selSlide)) {
             echo json_encode($selSlide);
         }
@@ -99,6 +111,6 @@ switch ($_GET['op']) {
 
 
     default;
-        include("module/exceptions/views/pages/error404.php");
+        //include("module/exceptions/views/pages/error404.php");
         break;
 }

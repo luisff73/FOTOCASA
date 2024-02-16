@@ -1,5 +1,14 @@
 <?php
     
+	// INTRUCCIONES PARA DEBUGEAR
+
+	// echo "console.log(" . json_encode('hola') . ");"; esto si que funciona
+    // die('<script>console.log('.json_encode( 'hola' ) .');</script>'); esto si que funciona
+
+
+
+
+
     //isset($_GET['page']): 
 	//Verifica si la variable $_GET['page'] 
 	//está definida en la URL. 
@@ -10,10 +19,10 @@
 	// Comprueba si el valor de $_GET['page'] es estrictamente igual (tanto en valor como en tipo) a la cadena "ctrl_home". 
 	// Si esta condición es verdadera, significa que la página solicitada es "ctrl_home".
 
-    if ((isset($_GET['page'])) && ($_GET['page']==="homepage") ){ //Si la página solicitada es "ctrl_home"
+    if ((isset($_GET['page'])) && ($_GET['page']==="ctrl_home") ){ //Si la página solicitada es "ctrl_home"
 		include("view/inc/top_page_home.php");
 
-	}else if ((isset($_GET['page'])) && ($_GET['page']==="shop") ){ //Si la página solicitada es "ctrl_shop"
+	}else if ((isset($_GET['page'])) && ($_GET['page']==="ctrl_shop") ){ //Si la página solicitada es "ctrl_shop"
 
 		include("view/inc/top_page_shop.php");
 	}

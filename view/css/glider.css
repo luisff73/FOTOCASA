@@ -1,14 +1,4 @@
-.carousel {
-  /* position: relative; */
-  width: 100%;
-  height: 250px;
-  margin: 200 auto;
-  overflow: hidden;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.carousel_categorias {
+.carousel_operaciones {
   display: flex;
   flex-direction: row;
   transition: transform 0.3s ease-in-out;
@@ -24,22 +14,25 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .glider-contain {
   width: 100%;
   margin: 0 auto;
   position: relative;
-  height: 35px;
+  height: 30px;
 }
+
 .glider {
 
   margin: 0 auto;
-  margin-top: 45px; 
+  margin-top: 15px;
   position: relative;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   transform: translateZ(0);
 }
+
 .glider-track {
   transform: translateZ(0);
   width: 100%;
@@ -47,24 +40,28 @@
   padding: 0;
   display: flex;
   z-index: 1;
-  max-height: 200px;
+  max-height: 100px;
 }
+
 .glider.draggable {
   max-height: 200px;
   user-select: none;
   cursor: -webkit-grab;
   cursor: grab;
 }
+
 .glider.draggable .glider-slide img {
   max-height: 150px;
   user-select: none;
   pointer-events: none;
 }
+
 .glider.drag {
-  
+
   cursor: -webkit-grabbing;
   cursor: grabbing;
 }
+
 .glider-slide {
 
   user-select: none;
@@ -74,15 +71,18 @@
   height: 300px;
   margin-top: 40px;
 }
+
 .glider-slide img {
-  max-width: 100%;
+  max-width: 60%;
 
 }
+
 .glider::-webkit-scrollbar {
   opacity: 0;
   height: 0;
 }
-.carousel__prev,.carousel__next {
+
+.carousel__prev {
   user-select: none;
   position: absolute;
   outline: none;
@@ -98,31 +98,57 @@
   color: #040404;
   opacity: 1;
   line-height: 1;
-  transition: opacity .5s cubic-bezier(.17,.67,.83,.67),
-              color .5s cubic-bezier(.17,.67,.83,.67);
+  transition: opacity .5s cubic-bezier(.17, .67, .83, .67),
+    color .5s cubic-bezier(.17, .67, .83, .67);
 }
+
+.carousel__next {
+  user-select: none;
+  position: absolute;
+  outline: none;
+  background: none;
+  padding: 0;
+  z-index: 2;
+  font-size: 40px;
+  text-decoration: none;
+  left: -23px;
+  border: 0;
+  top: 30%;
+  cursor: pointer;
+  color: #040404;
+  opacity: 1;
+  line-height: 1;
+  transition: opacity .5s cubic-bezier(.17, .67, .83, .67),
+    color .5s cubic-bezier(.17, .67, .83, .67);
+}
+
 .glider-prev:hover,
 .glider-next:hover,
 .glider-prev:focus,
 .glider-next:focus {
   color: #a89cc8;
 }
+
 .glider-next {
   right: -23px;
   left: auto;
 }
+
 .glider-next.disabled,
 .glider-prev.disabled {
   opacity: .25;
   color: #666;
   cursor: default;
 }
+
 .glider-slide {
   min-width: 150px;
 }
+
 .glider-hide {
   opacity: 0;
 }
+
 .glider-dots {
   user-select: none;
   display: flex;
@@ -140,6 +166,7 @@
   height: 12px;
   margin: 7px;
 }
+
 .glider-dot {
   border: 0;
   padding: 0;
@@ -154,18 +181,21 @@
   height: 12px;
   margin: 7px;
 }
+
 .glider-dot:hover,
 .glider-dot:focus,
 .glider-dots.active {
   background: #592adb;
 }
-@media(max-width: 36em){
+
+@media(max-width: 36em) {
   .glider::-webkit-scrollbar {
     opacity: 1;
     -webkit-appearance: none;
     width: 7px;
     height: 3px;
   }
+
   .glider::-webkit-scrollbar-thumb {
     opacity: 1;
     border-radius: 99px;
@@ -173,8 +203,9 @@
     box-shadow: 0 0 1px rgba(255, 5, 5, 0.25);
   }
 }
+
 .buttons {
-  size: 500px;
+  size: 5px;
   display: flex;
   justify-content: space-between;
 }
@@ -186,28 +217,29 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  size:500 px;
+  size: 50 px;
 
 }
 
 #price.button {
   background-color: #b51c1c;
-  size:500 px;
+  size: 500 px;
 }
 
 #price.button:hover {
   background-color: #469dfa;
-  transform:scale(1.2);
-  transition: 0.5s; 
+  transform: scale(1.2);
+  transition: 0.5s;
 }
+
 #price {
   font-size: 20px;
 }
 
 .button:hover {
   background-color: #0056b3;
-  transform:scale(1.2);
-  transition: 0.5s; 
+  transform: scale(1.2);
+  transition: 0.5s;
 }
 
 /* añadido luis */
@@ -217,7 +249,7 @@
   padding: 0px;
   width: 100%;
   height: 100%;
-  margin-top: 0px;
+  margin-top: 30px;
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;
@@ -225,4 +257,32 @@
   padding-bottom: 0px;
   padding-left: 0px;
   padding-right: 0px;
+}
+
+.bx--chevron-left {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13.293 6.293L7.586 12l5.707 5.707l1.414-1.414L10.414 12l4.293-4.293z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.bx--chevron-right {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13.293 6.293L7.586 12l5.707 5.707l1.414-1.414L10.414 12l4.293-4.293z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }

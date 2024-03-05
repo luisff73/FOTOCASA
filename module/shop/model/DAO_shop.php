@@ -2,137 +2,129 @@
 $path = $_SERVER['DOCUMENT_ROOT'] . '/compracasa/';
 include($path . "/model/connect.php");
 
-class DAOShop{
-	function select_all_viviendas(){
-		$sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type;";
-		$conexion = connect::con();
-		$res = mysqli_query($conexion, $sql);
-		connect::close($conexion);
+class DAOShop
+{
+    function select_all_viviendas()
+    {
+        //$prueba = "hola dao";
+        //return $prueba;
 
-		$retrArray = array();
-		if (mysqli_num_rows($res) > 0) {
-			while ($row = mysqli_fetch_assoc($res)) {
-				$retrArray[] = $row;
-			}
-		}
-		return $retrArray;
-	}
+        //$sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type and v.id_vivienda='12';";
+        $sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda where v.id_vivienda>0;";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
 
-	function select_one_vivienda($id){
-		//return $id;
-		$sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type and v.id_vivienda = '$id';";
-		$conexion = connect::con();
-		$res = mysqli_query($conexion, $sql)->fetch_object();
-		connect::close($conexion);
-		//echo json_encode("resultado de $res " + $res); // hacemos un log para ver que devuelve
-		//print_r($res);
+        $retrArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+                $retrArray[] = $row; //array_push($retrArray, $row);
+            }
+        }
+        return $retrArray;
+    }
+
+    function select_one_vivienda($id)
+    {
+        //return $id;
+        $sql = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, v.image_name, v.m2, c.category_name, o.operation_name, t.type_name, a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda = '$id';";
+        // antigua $sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name  a.adapted FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type and v.id_vivienda = '$id';";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql)->fetch_object();
+        connect::close($conexion);
+        //echo json_encode("resultado de $res " + $res); // hacemos un log para ver que devuelve
+        //print_r($res);
         //var_dump($res);
-		return $res;
-	}
+        return $res;
+    }
 
-	function select_img_viviendas($id){   
-		$sql = "SELECT id_vivienda, id_image, image_name FROM images WHERE id_vivienda = '$id';";
+    function select_img_viviendas($id)
+    {
+        $sql = "SELECT id_vivienda, id_image, image_name FROM images WHERE id_vivienda = '$id';";
 
-		$conexion = connect::con();
-		$res = mysqli_query($conexion, $sql);
-		connect::close($conexion);
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
 
-		$imgArray = array();
-		if (mysqli_num_rows($res) > 0) {
-			foreach ($res as $row) {
-				array_push($imgArray, $row);
-			}
-		}
-		return $imgArray;
-	}
+        $imgArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            foreach ($res as $row) {
+                array_push($imgArray, $row);
+            }
+        }
+        return $imgArray;
+    }
 
-	function print_filters_home() {
-        $select = "SELECT * FROM viviendas";
- 
+    function filters_home($filters)
+    {
+        //return $filters;  //Esto no devuelve filters, con estro comprobamos que resuelve ajaxs desde el console.log
+        //die('<script>console.log("El valor actual de filters home es: ' . json_encode($_POST['filters']) . '");</script>');
+        //die('<script>console.log(filters));</script>');
+        //$prueba = "hola dao";
+        //return $prueba;
+
+        $select = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, v.image_name, v.m2, c.category_name, o.operation_name, t.type_name, c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type INNER JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+
+        //return $select;
+
+        if (isset($filters[0]['id_operation'])) {  // Si el array de filtros contiene el índice id_operation((iel isset obliga)
+            $add_filter = $filters[0]['id_operation'][0];
+            $select .= " and o.id_operation = '$add_filter'";
+        } else if (isset($filters[0]['id_category'])) { // Si el array de filtros contiene el índice id_category
+            $add_filter = $filters[0]['id_category'][0];
+            $select .= " and c.id_category = '$add_filter'";
+        } else if (isset($filters[0]['id_city'])) { // Si el array de filtros contiene el índice id_city
+            $add_filter = $filters[0]['id_city'][0];
+            $select .= " and ci.id_city = '$add_filter'";
+        } else if (isset($filters[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
+            $add_filter = $filters[0]['id_type'][0];
+            $select .= " and t.id_type = '$add_filter'";
+        }
+
+
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res -> num_rows > 0) {
+        if ($res->num_rows > 0) {
             while ($row = mysqli_fetch_assoc($res)) {
                 $retrArray[] = $row;
             }
         }
+        // return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
+    function filters_shop($filters)
+    {
 
-    function filters_home($filter){
-        // return $filter;
-        // $consulta = "SELECT c.*, i.img, ca.cat_name, t.type_name, b.brand_name
-        // FROM car c INNER JOIN car_img i INNER JOIN categoria ca INNER JOIN type t INNER JOIN brand b
-        // ON c.id = i.car AND  i.img LIKE ('%1%') AND c.categoria = ca.id_categoria AND c.combustible = t.id_type AND c.marca = b.id_brand";
-        
-        // $consulta="SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name 
-        // FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type;";
-      
-        $consulta = "SELECT * FROM viviendas where id_vivienda > 0";
+        //return $filters;  //Esto no devuelve filters, con estrocomprobamos que resuelve ajaxs desde el console.log
+        //$prueba = "hola dao_filters shop";
+        //return $prueba;
+        //echo "console.log('daoshop ' + " . json_encode('$filters') . ");";
+        //$select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type";
+        $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
-            for ($i=0; $i < count($filter); $i++){
-                if ($i==0){
-                    if ($filter[$i][0] == 'orden'){
-                        $consulta.= " ORDER BY " . $filter[$i][1] . " ASC";
 
-                    }else{
-                    $consulta.= " WHERE c." . $filter[$i][0] . "=" . $filter[$i][1];
-                    }
-                }else {
-                    if ($filter[$i][0] == 'orden'){
-                        $consulta.= " ORDER BY " . $filter[$i][1] . " ASC";
-
-                    }else{$consulta.= " AND c." . $filter[$i][0] . "=" . $filter[$i][1];}
-                }        
-            }
-            // $consulta.= " LIMIT $total_prod, $items_page";
-
-        $conexion = connect::con();
-        $res = mysqli_query($conexion, $consulta);
-        connect::close($conexion);
-
-        $retrArray = array();
-        if ($res -> num_rows > 0) {
-            while ($row = mysqli_fetch_assoc($res)) {
-                $retrArray[] = $row;
+        for ($i = 0; $i < count($filters); $i++) {
+            if ($filters[$i][0] == 'vivienda_price') {
+                // Si el filtro es 'filter_price', separamos el contenido por la coma
+                list($value1, $value2) = explode('|', $filters[$i][1]);
+                $select .= " AND v." . $filters[$i][0] . " BETWEEN " . $value1 . " AND " . $value2;
+            } else {
+                // Si no, asumimos que es un filtro de igualdad
+                $select .= " AND v." . $filters[$i][0] . "=" . $filters[$i][1];
             }
         }
-        echo "<script>console.log('Consulta filtrada:', '" . $consulta . "');</script>";
-    
-        return $retrArray;
-    }
 
-    function redirect($filters_home){
-        //return $filters_home;  
-        $select = "SELECT * FROM viviendas";
+        // return $select; IMPORTANTE PARA DEVOLVER EL VALOR DE LA CONSULTA
 
-        if (isset($filters_home[0]['id_operation'])){  // Si el array de filtros contiene el índice id_operation
-            $add_filter = $filters_home[0]['id_operation'][0];
-            $select.= " where id_operation = '$add_filter'";
-        }
-        else if(isset($filters_home[0]['id_category'])) { // Si el array de filtros contiene el índice id_category
-            $add_filter = $filters_home[0]['id_category'][0];
-            $select.= " where id_category = '$add_filter'";
-        }
-        else if(isset($filters_home[0]['id_city'])) { // Si el array de filtros contiene el índice id_city
-            $add_filter = $filters_home[0]['id_city'][0];
-            $select.= " where id_city = '$add_filter'";
-        }
-        else if(isset($filters_home[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
-            $add_filter = $filters_home[0]['id_type'][0];
-            $select.= " where id_type = '$add_filter'";
-        }
-        //$select.= " LIMIT $total_prod, $items_page";
-       
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res -> num_rows > 0) {
+        if ($res->num_rows > 0) { // Si hay más de 0 filas
             while ($row = mysqli_fetch_assoc($res)) {
                 $retrArray[] = $row;
             }
@@ -140,4 +132,64 @@ class DAOShop{
         return $retrArray;
     }
 
+    function select_categories()
+    {
+        $sql = "SELECT * FROM category";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
+
+        $retrArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+                $retrArray[] = $row; //array_push($retrArray, $row);
+            }
+        }
+        return $retrArray;
+    }
+    function select_type()
+    {
+        $sql = "SELECT * FROM type";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
+
+        $retrArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+                $retrArray[] = $row; //array_push($retrArray, $row);
+            }
+        }
+        return $retrArray;
+    }
+    function select_city()
+    {
+        $sql = "SELECT * FROM city";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
+
+        $retrArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+                $retrArray[] = $row; //array_push($retrArray, $row);
+            }
+        }
+        return $retrArray;
+    }
+    function select_operation()
+    {
+        $sql = "SELECT * FROM operation";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        connect::close($conexion);
+
+        $retrArray = array();
+        if (mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+                $retrArray[] = $row; //array_push($retrArray, $row);
+            }
+        }
+        return $retrArray;
+    }
 }

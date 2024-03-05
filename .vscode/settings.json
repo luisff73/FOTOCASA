@@ -1,3 +1,5 @@
 {
-    "php.validate.executablePath": ""
+    "php.validate.executablePath": "C:/SCANNER/php-8.3.0-nts-Win32-vs16-x64",
+    "editor.formatOnSave": true,
+    "php.debug.executablePath": "C:/SCANNER/php-8.3.0-nts-Win32-vs16-x64"
 }

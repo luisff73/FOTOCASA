@@ -1,41 +1,48 @@
 <html>
+
 <body>
-    <br>
-    <br>
-    <br>
-<div class="shopdivide">
-<!-- <script> console.log("has entrado en shop.html"); </script> -->
 
-    <h1>&nbsp;&nbsp;&nbsp;&nbsp;Listado de Inmuebles</h1>    
-    <!-- list-viviendas -->
-    
-    <table class="listadoviviendas" border="1" style="width: 100%;">
-        <tr>
-          <td>
-            <!-- Columna de la izquierda -->
-            <ul style="width: 500px;">
-                <div class="container_shop" id="content_shop_viviendas"> </div> 
-            </ul>
-          </td>
-          <td>
-            <!-- Columna de la derecha -->
-            <i style="width: 500px;">Fila única</i>
-          </td>
-        </tr>
-      </table>
+  <div style="height: 250px;"> </div> <!-- Elemento estático que ocupa 250px -->
+
+  <div class="filters"></div>
+  <div class="shopdivide">
+    <!-- <script> console.log("has entrado en shop.html"); </script> -->
+    <div class="filters_shop_html" id="filters_shop">
+      <h1>&nbsp;&nbsp;&nbsp;&nbsp;Listado de Inmuebles</h1>
     </div>
-                              
-    <!-- details-viviendas -->
-    <div id="details-shop">
-      <div class="date_img" id="container-date-img">
-          <!-- Contenido del primer elemento -->
-      </div>
-      <div class="date_viviendas" id="container-date-img">
-          <!-- Contenido del segundo elemento -->
-      </div>
-  </div>
-  
 
-</div>  
+
+    <!-- list-viviendas -->
+
+    <table class="listadoviviendas" style="width: 100%; border: 1px; color:black;">
+      <tr>
+        <td style="width: 50%">
+          <!-- Columna de la izquierda -->
+          <ul style="width: 100%; border:1px; color:black">
+            <div class="container_shop" id="content_shop_viviendas"> </div>
+          </ul>
+        </td>
+        <td>
+          <!-- Columna de la derecha -->
+          <i style="width: 50%; border:1px; color:black;">Mapa ubicacion</i>
+          <div id="map" style="width: 100%; height: 500px;"></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- details-viviendas -->
+  <div id="details-shop">
+    <div class="date_img" id="container-date-img">
+      <!-- Contenido del primer elemento -->
+    </div>
+    <div class="date_viviendas" id="container-date-img">
+      <!-- Contenido del segundo elemento -->
+    </div>
+  </div>
+
+
+  </div>
 </body>
+
 </html>

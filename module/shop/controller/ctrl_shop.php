@@ -6,16 +6,20 @@ include($path . "/module/shop/model/DAO_shop.php");
 switch ($_GET['op']) {
 
     case 'list':
+        //die('<script>console.log("El valor actual de filters home en el list es: ' . json_encode($_POST['filters_home']) . '");</script>');
         include('module/shop/view/shop.html');
         break;
 
     case 'all_viviendas':  // a esta opcion se accede desde el menu principal
-        // echo "Este es un mensaje de prueba en la consola all viviendas";
-        // echo "console.log(" . json_encode('hola') . ");"; esto si que funciona
-        // die('<script>console.log('.json_encode( 'hola' ) .');</script>'); esto si que funciona
+        // echo "console.log(" . json_encode('hola') . ");"; // esto si que funciona
+        // die('<script>console.log(' . json_encode('hola') . ');</script>'); //esto si que funciona
+
         try {
             $daoshop = new DAOShop();
             $Dates_Viviendas = $daoshop->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
+
+            //echo json_encode($Dates_Viviendas);
+            //break;
         } catch (Exception $e) {
             echo json_encode("error");
         }
@@ -25,8 +29,47 @@ switch ($_GET['op']) {
         } else {
             echo json_encode("error");
         }
-        //include('module/shop/view/shop.html');  //
         break;
+
+    case 'filters_home':
+        // echo "console.log(" . json_encode('hola') . ");"; esto si que funciona
+        //die('<script>console.log(' . json_encode('hola') . ');</script>'); //esto si que funciona
+        try {// si no hay errores en la consulta
+            $daoshop = new DAOShop();
+            $Dates_Viviendas = $daoshop->filters_home($_POST['filters']); //llamamos a la funcion que nos devuelve todas las viviendas
+        } catch (Exception $e) { // si hay un error en la consulta
+            echo json_encode("error"); //devolvemos un mensaje de error
+        }
+
+        if (!empty($Dates_Viviendas)) {
+            echo json_encode($Dates_Viviendas);
+        } else {
+            echo json_encode("error");
+        }
+
+        break;
+
+    case 'filters_shop':
+        //echo json_encode($_POST['filters_shop']); // 
+        //echo "console.log(" . json_encode('hola') . ");"; // esto si que funciona
+        //die('<script>console.log(' . json_encode('hola') . ');</script>'); //esto si que funciona
+        try {/// si no hay errores en la consulta
+            $daoshop = new DAOShop();
+            $Dates_Viviendas = $daoshop->filters_shop($_POST['filters']); //llamamos a la funcion que nos devuelve todas las viviendas
+            //echo ('<script>console.log(' . json_encode('hola has entrado en filters shop') . ');</script>');
+        } catch (Exception $e) { // si hay un error en la consulta
+            echo json_encode("error"); //devolvemos un mensaje de error
+        }
+
+        if (!empty($Dates_Viviendas)) { /// si hay datos en la consulta
+            echo json_encode($Dates_Viviendas);
+            //echo ('<script>console.log(' . json_encode($Dates_Viviendas) . ');</script>');
+        } else {
+            echo json_encode("error");
+        }
+
+        break;
+
 
     case 'details_vivienda':  //request al servidor
         //echo json_encode('Has entrado en details vivienda con el id ' . $_GET['id']);
@@ -55,63 +98,87 @@ switch ($_GET['op']) {
             $rdo[1][] = $Date_images;
             echo json_encode($rdo);
         } else {
-            
+
             echo json_encode("error");
         }
         break;
 
-    case 'print_filters_home':
-        $homeQuery = new DAOShop();
-        $selSlide = $homeQuery -> print_filters_home();
-        if (!empty($selSlide)) {
-            echo json_encode($selSlide);
+    case 'select_categories':
+        try {
+            $daohome = new DAOShop();
+            $Select = $daohome->select_categories();
+        } catch (Exception $e) {
+            echo json_encode("error");
         }
-        else {
-            echo "error";
-        }
-        break;
 
-    //  case 'filter':
-    //     echo "Este es un mensaje de prueba en la consola filter";
-    //     echo "console.log(" . json_encode($selSlide) . ");";
-    //     echo "</script>";
-        
-    //     echo json_encode('Has entrado en filters vivienda con el id ' . $_GET['id']);
-    //     echo json_encode('Has entrado en filters vivienda el valor de filters_home es ' . $_GET['filters_home']);
-        
-    //     //break;  //response del servidor
-    //         print_r($_POST['filters_home'], true); // Suponiendo que estás pasando los datos de los filtros por POST
-    //         $homeQuery = new DAOShop();
-    //         $selSlide = $homeQuery->filters_home($_POST['filters_home']); // ¿¿post o get??
-    //         if (!empty($selSlide)) {
-    //             echo json_encode($selSlide);
-    //         } else {
-    //             echo "error";
-    //         }
-    //         break;
-        
-
-    case 'redirect':
-        // echo "console.log(" . json_encode('hola') . ");"; ojo que esto aparece en la cabecera de la pagina
-        // echo "Este es un mensaje de prueba en la consola redirect"; 
-        //die('<script>console.log('.json_encode( 'Has entrado en Ctrl_shop opcion redirect' ) .');</script>');
-        echo json_encode($_POST['filters_home']);
-        echo "console.log(" . json_encode('filters_home') . ");";
-        
-        die('<script>console.log("El valor actual de filters home es: ' . json_encode($_POST['filters_home']) . '");</script>');
-
-        $homeQuery = new DAOShop();
-        $selSlide = $homeQuery -> redirect($_POST['filters_home']);
-        if (!empty($selSlide)) {
-            echo json_encode($selSlide);
-        }
-        else {
-            echo "error";
+        if (!empty($Select)) {
+            echo json_encode($Select);
+        } else {
+            echo json_encode("error");
         }
         break;
 
+    case 'select_city':
+        try {
+            $daohome = new DAOShop();
+            $SelectCity = $daohome->select_city();
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($SelectCity)) {
+            echo json_encode($SelectCity);
+        } else {
+            echo json_encode("error");
+        }
+        break;
+
+    case 'select_type':
+        try {
+            $daohome = new DAOShop();
+            $SelectType = $daohome->select_type();
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($SelectType)) {
+            echo json_encode($SelectType);
+        } else {
+            echo json_encode("error");
+        }
+        break;
+
+    case 'select_operation':
+        try {
+            $daohome = new DAOShop();
+            $SelectOperation = $daohome->select_operation();
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($SelectOperation)) {
+            echo json_encode($SelectOperation);
+        } else {
+            echo json_encode("error");
+        }
+        break;
+
+    case 'select_price':
+        try {
+            $daohome = new DAOShop();
+            //$SelectType = $daohome->select_price();
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($SelectType)) {
+            echo json_encode($SelectType);
+        } else {
+            echo json_encode("error");
+        }
+        break;
 
     default;
-        //include("module/exceptions/views/pages/error404.php");
+        include("module/exceptions/views/pages/error404.php");
         break;
 }

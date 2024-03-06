@@ -9,7 +9,7 @@ function loadviviendas() {
         localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
-        highlightFilters();
+        //highlightFilters();
         //alert("el valor de filters home en load viviendas es " + localStorage.getItem('filters_home'));
 
     } else if (verificate_filters_shop != undefined) {
@@ -17,13 +17,13 @@ function loadviviendas() {
         var filters = JSON.parse(verificate_filters_shop); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         //alert('Valor de filters_shop antes de pasarlo al promise ' + filters);
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
-        highlightFilters();
+        //highlightFilters();
         //alert("el valor de verificate filters shop en load viviendas es " + verificate_filters_shop);
         //console.log(verificate_filters_shop);
 
     } else {
         //console.log('has entrado en loadviviendas sin filtros');
-        highlightFilters();
+        //highlightFilters();
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON'); // si no carga todas las viviendas
     }
 
@@ -102,7 +102,7 @@ function ajaxForSearch(url, type, dataType, sData = undefined) {
                 }
             }
         }).catch(function () {
-            //console.log('error catch');
+            console.log('error catch');
             //console.log($select);
 
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Function ajaxForSearch SHOP";
@@ -315,32 +315,30 @@ function filter_button() { //funcion para filtrar los productos
 
         if (localStorage.getItem('filter_category')) {//si hay un valor en el localstorage con la key filter_category
             filter_array.push(['id_category', localStorage.getItem('filter_category')])//añadimos al array filter el valor del localstorage con la key filter_category
-            localStorage.removeItem('filters_category');
+            localStorage.removeItem('filter_category');
         }
 
         if (localStorage.getItem('filter_operation')) {
             filter_array.push(['id_operation', localStorage.getItem('filter_operation')])
-            localStorage.removeItem('filters_operation');
+            localStorage.removeItem('filter_operation');
         }
 
         if (localStorage.getItem('filter_type')) {
             filter_array.push(['id_type', localStorage.getItem('filter_type')])
-            localStorage.removeItem('filters_type');
+            localStorage.removeItem('filter_type');
         }
 
         if (localStorage.getItem('filter_city')) {
             filter_array.push(['id_city', localStorage.getItem('filter_city')])
-            localStorage.removeItem('filters_city');
+            localStorage.removeItem('filter_city');
         }
         if (localStorage.getItem('filter_price')) {
             filter_array.push(['vivienda_price', localStorage.getItem('filter_price')])
-            localStorage.removeItem('filters_price');
+            localStorage.removeItem('filter_price');
         }
         //alert('valor de filter_array cuando pulsamos en el boton filter ' + filter_array);
         // ahora guardamos en local storage el valor de filter_array en localstorage con la key filters_shop
         localStorage.setItem('filters_shop', JSON.stringify(filter_array));//pasamos el array a string
-        //alert('filters_shop guardado con el valor ' + localStorage.getItem('filters_shop'));
-        //remove_filters();
 
         location.reload();//recargamos la página
         highlightFilters();
@@ -351,13 +349,10 @@ function filter_button() { //funcion para filtrar los productos
         remove_filters();
         if (filter_array == 0) {//si el array filter es igual a 0
             ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON');
-            //highlight(filter);//llamamos a la funcion highlight y le pasamos el array filter
             location.reload();//recargamos la página
         }
     });
 }
-
-//guardar en localstorege filtro
 
 function highlightFilters() {
     var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
@@ -367,24 +362,24 @@ function highlightFilters() {
         all_filters.forEach(function (filter) {
             switch (filter[0]) { // El primer elemento de cada filtro es el identificador
                 case 'id_category':
-                    $('#filter_category').val(filter[1]); // El segundo elemento es el valor del filtro
+                    $('#select_category').val(filter[1]); // El segundo elemento es el valor del filtro
                     console.log(filter[1]);
                     break;
                 case 'id_operation':
-                    $('#filter_operation').val(filter[1]);
+                    $('#select_operation').val(filter[1]);
                     console.log(filter[1]);
                     break;
                 case 'id_type':
-                    $('#filter_type').find('input[value="' + filter[1] + '"]').prop('checked', true);
+                    $('#select_type').find('input[value="' + filter[1] + '"]').prop('checked', true);
                     console.log(filter[1]);
                     break;
                 case 'id_city':
-                    $('#filter_city').val(filter[1]);
+                    $('#select_city').val(filter[1]);
                     console.log(filter[1]);
                     break;
                 case 'vivienda_price':
                     //alert('valor de filter price ' + filter[1]);
-                    $('#filter_price').val(filter[1]);
+                    $('#select_price').val(filter[1]);
                     console.log(filter[1]);
                     break;
                 default:
@@ -453,7 +448,7 @@ function loadTypefilter() {
                 $('#select_type').append('<label><input type="radio" name="type" value="' + type.id_type + '"> ' + type.type_name + '<span class="checktype"></span></label>');
             }
         })
-        .catch(function (error) {
+        .catch(function () {
             //console.error("Error al cargar los tipos:", error);
             //window.location.href = "view/inc/error503.php";
         });
@@ -475,7 +470,6 @@ function loadPricefilter() {
 
 
 $(document).ready(function () {
-    //highlightFilters();
     print_filters();
     loadCategoriesfilter();
     loadOperationfilter();
@@ -485,6 +479,7 @@ $(document).ready(function () {
     loadviviendas();
     clicks_details();
     filter_button();
+    highlightFilters();
 });
 
 

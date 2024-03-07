@@ -306,13 +306,13 @@ small {
 .portfolio-item .item-main {
   margin: 0 10px 10px 0;
   text-align: center;
-  padding: 20px;
+
 }
 
 .portfolio-item .item-main2 {
   margin: 0 10px 10px 0;
   text-align: center;
-  padding: 20px;
+
 
 }
 
@@ -342,6 +342,10 @@ small {
   height: auto;
 }
 
+.port-type.portfolio-items.col-4 img {
+  width: 13%;
+}
+
 .portfolio-item .portfolio-image {
   position: relative;
   height: auto;
@@ -350,7 +354,7 @@ small {
 
 .portfolio-item h5 {
   margin: 0;
-  padding: 20px 0px 20px 0px;
+  /* padding: 20px 0px 20px 0px; */
 
   font-size: 20px;
 }
@@ -396,19 +400,19 @@ small {
 }
 
 #containercategories {
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
   display: flex;
   overflow-x: auto;
   margin: 0;
   /* Elimina el margen del contenedor principal */
-  padding: 10px;
+  /* padding: 10px; */
   /* Agrega un pequeño espacio interior al contenedor principal */
 }
 
 #containertype {
-  margin-left: 20px;
-  margin-right: 20px;
+  /* margin-left: 20px;
+  margin-right: 20px; */
   display: flex;
   overflow-x: auto;
   margin: 0;
@@ -719,4 +723,64 @@ small {
 
 .checkbox-container:hover .checktype {
   background-color: #cbccce;
+}
+
+.toggle-button {
+  border: none;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+.div-filters button.toggle-button {
+  padding: 0px 0px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.toggle-button img {
+  background-color: #f4f4f4;
+  width: 100%;
+  height: 100%;
+
+}
+
+.toggle-button.active img {
+  /* Estilos cuando el botón está activado */
+  background-color: transparent;
+  opacity: 1;
+  /* Imagen completamente visible */
+  filter: brightness(1);
+
+}
+
+.toggle-button:not(.active) img {
+  /* Estilos cuando el botón está desactivado */
+  background-color: transparent;
+  opacity: 0.7;
+  /* Imagen semi-transparente */
+  filter: brightness(0.6);
+  /* Imagen más oscura */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
+
+}
+
+#containerbusquedas {
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  overflow-x: auto;
+  margin: 0;
+  /* Elimina el margen del contenedor principal */
+  padding: 10px;
+  /* Agrega un pequeño espacio interior al contenedor principal */
+  overflow-x: hidden;
+  /* Agrega una barra de desplazamiento horizontal si es necesario */
 }

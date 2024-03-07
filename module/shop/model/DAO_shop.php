@@ -79,8 +79,16 @@ class DAOShop
         } else if (isset($filters[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
             $add_filter = $filters[0]['id_type'][0];
             $select .= " and t.id_type = '$add_filter'";
+        } else if (isset($filters[0]['adapted'])) { // Si el array de filtros contiene el índice adapted
+            $add_filter = $filters[0]['adapted'][0];
+            $select .= " and a.adapted = '$add_filter'";
+        } else if (isset($filters[0]['vivienda_price'])) { // Si el array de filtros contiene el índice vivienda_price
+            $add_filter = $filters[0]['vivienda_price'][0];
+            $select .= " and v.vivienda_price = '$add_filter'";
+        } else if (isset($filters[0]['filter_order'])) { // Si el array de filtros contiene el índice filter_order
+            $add_filter = $filters[0]['filter_order'][0];
+            $select .= " ORDER BY v.vivienda_price $add_filter";
         }
-
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
@@ -97,7 +105,6 @@ class DAOShop
     }
     function filters_shop($filters)
     {
-
         //return $filters;  //Esto no devuelve filters, con estrocomprobamos que resuelve ajaxs desde el console.log
         //$prueba = "hola dao_filters shop";
         //return $prueba;
@@ -106,16 +113,22 @@ class DAOShop
         $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
 
+
+        $order = ""; // Variable para almacenar la cláusula ORDER BY
+
         for ($i = 0; $i < count($filters); $i++) {
             if ($filters[$i][0] == 'vivienda_price') {
                 // Si el filtro es 'filter_price', separamos el contenido por la coma
                 list($value1, $value2) = explode('|', $filters[$i][1]);
                 $select .= " AND v." . $filters[$i][0] . " BETWEEN " . $value1 . " AND " . $value2;
+            } elseif ($filters[$i][0] == 'filter_order') {
+                $order = " ORDER BY " . $filters[$i][1];
             } else {
-                // Si no, asumimos que es un filtro de igualdad
                 $select .= " AND v." . $filters[$i][0] . "=" . $filters[$i][1];
             }
         }
+
+        $select .= $order;
 
         // return $select; IMPORTANTE PARA DEVOLVER EL VALOR DE LA CONSULTA
 
@@ -192,4 +205,35 @@ class DAOShop
         }
         return $retrArray;
     }
+
+    function incrementa_visita($id)
+    {
+        $sqlupdate = "UPDATE most_visited SET visitas = visitas + 1 WHERE id_vivienda = '$id';";
+        // '$id';";
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sqlupdate);
+        connect::close($conexion);
+        return $res;
+    }
+
+
+
+    // function select_recientes()
+    // {
+    //     $sql = "SELECT * FROM operation";
+    //     $conexion = connect::con();
+    //     $res = mysqli_query($conexion, $sql);
+    //     connect::close($conexion);
+
+    //     $retrArray = array();
+    //     if (mysqli_num_rows($res) > 0) {
+    //         while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+    //             $retrArray[] = $row; //array_push($retrArray, $row);
+    //         }
+    //     }
+    //     return $retrArray;
+    // }
+
+
+
 }

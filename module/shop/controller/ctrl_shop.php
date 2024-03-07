@@ -71,6 +71,8 @@ switch ($_GET['op']) {
         break;
 
 
+
+
     case 'details_vivienda':  //request al servidor
         //echo json_encode('Has entrado en details vivienda con el id ' . $_GET['id']);
         //break;  //response del servidor
@@ -177,6 +179,22 @@ switch ($_GET['op']) {
             echo json_encode("error");
         }
         break;
+
+    case 'incrementa_visita':
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            echo json_encode("ID de vivienda no válido");
+            break;
+        }
+
+        try {
+            $daoshop = new DAOShop();
+            $daoshop->incrementa_visita($_GET['id']);
+            echo json_encode("Visita incrementada con éxito");
+        } catch (Exception $e) {
+            echo json_encode("Error incrementando la visita: " . $e->getMessage());
+        }
+        break;
+
 
     default;
         include("module/exceptions/views/pages/error404.php");

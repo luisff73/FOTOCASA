@@ -116,6 +116,57 @@ function loadoperation() {
         });
 }
 
+
+
+function mas_visitadas() {
+
+
+    ajaxPromise('module/home/controller/ctrl_home.php?op=mas_visitadas', 'GET', 'JSON')
+        .then(function (data) {
+            for (row in data) {
+                $('<div></div>').attr('class', "div_busquedas").attr({ 'id': data[row].id_vivienda }).appendTo('#masvisitadas')
+                    .html(
+                        "<li class='portfolio-item'>" +
+                        "<div class='item-main'>" +
+                        "<div class='portfolio-image'>" +
+                        "<img src = " + data[row].image_name + " alt='foto' </img> " +
+                        "</div>" +
+                        "<h5>" + data[row].state + "</h5>" +
+                        "<p>Precio: " + data[row].vivienda_price + " Visitas: " + data[row].visitas + "</p>" +
+                        "</div>" +
+                        "</li>"
+                    )
+            }
+        }).catch(function () {
+            //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
+        });
+}
+
+
+function ultimas_busquedas() {
+
+
+    ajaxPromise('module/home/controller/ctrl_home.php?op=ultimas_busquedas', 'GET', 'JSON')
+        .then(function (data) {
+            for (row in data) {
+                $('<div></div>').attr('class', "div_busquedas").attr({ 'id': data[row].id_vivienda }).appendTo('#containerbusquedas')
+                    .html(
+                        "<li class='portfolio-item'>" +
+                        "<div class='item-main'>" +
+                        "<div class='portfolio-image'>" +
+                        "<img src = " + data[row].image_name + " alt='foto' </img> " +
+                        "</div>" +
+                        "<h5>" + data[row].state + "</h5>" +
+                        "<p>Precio: " + data[row].vivienda_price + "</p>" +
+                        "</div>" +
+                        "</li>"
+                    )
+            }
+        }).catch(function () {
+            //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
+        });
+}
+
 function clicks() { //función que se encarga de redirigir a la página de shop con los filtros seleccionados
 
 
@@ -174,5 +225,7 @@ $(document).ready(function () {
     loadcatcity();
     loadCatTypes();
     loadoperation();
+    ultimas_busquedas();
+    mas_visitadas();
     clicks();
 });

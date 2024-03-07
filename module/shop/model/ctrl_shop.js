@@ -17,13 +17,16 @@ function loadviviendas() {
         var filters = JSON.parse(verificate_filters_shop); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         //alert('Valor de filters_shop antes de pasarlo al promise ' + filters);
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
-        //highlightFilters();
+
+        // setTimeout(() => {
+        //     highlightFilters();
+        // }, "1000");
         //alert("el valor de verificate filters shop en load viviendas es " + verificate_filters_shop);
         //console.log(verificate_filters_shop);
 
     } else {
-        //console.log('has entrado en loadviviendas sin filtros');
-        //highlightFilters();
+
+
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON'); // si no carga todas las viviendas
     }
 
@@ -113,7 +116,14 @@ function clicks_details() {
     $(document).on("click", ".detalles_inmueble", function () {
         var id_vivienda = this.getAttribute('id');
         loadDetails(id_vivienda);
-        //console.log('id_vivienda en click ' + id_vivienda);
+
+        ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
+            .then(function (data) {
+                console.log('Visita incrementada con éxito');
+            })
+            .catch(function (error) {
+            });
+
     });
 }
 
@@ -198,7 +208,6 @@ function loadDetails(id_vivienda) {
         });
 }
 
-
 function print_filters() {
 
     // Creamos un nuevo elemento <div> con la clase "div-filters" y luego lo agregamos como un hijo al elemento con la clase "filters".
@@ -247,6 +256,18 @@ function print_filters() {
             // '<label><input type="radio" name="type" value="8"> Buen estado<span class="checktype"></span></label>' +
             // '<label><input type="radio" name="type" value="9"> A reformar<span class="checktype"></span></label>' +
             '</div>' +
+            '</select>' +
+            '<select class="filter_order" id="select_order">' +
+            '<option style="display:none">Ordenar por</option>' +
+            '<option value="ci.city_name">Localidad</option>' +
+            '<option value="o.operation_name">Operacion</option>' +
+            '<option value="v.vivienda_price">Precio</option>' +
+            '</select>' +
+            //'<div class="filter_button">' +
+            '<button class="toggle-button" id="toggleButton">' +
+            '<img src="view/img/logo_minusvalido_mini.png" alt="Toggle Image">' +
+            '</button>' +
+            //</div>' +
             '<div id="overlay">' +
             '<div class= "cv-spinner" >' +
             '<span class="spinner"></span>' +
@@ -254,6 +275,7 @@ function print_filters() {
             '</div > ' +
             '</div>' +
             '</div>' +
+
             '<p> </p>' +
             '<button class="filter_button button_spinner" id="Button_filter">Filter</button>' +
             '<button class="filter_remove" id="Remove_filter">Remove</button>');
@@ -280,6 +302,13 @@ function filter_button() { //funcion para filtrar los productos
         var selectedType = $('#select_type input:checked').val();
         localStorage.setItem('filter_type', selectedType);
     });
+
+    $('.filter_order').change(function () {
+        localStorage.setItem('filter_order', this.value);
+    });
+    if (localStorage.getItem('filter_order')) {
+        $('.filter_order').val(localStorage.getItem('filter_order'));
+    }
 
     $(document).ready(function () {
         var storedType = localStorage.getItem('filter_type');
@@ -308,40 +337,46 @@ function filter_button() { //funcion para filtrar los productos
     if (localStorage.getItem('filter_price')) {
         $('.filter_price').val(localStorage.getItem('filter_price'));
     }
-
+    $('.filter_adapted').change(function () {
+        localStorage.setItem('filter_adapted', this.value);
+    });
+    if (localStorage.getItem('filter_adapted')) {
+        $('.filter_adapted').val(localStorage.getItem('filter_price'));
+    }
+    if (localStorage.getItem('filter_order')) {
+        $('.filter_order').val(localStorage.getItem('filter_order'));
+    }
 
     $(document).on('click', '.filter_button', function () {//cuando hacemos click en el boton con la clase filter_button
         var filter_array = [];
 
         if (localStorage.getItem('filter_category')) {//si hay un valor en el localstorage con la key filter_category
             filter_array.push(['id_category', localStorage.getItem('filter_category')])//añadimos al array filter el valor del localstorage con la key filter_category
-            localStorage.removeItem('filter_category');
         }
 
         if (localStorage.getItem('filter_operation')) {
             filter_array.push(['id_operation', localStorage.getItem('filter_operation')])
-            localStorage.removeItem('filter_operation');
         }
 
         if (localStorage.getItem('filter_type')) {
             filter_array.push(['id_type', localStorage.getItem('filter_type')])
-            localStorage.removeItem('filter_type');
         }
 
         if (localStorage.getItem('filter_city')) {
             filter_array.push(['id_city', localStorage.getItem('filter_city')])
-            localStorage.removeItem('filter_city');
         }
         if (localStorage.getItem('filter_price')) {
             filter_array.push(['vivienda_price', localStorage.getItem('filter_price')])
-            localStorage.removeItem('filter_price');
+        }
+        if (localStorage.getItem('filter_order')) {
+            filter_array.push(['filter_order', localStorage.getItem('filter_order')])
         }
         //alert('valor de filter_array cuando pulsamos en el boton filter ' + filter_array);
         // ahora guardamos en local storage el valor de filter_array en localstorage con la key filters_shop
         localStorage.setItem('filters_shop', JSON.stringify(filter_array));//pasamos el array a string
-
         location.reload();//recargamos la página
-        highlightFilters();
+
+
     });
 
     $(document).on('click', '.filter_remove', function () {
@@ -352,9 +387,13 @@ function filter_button() { //funcion para filtrar los productos
             location.reload();//recargamos la página
         }
     });
+    setTimeout(() => {
+        highlightFilters();
+    }, "500");
 }
 
 function highlightFilters() {
+
     var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
     console.log(all_filters);
 
@@ -382,6 +421,10 @@ function highlightFilters() {
                     $('#select_price').val(filter[1]);
                     console.log(filter[1]);
                     break;
+                case 'order':
+                    $('filter_order').val(filter[1]);
+                    console.log(filter[1]);
+                    break;
                 default:
                     break;
             }
@@ -395,6 +438,7 @@ function remove_filters() {
     localStorage.removeItem('filter_type');
     localStorage.removeItem('filter_city');
     localStorage.removeItem('filter_price');
+    localStorage.removeItem('filter_order');
     filters_shop.length = 0;
     location.reload();
 }
@@ -479,7 +523,6 @@ $(document).ready(function () {
     loadviviendas();
     clicks_details();
     filter_button();
-    highlightFilters();
 });
 
 

@@ -81,6 +81,41 @@ switch ($_GET['op']) {
         }
         break;
 
+    case 'ultimas_busquedas':
+        try {
+            $daohome = new DAOHome();
+            //$Dates_Ultimas = $daohome->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
+
+            $Dates_Ultimas = $daohome->filters_busquedas(); //llamamos a la funcion que nos devuelve todas las viviendas
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($Dates_Ultimas)) {
+            echo json_encode($Dates_Ultimas);
+
+        } else {
+            echo json_encode("error");
+        }
+        break;
+
+    case 'mas_visitadas';
+
+        try {
+            $daohome = new DAOHome();
+            $Dates_Mas_Visitadas = $daohome->select_mas_visitadas(); //llamamos a la funcion que nos devuelve todas las viviendas
+        } catch (Exception $e) {
+            echo json_encode("error");
+        }
+
+        if (!empty($Dates_Mas_Visitadas)) {
+            echo json_encode($Dates_Mas_Visitadas);
+
+        } else {
+            echo json_encode("error");
+        }
+        break;
+
 
     default;
         include("module/exceptions/views/pages/error404.php");

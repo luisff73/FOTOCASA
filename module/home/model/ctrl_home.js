@@ -131,7 +131,7 @@ function mas_visitadas() {
                         "<div class='portfolio-image'>" +
                         "<img src = " + data[row].image_name + " alt='foto' </img> " +
                         "</div>" +
-                        "<h5>" + data[row].state + "</h5>" +
+                        "<h5>" + data[row].city_name + "</h5>" +
                         "<p>Precio: " + data[row].vivienda_price + " Visitas: " + data[row].visitas + "</p>" +
                         "</div>" +
                         "</li>"
@@ -144,6 +144,8 @@ function mas_visitadas() {
 
 
 function ultimas_busquedas() {
+
+    var filters_shop = localStorage.getItem('filters_shop');
 
 
     ajaxPromise('module/home/controller/ctrl_home.php?op=ultimas_busquedas', 'GET', 'JSON')

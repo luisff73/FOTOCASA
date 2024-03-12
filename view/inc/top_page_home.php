@@ -21,6 +21,7 @@
 
     <link href="view/css/style.css" rel="stylesheet" type="text/css" />
     <script src="view/inc/promises.js"></script>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -29,6 +30,7 @@
     <link href="view/css/glider.css" rel="stylesheet" type="text/css" />
     <script src="view/plugins/jquery.prettyPhoto.js"></script>
     <script src="module/home/model/ctrl_home.js"></script>
+    <script src="module/search/model/crtl_search.js"></script>
 
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="view/plugins/bootstrap.js"></script>
@@ -37,5 +39,6 @@
     <script src="view/plugins/jquery-1.10.2.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
 </head>

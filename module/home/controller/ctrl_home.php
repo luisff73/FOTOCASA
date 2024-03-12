@@ -82,11 +82,13 @@ switch ($_GET['op']) {
         break;
 
     case 'ultimas_busquedas':
+
+
         try {
             $daohome = new DAOHome();
             //$Dates_Ultimas = $daohome->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
 
-            $Dates_Ultimas = $daohome->filters_busquedas(); //llamamos a la funcion que nos devuelve todas las viviendas
+            $Dates_Ultimas = $daohome->filters_busquedas($filters); //llamamos a la funcion que nos devuelve todas las viviendas
         } catch (Exception $e) {
             echo json_encode("error");
         }

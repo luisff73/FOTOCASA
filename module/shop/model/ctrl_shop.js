@@ -9,7 +9,6 @@ function loadviviendas() {
         localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
-        //highlightFilters();
         //alert("el valor de filters home en load viviendas es " + localStorage.getItem('filters_home'));
 
     } else if (verificate_filters_shop != undefined) {
@@ -83,7 +82,7 @@ function ajaxForSearch(url, type, dataType, sData = undefined) {
                             "<li><i id='col-ico' class='fa-solid fa-flag-usa'></i>&nbsp;&nbsp; Provincia " + data[row].state + "</li>" +
                             "<li><i id='col-ico' class='fa-solid fa-signal'></i>&nbsp;&nbsp;&nbsp;" + data[row].status + "&nbsp;&nbsp;&nbsp;<i id='col-ico' class='fa-solid fa-vector-square'></i>&nbsp;&nbsp;&nbsp;" + data[row].m2 + " m2" + "</li>" +
                             "<li><i id='col-ico' class='fa-regular fa-font-awesome'></i>&nbsp;&nbsp;&nbsp;" + data[row].category_name + "&nbsp;&nbsp;&nbsp;<i id='col-ico' class='fa-regular fa-chart-bar'></i>&nbsp;&nbsp;&nbsp;" + data[row].type_name + "</li>" +
-                            "<li><i id='col-ico' class='fa-regular fa-font-awesome'></i>&nbsp;&nbsp;&nbsp;" + data[row].operation_name + "</li>" +
+                            "<li><i id='col-ico' class='fa-regular fa-font-awesome'></i>&nbsp;&nbsp;&nbsp;" + data[row].operation_name + "&nbsp;&nbsp;&nbsp;<i id='col-ico' class='fa-regular fa-chart-bar'></i>&nbsp;&nbsp;&nbsp;" + data[row].type_name + " Visitas " + "</li>" +
                             "</ul>" +
                             "</td>" +
                             "<td>" +

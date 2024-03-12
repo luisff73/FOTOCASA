@@ -181,10 +181,6 @@ switch ($_GET['op']) {
         break;
 
     case 'incrementa_visita':
-        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-            echo json_encode("ID de vivienda no válido");
-            break;
-        }
 
         try {
             $daoshop = new DAOShop();

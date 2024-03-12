@@ -784,3 +784,9 @@ small {
   overflow-x: hidden;
   /* Agrega una barra de desplazamiento horizontal si es necesario */
 }
+
+#masvisitadas {
+  display: flex;
+
+  justify-content: left;
+}

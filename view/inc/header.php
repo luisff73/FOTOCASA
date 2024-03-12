@@ -1,13 +1,21 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="index.php?page=ctrl_home&op=list">COMPRACASA</a>
         </div>
+
+        <!-- ======SEARCH====== -->
+        <div class="header__container">
+            <div class="search__form">
+                <select id="search_cities"></select>
+                <select id="search_category"></select>
+                <input type="text" id="autocompletar" autocomplete="off" />
+                <input type="button" value="..." id="search-btn" />
+            </div>
+            <div id="search_auto"></div>
+        </div>
+
+
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.php?page=ctrl_home&op=list">Home</a></li>

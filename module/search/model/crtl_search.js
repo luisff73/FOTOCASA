@@ -1,26 +1,27 @@
-function load_city() {
-    ajaxPromise('module/search/controller/crtl_search.php?op=search_city', 'POST', 'JSON')
+function load_operations() {
+    ajaxPromise('module/search/controller/crtl_search.php?op=search_operation', 'POST', 'JSON')
 
         .then(function (data) {
             // funciona el console.log(data);
-            $('<option>Ciudades</option>').attr('selected', true).attr('disabled', true).appendTo('#search_cities')
+            $('<option>Tipo de operación</option>').attr('selected', true).attr('disabled', true).appendTo('#search_operation')
             for (row in data) {
-                $('<option value="' + data[row].id_city + '">' + data[row].city_name + '</option>').appendTo('#search_cities')
+                $('<option value="' + data[row].id_operation + '">' + data[row].operation_name + '</option>').appendTo('#search_operation')
             }
         }).catch(function () {
-            window.location.href = "view/inc/error404.php";
+            //window.location.href = "view/inc/error404.php";
         });
 }
 
-function load_category(cities) {
-    //este funciona console.log('VALOR DE CITIES EN LOAD CATEGORY ES ' + JSON.stringify(cities));
+function load_category(operation) {
+
     $('#search_category').empty(); //borramos los datos del select
 
-    if (cities == undefined) {
+    if (operation == undefined) {
+
         ajaxPromise('module/search/controller/crtl_search.php?op=search_category_null', 'POST', 'JSON')
             .then(function (data) {
-                //console.log(data);
-                //console.log('VALOR DE CITIES EN LOAD CATEGORY ES ' + cities);
+                //console.log('operation no esta definida' + JSON.stringify(data));
+                //console.log('VALOR DE operation EN LOAD CATEGORY ES ' + operation);
                 $('<option>Tipo de Inmueble</option>').attr('selected', true).attr('disabled', true).appendTo('#search_category')
                 for (row in data) {
                     $('<option value="' + data[row].id_category + '">' + data[row].category_name + '</option>').appendTo('#search_category')
@@ -30,10 +31,12 @@ function load_category(cities) {
             });
     }
     else {
-        //console.log('VALOR DE CITIES EN LOAD CATEGORY ' + JSON.stringify(cities));
-        ajaxPromise('module/search/controller/crtl_search.php?op=search_category', 'POST', 'JSON', cities)
+        //console.log('VALOR DE operation EN LOAD CATEGORY ' + JSON.stringify(operation));
+
+        ajaxPromise('module/search/controller/crtl_search.php?op=search_category', 'POST', 'JSON', operation)
             .then(function (data) {
-                //console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
+                console.log('VALOR DE operation EN LOAD CATEGORY ' + JSON.stringify(operation));
+                console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
                 for (row in data) {
                     $('<option value="' + data[row].id_category + '">' + data[row].category_name + '</option>').appendTo('#search_category')
                 }
@@ -53,7 +56,7 @@ function autocomplete() {  //  ************************ HAY QUE PONER OTRO CAMPO
                 sdata.category = $('#search_category').val();
             }
         }
-        if (($('.search_cities').val() == undefined) && ($('#search_category').val() != 0)) {
+        if (($('.search_operation').val() == undefined) && ($('#search_category').val() != 0)) {
             sdata.category = $('#search_category').val();
         }
         ajaxPromise('module/search/crtl/crtl_search.php?op=autocomplete', 'POST', 'JSON', sdata)
@@ -79,15 +82,15 @@ function autocomplete() {  //  ************************ HAY QUE PONER OTRO CAMPO
 }
 
 function launch_search() {
-    load_city();
+    load_operations();
     load_category();
-    $(document).on('change', '#search_cities', function () {
-        let cities = $(this).val();  //obtenemos el valor del select
-        if (cities === 0) {
+    $(document).on('change', '#search_operation', function () {
+        let operation = $(this).val();  //obtenemos el valor del select
+        if (operation === 0) {
             load_category();
         } else {
-            //ESTE FUNCIONA console.log('VALOR DE CITIES EN LAUNCH SEARCH ES ' + cities);
-            load_category({ cities });
+            //console.log('VALOR DE operation EN LAUNCH SEARCH ES ' + operation);
+            load_category({ operation });
         }
     });
 }
@@ -96,7 +99,6 @@ function launch_search() {
 function button_search() {
     $('#search-btn').on('click', function () {
         var search = [];
-        alert('hola SEARCH-BTN');
         if ($('#search_cities').val() != undefined) {
             search.push({ "cities": [$('#search_cities').val()] })
             if ($('#search_category').val() != undefined) {

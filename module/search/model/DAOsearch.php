@@ -4,9 +4,9 @@ include($path . "model/connect.php");
 
 class DAO_search
 {
-    function search_city()
+    function search_operation()
     {
-        $select = "SELECT id_city, city_name FROM city;";
+        $select = "SELECT id_operation, operation_name FROM operation;";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
@@ -38,10 +38,10 @@ class DAO_search
         return $retrArray;
     }
 
-    function search_category($city)
+    function search_category($operation)
     {
-        $select = "SELECT c.id_category, c.category_name FROM viviendas v, category c
-        WHERE c.id_category = v.id_category AND v.id_city = '$city';";
+        $select = "SELECT distinct c.id_category, c.category_name FROM viviendas v, category c
+        WHERE c.id_category = v.id_category AND v.id_operation = '$operation';";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);

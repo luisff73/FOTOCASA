@@ -4,9 +4,9 @@ include($path . "/module/search/model/DAOsearch.php");
 
 switch ($_GET['op']) {
 
-    case 'search_city';
+    case 'search_operation';
         $homeQuery = new DAO_search();//creamos un objeto de la clase DAO_search
-        $selSlide = $homeQuery->search_city();//llamamos a la funcion search_city
+        $selSlide = $homeQuery->search_operation();//llamamos a la funcion search_operation
         if (!empty($selSlide)) {
             echo json_encode($selSlide);
         } else {
@@ -17,7 +17,7 @@ switch ($_GET['op']) {
     case 'search_category';
 
         $homeQuery = new DAO_search();
-        $selSlide = $homeQuery->search_category($_POST['cities']);
+        $selSlide = $homeQuery->search_category($_POST['operation']);
         if (!empty($selSlide)) {
             echo json_encode($selSlide);
         } else {

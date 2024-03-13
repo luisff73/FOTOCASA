@@ -209,7 +209,6 @@ class DAOShop
     function incrementa_visita($id)
     {
         $sqlupdate = "UPDATE most_visited SET visitas = visitas + 1 WHERE id_vivienda = '$id';";
-        // '$id';";
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sqlupdate);
         connect::close($conexion);

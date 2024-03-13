@@ -57,10 +57,10 @@ class DAO_search
         return $retrArray;
     }
 
-    function select_only_city($complete, $city)
+    function select_only_operation($operation, $complete)
     {
-        $select = "SELECT * FROM viviendas
-        WHERE id_city = '$city' AND id_category LIKE '$complete%'"; // revisar
+        $select = "SELECT v.*, c.city_name, o.operation_name FROM viviendas v, city c, operation o
+        WHERE v.id_city=c.id_city and v.id_operation=o.id_operation and v.id_operation = '$operation' AND c.city_name LIKE '$complete%';";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
@@ -77,7 +77,8 @@ class DAO_search
 
     function select_only_category($category, $complete)
     {
-        $select = "SELECT * FROM viviendas WHERE id_category = '$category' AND id_vivienda LIKE '$complete%'"; // revisar
+        $select = "SELECT v.*, c.city_name, ca.category_name FROM viviendas v, city c, category ca
+        WHERE v.id_city=c.id_city and v.id_category=ca.id_category and ca.id_category = '$category' AND c.city_name LIKE '$complete%';";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
@@ -93,11 +94,10 @@ class DAO_search
     }
 
 
-    function select_brand_category($complete, $brand, $category)
+    function select_operation_category($complete, $operation, $category)
     {
-        $select = "SELECT *
-        FROM car c
-        WHERE c.marca = '$brand' AND c.categoria = '$category' AND c.city LIKE '$complete%'";
+        $select = "SELECT v.*, o.operation_name,ca.category_name, c.city_name FROM viviendas v, operation o, category ca, city c 
+        WHERE v.id_operation=o.id_operation and v.id_category=ca.id_category and v.id_city=c.id_city and o.id_operation = '$operation' AND ca.id_category = '$category' AND c.city_name LIKE '$complete%';";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);
@@ -114,7 +114,7 @@ class DAO_search
 
     function select_city($complete)
     {
-        $select = "SELECT * FROM city WHERE city_name LIKE '$complete%'";
+        $select = "SELECT distinct c.city_name FROM viviendas v, city c WHERE v.id_city=c.id_city and city_name LIKE '$complete%';";
 
         $conexion = connect::con();
         $res = mysqli_query($conexion, $select);

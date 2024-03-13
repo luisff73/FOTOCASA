@@ -37,16 +37,17 @@ switch ($_GET['op']) {
 
 
     case 'autocomplete';
-
-
         try {
             $dao = new DAO_search();
-            if (!empty($_POST['city']) && empty($_POST['category'])) {
-                $rdo = $dao->select_only_city($_POST['complete'], $_POST['city']);
-            } else if (!empty($_POST['city']) && !empty($_POST['category'])) {
-                $rdo = $dao->select_brand_category($_POST['complete'], $_POST['city'], $_POST['category']);
-            } else if (empty($_POST['city']) && !empty($_POST['category'])) {
-                $rdo = $dao->select_only_category($_POST['category'], $_POST['complete']);
+            if (!empty($_POST['operation']) && empty($_POST['category'])) {//si operation no esta vacio y category si
+                $rdo = $dao->select_only_operation($_POST['complete'], $_POST['operation']);//llamamos a la funcion select_only_city
+
+            } else if (empty($_POST['operation']) && !empty($_POST['category'])) {//si operation esta vacio y category no esta vacio
+                $rdo = $dao->select_only_category($_POST['category'], $_POST['complete']); //llamamos a la funcion select_only_category
+
+            } else if (!empty($_POST['operation']) && !empty($_POST['category'])) {//si operation no esta vacio y category no esta vacio
+                $rdo = $dao->select_operation_category($_POST['complete'], $_POST['operation'], $_POST['category']);//llamamos a la funcion select_brand_category
+
             } else {
                 $rdo = $dao->select_city($_POST['complete']);
             }

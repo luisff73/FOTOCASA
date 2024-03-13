@@ -10,9 +10,9 @@
                 <select id="search_operation"></select>
                 <select id="search_category"></select>
                 <input type="text" id="autocompletar" autocomplete="off" />
+                <div id="search_auto"></div>
                 <input type="button" value="..." id="search-btn" />
             </div>
-            <div id="search_auto"></div>
         </div>
 
 

@@ -16,10 +16,11 @@ function load_category(operation) {
 
     $('#search_category').empty(); //borramos los datos del select
 
-    if (operation == undefined) {
+    if (operation == undefined) { //si no hemos rellenado operation
 
         ajaxPromise('module/search/controller/crtl_search.php?op=search_category_null', 'POST', 'JSON')
             .then(function (data) {
+                console.log(data);
                 //console.log('operation no esta definida' + JSON.stringify(data));
                 //console.log('VALOR DE operation EN LOAD CATEGORY ES ' + operation);
                 $('<option>Tipo de Inmueble</option>').attr('selected', true).attr('disabled', true).appendTo('#search_category')
@@ -46,33 +47,42 @@ function load_category(operation) {
     }
 }
 
-function autocomplete() {  //  ************************ HAY QUE PONER OTRO CAMPO QUE NO SEA NI CATEGORIA NI CITY
+function autocomplete() {
 
-    $("#autocompletar").on("keyup", function () {
+    $("#autocompletar").on("keyup", function () {//al pulsar una tecla
+        $('#search_auto').css('visibility', 'visible'); //mostrar el autocompletar 
+
         let sdata = { complete: $(this).val() }; //creamos una variable sdata con el valor del input
-        if (($('#search_cities').val() != 0)) {
-            sdata.cities = $('#search_cities').val();//añadimos el valor del select al objeto con una propiedad cities
-            if (($('#search_cities').val() != 0) && ($('#search_category').val() != 0)) {
-                sdata.category = $('#search_category').val();
+        if (($('#search_operation').val() != 0)) { //si el valor del select es distinto de 0
+            sdata.operation = $('#search_operation').val();//añadimos el valor que tiene almacenado el select search_operation 
+            console.log(sdata.operation);
+            if (($('#search_operation').val() != 0) && ($('#search_category').val() != 0)) {//si el valor del select es distinto de 0
+                sdata.category = $('#search_category').val();//añadimos los valores que tiene almacenado el objeto search_category
+                console.log(sdata.category);
             }
         }
-        if (($('.search_operation').val() == undefined) && ($('#search_category').val() != 0)) {
+        if (($('#search_operation').val() == undefined) && ($('#search_category').val() != 0)) { //si el valor del select es distinto de 0
             sdata.category = $('#search_category').val();
         }
-        ajaxPromise('module/search/crtl/crtl_search.php?op=autocomplete', 'POST', 'JSON', sdata)
+        ajaxPromise('module/search/controller/crtl_search.php?op=autocomplete', 'POST', 'JSON', sdata)
+
             .then(function (data) {
-                $('#search_auto').empty();
-                $('#search_auto').fadeIn(10000000);
+                console.log(sdata);
+                $('#search_auto').empty();//vaciar el autocompletar
+                $('#search_auto').fadeIn(10000000);//mostrar el autocompletar
+
                 for (row in data) {
                     $('<div></div>').appendTo('#search_auto').html(data[row].city_name).attr({ 'class': 'searchElement', 'id': data[row].id_city });
                 }
-                $(document).on('click', '.searchElement', function () {
-                    $('#autocompletar').val(this.getAttribute('id'));
-                    $('#search_auto').fadeOut(1000);
+                $(document).on('click', '.searchElement', function () {//al hacer click en un elemento del autocompletar
+                    $('#autocompletar').val(this.getAttribute('id'));//rellenar el input con el valor del elemento
+                    $('#search_auto').fadeOut(900000);//ocultar el autocompletar
+
                 });
                 $(document).on('click scroll', function (event) { //ocultar el autocompletar al hacer click fuera de él
                     if (event.target.id !== '#autocompletar') {
-                        $('#search_auto').fadeOut(1000);
+                        $('#search_auto').fadeOut(900000);
+                        $('#search_auto').css('visibility', 'collapse');
                     }
                 });
             }).catch(function () {
@@ -99,15 +109,15 @@ function launch_search() {
 function button_search() {
     $('#search-btn').on('click', function () {
         var search = [];
-        if ($('#search_cities').val() != undefined) {
-            search.push({ "cities": [$('#search_cities').val()] })
+        if ($('#search_operation').val() != undefined) {
+            search.push({ "operation": [$('#search_operation').val()] })
             if ($('#search_category').val() != undefined) {
                 search.push({ "category": [$('#search_category').val()] })
             }
             if ($('#autocompletar').val() != undefined) {
                 search.push({ "city": [$('#autocompletar').val()] })
             }
-        } else if ($('#search_cities').val() == undefined) {
+        } else if ($('#search_operation').val() == undefined) {
             if ($('#search_category').val() != undefined) {
                 search.push({ "category": [$('#search_category').val()] })
             }
@@ -125,6 +135,6 @@ function button_search() {
 
 $(document).ready(function () {
     launch_search();
-    //autocomplete();
-    //button_search();
+    autocomplete();
+    button_search();
 });

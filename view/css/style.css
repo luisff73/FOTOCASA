@@ -60,7 +60,7 @@ h5 {
   text-shadow: 0px 1px 0px #5d605c;
 }
 
-.Button_greey:hover {
+/* .Button_greey:hover {
   background-color: rgb(133, 133, 132);
 
 }
@@ -68,7 +68,7 @@ h5 {
 .Button_green:active {
   position: relative;
   top: 1px;
-}
+} */
 
 .Button_blue {
   border-radius: 79px 0px 78px 10px;
@@ -86,14 +86,14 @@ h5 {
   text-shadow: 0px 1px 0px #2f6627;
 }
 
-.Button_blue:hover {
+/* .Button_blue:hover {
   background-color: cyan;
 }
 
 .Button_blue:active {
   position: relative;
   top: 1px;
-}
+} */
 
 .Button_red {
   border-radius: 79px 0px 78px 10px;
@@ -111,14 +111,14 @@ h5 {
   text-shadow: 0px 1px 0px #2f6627;
 }
 
-.Button_red:hover {
+/* .Button_red:hover {
   background-color: red;
 }
 
 .Button_red:active {
   position: relative;
   top: 1px;
-}
+} */
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -787,6 +787,54 @@ small {
 
 #masvisitadas {
   display: flex;
-
   justify-content: left;
+}
+
+.header__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: #c3c3c3;
+  border-bottom: 1px solid #a3a3a3;
+  border-radius: 5px;
+}
+
+.search__form {
+  display: flex;
+  gap: 10px;
+
+}
+
+.search__form select,
+.search__form input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  position: relative;
+}
+
+.search__form input[type="button"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #535353;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#search_auto {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }

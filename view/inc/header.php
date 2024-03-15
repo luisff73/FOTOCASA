@@ -14,8 +14,6 @@
                 <input type="button" value="..." id="search-btn" />
             </div>
         </div>
-
-
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.php?page=ctrl_home&op=list">Home</a></li>
@@ -26,7 +24,6 @@
                     <li><a href="index.php?page=contactus">Contacto</a></li> -->
             </ul>
         </div>
-
     </div>
 </div>
 <!--/.NAVBAR END-->

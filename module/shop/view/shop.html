@@ -2,47 +2,62 @@
 
 <body>
 
-  <div style="height: 250px;"> </div> <!-- Elemento estático que ocupa 250px -->
+  <div style="height: 175px;"> </div> <!-- Elemento estático que ocupa 250px -->
 
   <div class="filters"></div>
+
+
   <div class="shopdivide">
     <!-- <script> console.log("has entrado en shop.html"); </script> -->
     <div class="filters_shop_html" id="filters_shop">
-      <h1>&nbsp;&nbsp;&nbsp;&nbsp;Listado de Inmuebles</h1>
     </div>
-
-
     <!-- list-viviendas -->
-
     <table class="listadoviviendas" style="width: 100%; border: 1px; color:black;">
       <tr>
+        <!-- Columna de la izquierda -->
         <td style="width: 50%">
-          <!-- Columna de la izquierda -->
+          <h3>&nbsp;&nbsp;&nbsp;&nbsp;Listado de Inmuebles</h3>
           <ul style="width: 100%; border:1px; color:black">
-            <div class="container_shop" id="content_shop_viviendas"> </div>
+            <li>
+              <div class="container_shop" id="content_shop_viviendas"> </div>
+            </li>
           </ul>
         </td>
-        <td>
-          <!-- Columna de la derecha -->
-          <i style="width: 50%; border:1px; color:black;">Mapa ubicacion</i>
-          <div id="map" style="width: 100%; height: 500px;"></div>
+        <!-- Columna de la derecha -->
+        <td style="position: fixed; width: 50%;"> <!-- con esto hacemos que la columna de la derecha este fija -->
+          <h3>Ubicación del Inmueble</h3>
+          <div style="width: 100%; border:1px; color:black;">
+          </div>
+          <div id="map" class="map">
+            <!-- <script>
+              mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
+              var map = new mapboxgl.Map({
+                container: 'map', // id del contenedor HTML donde se mostrará el mapa
+                style: 'mapbox://styles/mapbox/streets-v11', // estilo del mapa
+                center: [-0.5209, 38.8254], // posición inicial del mapa (longitud, latitud)
+                zoom: 9 // nivel de zoom inicial
+              });
+            </script> -->
+
+          </div>
         </td>
       </tr>
     </table>
+
   </div>
 
   <!-- details-viviendas -->
   <div id="details-shop">
-    <div class="date_img" id="container-date-img">
+    <div class="date_img" id="container-date-img1">
       <!-- Contenido del primer elemento -->
     </div>
-    <div class="date_viviendas" id="container-date-img">
+    <div class="date_viviendas" id="container-date-img2">
       <!-- Contenido del segundo elemento -->
     </div>
   </div>
 
 
-  </div>
+
 </body>
 
 </html>

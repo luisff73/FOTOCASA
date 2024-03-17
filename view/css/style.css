@@ -845,7 +845,8 @@ small {
 
 #map {
   width: 100%;
-  height: 380px;
+  height: 100vh;
+  /* 100% de la altura de la ventana */
   border-radius: 20px;
   z-index: 1;
 }
@@ -902,4 +903,17 @@ small {
   border: 1px solid rgb(129, 129, 129);
   margin-right: 10px;
 
+}
+
+#imagen_vivienda_mapa {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.list_product_details {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin-bottom: 20px !important;
 }

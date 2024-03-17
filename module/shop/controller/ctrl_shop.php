@@ -18,8 +18,7 @@ switch ($_GET['op']) {
             $daoshop = new DAOShop();
             $Dates_Viviendas = $daoshop->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
 
-            //echo json_encode($Dates_Viviendas);
-            //break;
+
         } catch (Exception $e) {
             echo json_encode("error");
         }

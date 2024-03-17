@@ -17,14 +17,7 @@ function loadviviendas() {
         //alert('Valor de filters_shop antes de pasarlo al promise ' + filters);
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
 
-        // setTimeout(() => {
-        //     highlightFilters();
-        // }, "1000");
-        //alert("el valor de verificate filters shop en load viviendas es " + verificate_filters_shop);
-        //console.log(verificate_filters_shop);
-
     } else {
-
 
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON'); // si no carga todas las viviendas
     }
@@ -42,9 +35,9 @@ function ajaxForSearch(url, type, dataType, sData = undefined) {
             //console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
             //alert(JSON.stringify(filters_shop));
             $('#content_shop_viviendas').empty();  //vacia el contenido de la página de shop.html
-            $('.date_viviendas' && '.date_img').empty();
+            $('.date_viviendas' && '.date_img').empty();//vacia el contenido de la página de shop.html
 
-            if (data == "error") {
+            if (data == "error") {//si el valor de data es igual a error
                 $('<div></div>').appendTo('#content_shop_viviendas')
                     .html(
                         '<h3>¡No se encuentarn resultados con los filtros aplicados!</h3>'
@@ -104,9 +97,57 @@ function ajaxForSearch(url, type, dataType, sData = undefined) {
             mapBox_all(data);
         }).catch(function () {
             console.log('error catch');
-            //console.log($select);
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Function ajaxForSearch SHOP";
         });
+}
+
+function mapBox(id) {
+    console.log(id);
+    mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [id.long, id.lat], // starting position [lng, lat]
+        zoom: 10 // starting zoom
+    });
+    const marker = new mapboxgl.Marker()
+    const minPopup = new mapboxgl.Popup()
+    minPopup.setHTML('<h5>' + id.vivienda_name + '</h5>' +
+        '<p>Precio: ' + id.vivienda_price + '€</p>' +
+        '<img id="imagen_vivienda_mapa"; src=" ' + id.image_name + '"/>')
+    marker.setPopup(minPopup)
+        .setLngLat([id.long, id.lat])
+        .addTo(map);
+}
+
+/**
+ * Renders a map using Mapbox and adds markers for each data item.
+ * @param {Array} data - The data to be displayed on the map.
+ */
+function mapBox_all(data) {
+    //console.log(data);
+    mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
+    const map = new mapboxgl.Map({
+        container: 'map',// id del contenedor HTML donde se mostrará el mapa
+        style: 'mapbox://styles/mapbox/streets-v11',// estilo del mapa
+        //style: 'mapbox://styles/mapbox/streets-v12',
+        center: [-0.5209, 38.8254], // starting position [lng, lat]
+        zoom: 9 // starting zoom
+    });
+
+    for (row in data) {
+        const marker = new mapboxgl.Marker()// creamos un nuevo marcador para cada vivienda
+        const minPopup = new mapboxgl.Popup() // creamos un nuevo popup para cada vivienda
+        mapboxgl.window = window;
+        minPopup.setHTML('<h5 style="text-align:center;">' + data[row].vivienda_name + '</h5><p style="text-align:center;">Inmueble: <b>' + data[row].category_name + '</b><br>' +
+            '<style="text-align:center;">Precio: <b>' + data[row].vivienda_price + '€</b></p>' +
+            '<img id="imagen_vivienda_mapa"; src=" ' + data[row].image_name + '"/>' +
+            '<a class="button button-primary-outline button-ujarak button-size-1 wow fadeInLeftSmall detalles_inmueble" data-wow-delay=".4s" id="' + data[row].id_vivienda + '">Detalles</a>')
+
+        marker.setPopup(minPopup)
+            .setLngLat([data[row].long, data[row].lat])
+            .addTo(map);
+    }
 }
 
 function clicks_details() {
@@ -120,13 +161,10 @@ function clicks_details() {
             })
             .catch(function (error) {
             });
-
     });
 }
 
 function loadDetails(id_vivienda) {
-
-    //console.log("has entrado en load Details viviendas con el id_vivienda " + id_vivienda);
 
     ajaxPromise('module/shop/controller/ctrl_shop.php?op=details_vivienda&id=' + id_vivienda, 'GET', 'JSON')
 
@@ -135,18 +173,6 @@ function loadDetails(id_vivienda) {
             $('#content_shop_viviendas').empty();
             $('.date_img_dentro').empty();
             $('.date_vivienda_dentro').empty();
-
-
-            // // Elimina el bucle for-in y accede directamente a la propiedad que contiene las imágenes
-            // for (var i = 0; i < data[1].length; i++) {
-            //     $('<div></div>').attr({ 'id': data[1][i].id_image, class: 'date_img_dentro' }).appendTo('.date_img')
-            //         .html(
-            //             "<div class='content-img-details'>" +
-            //             "<img src='" + data[1][i].image_name + "' />" +
-            //             "</div>"
-            //         );
-            // }
-
 
             for (row in data[1][0]) { //recorremos el array de imagenes
                 console.log(data);
@@ -198,7 +224,8 @@ function loadDetails(id_vivienda) {
                 cssEase: 'linear',
                 arrows: true,
             });
-            mapBox(id[0]);
+
+            mapBox(data[0]);
 
         }).catch(function () {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
@@ -531,46 +558,9 @@ function loadPricefilter() {
             //window.location.href = "view/inc/error503.php";
         });
 }
-function mapBox_all(data) {
-    console.log(data);
-    mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
-    const map = new mapboxgl.Map({
-        container: '#map',// id del contenedor HTML donde se mostrará el mapa
-        style: 'mapbox://styles/mapbox/streets-v11',// estilo del mapa
-        center: [-0.5209, 38.8254], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
 
-    // for (row in data) {
-    //     const marker = new mapboxgl.Marker()// creamos un nuevo marcador para cada vivienda
-    //     const minPopup = new mapboxgl.Popup() // creamos un nuevo popup para cada vivienda
-    //     minPopup.setHTML('<h3 style="text-align:center;">' + data[row].vivienda_name + '</h3><p style="text-align:center;">Inmueble: <b>' + data[row].category_name + '</b></p>' +
-    //         '<p style="text-align:center;">Precio: <b>' + data[row].vivienda_price + '€</b></p>' +
-    //         '<img src=" ' + data[row].image_name + '"/>' +
-    //         '<a class="button button-primary-outline button-ujarak button-size-1 wow fadeInLeftSmall link" data-wow-delay=".4s" id="' + data[row].id_vivienda + '">Read More</a>')
-    //     marker.setPopup(minPopup)
-    //         .setLngLat([data[row].long, data[row].lat])
-    //         .addTo(map);
-    // }
-}
 
-function mapBox(id) {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [id.long, id.lat], // starting position [lng, lat]
-        zoom: 10 // starting zoom
-    });
-    const markerOntinyent = new mapboxgl.Marker()
-    const minPopup = new mapboxgl.Popup()
-    minPopup.setHTML('<h4>' + id.vivienda_name + '</h4><p>Modelo: ' + id.vivienda_name + '</p>' +
-        '<p>Precio: ' + id.vivienda_price + '€</p>' +
-        '<img src=" ' + id.image_name + '"/>')
-    markerOntinyent.setPopup(minPopup)
-        .setLngLat([id.long, id.lat])
-        .addTo(map);
-}
+
 
 $(document).ready(function () {
     print_filters();

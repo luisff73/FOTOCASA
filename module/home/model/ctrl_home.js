@@ -124,7 +124,7 @@ function mas_visitadas() {
     ajaxPromise('module/home/controller/ctrl_home.php?op=mas_visitadas', 'GET', 'JSON')
         .then(function (data) {
             for (row in data) {
-                $('<div></div>').attr('class', "div_busquedas").attr({ 'id': data[row].id_vivienda }).appendTo('#masvisitadas')
+                $('<div></div>').attr('class', "div_busquedas").attr({ 'id': data[row].id_vivienda }).appendTo('#containermasvisitadas')
                     .html(
                         "<li class='portfolio-item'>" +
                         "<div class='item-main'>" +

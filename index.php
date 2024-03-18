@@ -34,30 +34,27 @@ session_start();
 	 utilizando la función INCLUDE.  -->
 
 <div id="wrapper">
-	<!--wrapper es un contenedor que contiene todos los elementos de la página web.-->
-	<div id="header">
-		<!-- header es la cabecera de la página web.-->
-		<?php
+    <!--wrapper es un contenedor que contiene todos los elementos de la página web.-->
+    <div id="header">
+        <!-- header es la cabecera de la página web.-->
+        <?php
 		include("view/inc/header.php");
 		?>
-	</div>
+    </div>
 
-	<div id="pages">
-		<!-- pages es el cuerpo de la página web.-->
-		<?php
+    <div id="pages">
+        <!-- pages es el cuerpo de la página web.-->
+        <?php
 		include("view/inc/pages.php");
 		?>
-		<br style="clear:both;" />
-	</div>
+        <br style="clear:both;" />
+    </div>
 
-	<div id="footer">
-		<!-- footer es el pie de la página web.-->
-		<?php
+    <div id="footer">
+        <!-- footer es el pie de la página web.-->
+        <?php
 		include("view/inc/footer.php");
 		?>
-	</div>
+    </div>
 
 </div>
-<?php
-include("view/inc/bottom_page.php");  // bottom_page es el final de la página web. en este caso esta vacia
-?>

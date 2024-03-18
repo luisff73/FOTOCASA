@@ -31,7 +31,6 @@ if (isset($_GET['page'])) { // Si existe la variable $_GET['page']...
 			break;
 		default;
 			include("module/home/view/home.html"); // Incluye la vista de inicio.
-			echo $_GET['page'];
 			break;
 	}
 } else { // Si no existe la variable $_GET['page']...(es la primera vez que entrammos)

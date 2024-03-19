@@ -4,19 +4,23 @@ function loadviviendas() {
 
     var verificate_filters_home = localStorage.getItem('filters_home') || undefined; //si no hay un valor, devuelve une valor undefined
     var verificate_filters_shop = localStorage.getItem('filters_shop') || undefined; //si no hay un valor, devuelve une valor undefined
+    var verificate_filters_search = localStorage.getItem('filters_search') || undefined; //si no hay un valor, devuelve une valor undefined
 
     if (verificate_filters_home != undefined) { // comprueba si la variable verificate_filters es distinta de false (si existe)
-        localStorage.removeItem('filters_home');
+        //localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
         //alert("el valor de filters home en load viviendas es " + localStorage.getItem('filters_home'));
-
     } else if (verificate_filters_shop != undefined) {
         //localStorage.removeItem('filters_shop');
         var filters = JSON.parse(verificate_filters_shop); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         //alert('Valor de filters_shop antes de pasarlo al promise ' + filters);
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
-
+    } else if (verificate_filters_search != undefined) {
+        //localStorage.removeItem('filters_search');
+        var filters = JSON.parse(verificate_filters_search); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
+        ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
+        console.log('Valor de filters_search antes de pasarlo al promise ' + verificate_filters_search);
     } else {
 
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON'); // si no carga todas las viviendas
@@ -24,16 +28,9 @@ function loadviviendas() {
 }
 
 function ajaxForSearch(url, type, dataType, sData = undefined) {
-    //console.log('hola ajaxForSearch');
-    //console.log(url);
-    //console.log(type);
-    //console.log(dataType);
-    //console.log(sData);
-    //alert('VALOR DE FILTERS_SHOP EN EL PROMISE' + JSON.stringify(filters_shop));
     ajaxPromise(url, type, dataType, sData)
         .then(function (data) {
-            //console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
-            //alert(JSON.stringify(filters_shop));
+            console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
             $('#content_shop_viviendas').empty();  //vacia el contenido de la página de shop.html
             $('.date_viviendas' && '.date_img').empty();//vacia el contenido de la página de shop.html
 
@@ -120,10 +117,6 @@ function mapBox(id) {
         .addTo(map);
 }
 
-/**
- * Renders a map using Mapbox and adds markers for each data item.
- * @param {Array} data - The data to be displayed on the map.
- */
 function mapBox_all(data) {
     //console.log(data);
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
@@ -442,10 +435,13 @@ function filter_button() { //funcion para filtrar los productos
 function highlightFilters() {
 
     var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
-    console.log(all_filters);
+    //var all_filters = JSON.parse(localStorage.getItem('filters_home'));
+    //console.log('filtros highlight ' + all_filters[0][1]);
 
     if (all_filters && all_filters.length > 0) { // Verifica que el array tenga datos y no esté vacío
-        all_filters.forEach(function (filter) {
+        all_filters.forEach(function (filter) {//recorremos el array de filtros
+            console.log('filtro ' + filter[0]);
+
             switch (filter[0]) { // El primer elemento de cada filtro es el identificador
                 case 'id_category':
                     $('#select_category').val(filter[1]); // El segundo elemento es el valor del filtro
@@ -476,10 +472,14 @@ function highlightFilters() {
                     break;
             }
         });
+    } else {
+        console.log('No hay filtros');
     }
 }
 function remove_filters() {
+    localStorage.removeItem('filters_home');
     localStorage.removeItem('filters_shop');
+    localStorage.removeItem('filters_search');
     localStorage.removeItem('filter_category');
     localStorage.removeItem('filter_operation');
     localStorage.removeItem('filter_type');
@@ -558,7 +558,48 @@ function loadPricefilter() {
             //window.location.href = "view/inc/error503.php";
         });
 }
+function pagination(filter) {
+    var filters_search = JSON.parse(localStorage.getItem('filters_search')); //busca en localstorage el valor de filters_search
+    var filters_shop = JSON.parse(localStorage.getItem('filters_shop'));//busca en localstorage el valor de filters_shop
+    var filters_home = JSON.parse(localStorage.getItem('filters_home'));//busca en localstorage el valor de filters_home
+    var filter = filter
+    if (filters_search) {//si hay un valor en el localstorage con la key filters_search
+        var url = "modules/shop/crtl/crtl_shop.php?op=count_search";
+    } else if (filters_shop != undefined) {//si hay un valor en el localstorage con la key filters_shop
+        var url = "modules/shop/crtl/crtl_shop.php?op=count_shop";
+    } else if (filters_home != undefined) {//si hay un valor en la variable filtros_home
+        var url = "modules/shop/crtl/crtl_shop.php?op=count_home";
+    } else if (filter != undefined) {//si hay un valor en la variable filter
+        var url = "modules/shop/crtl/crtl_shop.php?op=count_filters";
+    } else {//si no hay un valor en la variable filter
+        var url = "modules/shop/crtl/crtl_shop.php?op=count";
+    }
+    ajaxPromise(url, 'POST', 'JSON', { 'filter': filter, 'filters_shop': filters_shop, 'filters_search': filters_search, 'filters_home': filters_home })
+        .then(function (data) {
+            var offset = data[0].contador;
 
+            if (offset >= 3) {
+                total_pages = Math.ceil(offset / 3)
+            } else {
+                total_pages = 1;
+            }
+            //pintar con un for
+            $('#pagination').bootpag({
+                total: total_pages,
+                page: localStorage.getItem('move') ? JSON.parse(localStorage.getItem('move'))[1] / 3 + 1 : 1,
+                maxVisible: total_pages
+            }).on('page', function (event, page) { //sustituir por el evento click con el id de la vivienda
+                offset = 3 * (page - 1);
+                if (filter != undefined) {
+                    ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=filter", filter, offset, 3);
+                } else {
+                    ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=shopAll", undefined, offset, 3);
+                }
+                $('html, body').animate({ scrollTop: $(".wrap") });
+            });
+
+        })
+}
 
 
 
@@ -572,6 +613,7 @@ $(document).ready(function () {
     loadviviendas();
     clicks_details();
     filter_button();
+    //pagination();
 });
 
 

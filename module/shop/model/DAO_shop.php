@@ -9,7 +9,6 @@ class DAOShop
         //$prueba = "hola dao";
         //return $prueba;
 
-        //$sql = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name FROM viviendas v, category c, operation o, city ci, type t where v.id_category=c.id_category and v.id_operation=o.id_operation and v.id_city=ci.id_city and v.id_type=t.id_type and v.id_vivienda='12';";
         $sql = "SELECT v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda where v.id_vivienda>0;";
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);

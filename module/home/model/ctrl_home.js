@@ -10,15 +10,15 @@ function carousel_operation() {
                     )
 
             }
+
             new Glider(document.querySelector('.carousel_operaciones'), {
                 slidesToShow: 6,
-                slidesToScroll: 5,
+                slidesToScroll: 1,
                 draggable: true,
                 dots: '.dots',
-                pasive: true,
                 arrows: {
-                    prev: '.glider-prev',
-                    next: '.glider-next'
+                    prev: '.carousel__prev',
+                    next: '.carousel__next',
                 }
             });
 
@@ -174,11 +174,9 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
 
     $(document).on("click", 'div.carousel__elements', function () { //recoge el click en el carrousel con el div.carousel__elements
         var filters_home = [];
-        filters_home.push({ "id_operation": [this.getAttribute('id')] });
+        filters_home.push({ "id_operation": [this.getAttribute('id')] });//añade el id del elemento seleccionado al array de filtros
         localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
-        //alert(JSON.stringify(filters_home));
-        //console.log(filters_home);
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
@@ -189,8 +187,6 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
         filters_home.push({ "id_category": [this.getAttribute('id')] });
         localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
-        //alert(JSON.stringify(filters_home));
-        //console.log(filters_home);      
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
@@ -201,8 +197,6 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
         filters_home.push({ "id_city": [this.getAttribute('id')] });
         localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
-        //alert(JSON.stringify(filters_home));
-        //console.log(filters_home);
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
@@ -213,11 +207,15 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
         filters_home.push({ "id_type": [this.getAttribute('id')] });
         localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
-        //alert(JSON.stringify(filters_home));
-        //console.log(filters_home);
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
+    });
+
+    $(document).on('click', '#regreso_home', function () {
+        localStorage.removeItem('filters_home');
+        localStorage.removeItem('filters_shop');
+        localStorage.removeItem('filters_search');
     });
 }
 

@@ -20,7 +20,7 @@ function load_category(operation) {
 
         ajaxPromise('module/search/controller/crtl_search.php?op=search_category_null', 'POST', 'JSON')
             .then(function (data) {
-                console.log(data);
+                ///console.log(data);
                 //console.log('operation no esta definida' + JSON.stringify(data));
                 //console.log('VALOR DE operation EN LOAD CATEGORY ES ' + operation);
                 $('<option>Tipo de Inmueble</option>').attr('selected', true).attr('disabled', true).appendTo('#search_category')
@@ -36,8 +36,8 @@ function load_category(operation) {
 
         ajaxPromise('module/search/controller/crtl_search.php?op=search_category', 'POST', 'JSON', operation)
             .then(function (data) {
-                console.log('VALOR DE operation EN LOAD CATEGORY ' + JSON.stringify(operation));
-                console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
+                //console.log('VALOR DE operation EN LOAD CATEGORY ' + JSON.stringify(operation));
+                //console.log(data); //ESTE ES IMPORTANTE PARA DEPURAR
                 for (row in data) {
                     $('<option value="' + data[row].id_category + '">' + data[row].category_name + '</option>').appendTo('#search_category')
                 }
@@ -55,10 +55,10 @@ function autocomplete() {
         let sdata = { complete: $(this).val() }; //creamos una variable sdata con el valor del input
         if (($('#search_operation').val() != 0)) { //si el valor del select es distinto de 0
             sdata.operation = $('#search_operation').val();//añadimos el valor que tiene almacenado el select search_operation 
-            console.log(sdata.operation);
+            //console.log(sdata.operation);
             if (($('#search_operation').val() != 0) && ($('#search_category').val() != 0)) {//si el valor del select es distinto de 0
                 sdata.category = $('#search_category').val();//añadimos los valores que tiene almacenado el objeto search_category
-                console.log(sdata.category);
+                //console.log(sdata.category);
             }
         }
         if (($('#search_operation').val() == undefined) && ($('#search_category').val() != 0)) { //si el valor del select es distinto de 0
@@ -77,6 +77,8 @@ function autocomplete() {
                 $(document).on('click', '.searchElement', function () {//al hacer click en un elemento del autocompletar
                     $('#autocompletar').val(this.getAttribute('id'));//rellenar el input con el valor del elemento
                     $('#search_auto').fadeOut(900000);//ocultar el autocompletar
+                    $('#id').val(data[row].id_city);
+                    console.log($('#id').val());
 
                 });
                 $(document).on('click scroll', function (event) { //ocultar el autocompletar al hacer click fuera de él
@@ -110,19 +112,28 @@ function button_search() {
     $('#search-btn').on('click', function () {
         var search = [];
         if ($('#search_operation').val() != undefined) {
-            search.push({ "operation": [$('#search_operation').val()] })
+            //search.push({ "operation": [$('#search_operation').val()] })
+            search.push(['id_operation', $('#search_operation').val()])
             if ($('#search_category').val() != undefined) {
-                search.push({ "category": [$('#search_category').val()] })
+                //search.push({ "category": [$('#search_category').val()] })
+                search.push(['id_category', $('#search_category').val()])
             }
             if ($('#autocompletar').val() != undefined) {
-                search.push({ "city": [$('#autocompletar').val()] })
+                //search.push({ "city": [$('#autocompletar').val()] })
+                //search.push(['id_city', $('#id').val()]);
             }
         } else if ($('#search_operation').val() == undefined) {
             if ($('#search_category').val() != undefined) {
-                search.push({ "category": [$('#search_category').val()] })
+
+                // DESACTIVADO DE MOMENTO HASTA QUE ARREGLE EL PROBLEMA DE QUE NO SE CARGA EL SELECT
+                //search.push({ "category": [$('#search_category').val()] })
+                search.push(['id_category', $('#search_category').val()])
             }
             if ($('#autocompletar').val() != undefined) {
-                search.push({ "city": [$('#autocompletar').val()] })
+                // DESACTIVADO DE MOMENTO HASTA QUE ARREGLE EL PROBLEMA DE QUE NO SE CARGA EL SELECT
+
+                //search.push({ "city": [$('#autocompletar').val()] })
+                //search.push(['id_city', $('#id').val()]);
             }
         }
         localStorage.removeItem('filters_search');

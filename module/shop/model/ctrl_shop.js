@@ -9,7 +9,7 @@ function loadviviendas() {
     if (verificate_filters_home != undefined) { // comprueba si la variable verificate_filters es distinta de false (si existe)
         //localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
-        ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
+        ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters }, { 'filters_home'}); // si es distinta de false carga los filtros de la página de shop
         //alert("el valor de filters home en load viviendas es " + localStorage.getItem('filters_home'));
     } else if (verificate_filters_shop != undefined) {
         //localStorage.removeItem('filters_shop');
@@ -22,7 +22,6 @@ function loadviviendas() {
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters }); // si es distinta de false carga los filtros de la página de shop
         console.log('Valor de filters_search antes de pasarlo al promise ' + verificate_filters_search);
     } else {
-
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'GET', 'JSON'); // si no carga todas las viviendas
     }
 }
@@ -563,42 +562,48 @@ function pagination(filter) {
     var filters_shop = JSON.parse(localStorage.getItem('filters_shop'));//busca en localstorage el valor de filters_shop
     var filters_home = JSON.parse(localStorage.getItem('filters_home'));//busca en localstorage el valor de filters_home
     var filter = filter
-    if (filters_search) {//si hay un valor en el localstorage con la key filters_search
-        var url = "modules/shop/crtl/crtl_shop.php?op=count_search";
-    } else if (filters_shop != undefined) {//si hay un valor en el localstorage con la key filters_shop
-        var url = "modules/shop/crtl/crtl_shop.php?op=count_shop";
-    } else if (filters_home != undefined) {//si hay un valor en la variable filtros_home
-        var url = "modules/shop/crtl/crtl_shop.php?op=count_home";
-    } else if (filter != undefined) {//si hay un valor en la variable filter
-        var url = "modules/shop/crtl/crtl_shop.php?op=count_filters";
-    } else {//si no hay un valor en la variable filter
-        var url = "modules/shop/crtl/crtl_shop.php?op=count";
-    }
-    ajaxPromise(url, 'POST', 'JSON', { 'filter': filter, 'filters_shop': filters_shop, 'filters_search': filters_search, 'filters_home': filters_home })
-        .then(function (data) {
-            var offset = data[0].contador;
+    if (filters_search) //si hay un valor en el localstorage con la key filters_search
+        var url = "modules/shop/controller/crtl_shop.php?op=count_search";
+    if (filters_shop != undefined) //si hay un valor en el localstorage con la key filters_shop
+        var url = "modules/shop/controller/crtl_shop.php?op=count_shop";
+    if (filters_home != undefined) {//si hay un valor en la variable filtros_home
+        var url = "modules/shop/controller/crtl_shop.php?op=count_home";
+        if (filter != undefined) {//si hay un valor en la variable filter
+            var url = "modules/shop/controller/crtl_shop.php?op=count_filters";
+        } else {//si no hay un valor en la variable filter
+            var url = "modules/shop/controller/crtl_shop.php?op=count";
+        }
+        ajaxPromise(url, 'POST', 'JSON', { 'filter': filter, 'filters_shop': filters_shop, 'filters_search': filters_search, 'filters_home': filters_home })
+            .then(function (data) {
+                var offset = data[0].contador; //guardamos en la variable offset el valor de la posicion 0 del array data
 
-            if (offset >= 3) {
-                total_pages = Math.ceil(offset / 3)
-            } else {
-                total_pages = 1;
-            }
-            //pintar con un for
-            $('#pagination').bootpag({
-                total: total_pages,
-                page: localStorage.getItem('move') ? JSON.parse(localStorage.getItem('move'))[1] / 3 + 1 : 1,
-                maxVisible: total_pages
-            }).on('page', function (event, page) { //sustituir por el evento click con el id de la vivienda
-                offset = 3 * (page - 1);
-                if (filter != undefined) {
-                    ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=filter", filter, offset, 3);
+                if (offset >= 3) {
+                    total_pages = Math.ceil(offset / 3)
                 } else {
-                    ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=shopAll", undefined, offset, 3);
+                    total_pages = 1;
                 }
-                $('html, body').animate({ scrollTop: $(".wrap") });
-            });
+                //pintar con un for
 
-        })
+                for (row in data) {
+                    $('<option></option>').attr({ 'id': data[row].id_vivienda, }).appendTo('#pagination');
+                }
+
+                // Añadir el número total de páginas al final de la paginación
+                $('<li></li>').text('Número total de páginas: ' + total_pages).appendTo('#pagination');
+
+                $(document).on('click', function (event, page) { //sustituir por el evento click con el id de la vivienda
+                    offset = 3 * (page - 1);
+                    if (filter != undefined) {
+                        ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=filter", filter, offset, 3); //offset es el numero de registros que se muestran
+                    } else {
+                        ajaxForSearch("modules/shop/crtl/crtl_shop.php?op=shopAll", undefined, offset, 3);
+                    }
+                    $('html, body').animate({ scrollTop: $(".wrap") }); //hace scroll hacia arriba
+                });
+                //crear localstorage para guardar la pagina en la que estamos y que al recargar la pagina no se pierda
+
+            })
+    }
 }
 
 
@@ -613,7 +618,7 @@ $(document).ready(function () {
     loadviviendas();
     clicks_details();
     filter_button();
-    //pagination();
+    pagination();
 });
 
 

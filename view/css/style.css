@@ -835,3 +835,19 @@ small {
 .row.pad-row {
   width: 100%;
 }
+
+.pagination-button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  background-color: #888;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: #e0e0e0;
+}

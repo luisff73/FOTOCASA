@@ -86,7 +86,6 @@ switch ($_GET['op']) {
 
         try {
             $daohome = new DAOHome();
-            //$Dates_Ultimas = $daohome->select_all_viviendas(); //llamamos a la funcion que nos devuelve todas las viviendas
 
             $Dates_Ultimas = $daohome->filters_busquedas($filters); //llamamos a la funcion que nos devuelve todas las viviendas
         } catch (Exception $e) {
@@ -101,7 +100,7 @@ switch ($_GET['op']) {
         }
         break;
 
-    case 'mas_visitadas';
+    case 'mas_visitadas':
 
         try {
             $daohome = new DAOHome();
@@ -118,8 +117,7 @@ switch ($_GET['op']) {
         }
         break;
 
-
-    default;
-        include("module/exceptions/views/pages/error404.php");
+    default:
+    include("view/inc/error404.php");
         break;
 }

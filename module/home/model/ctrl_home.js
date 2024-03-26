@@ -29,7 +29,6 @@ function carousel_operation() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Carrousel_Brand HOME";
         });
 }
-
 function loadCategories() {
     ajaxPromise('module/home/controller/ctrl_home.php?op=homepagecategory', 'GET', 'JSON') //llamamos al ctr_home_ y ejecuta el DAO que nos devolverá la promesa
         .then(function (data) {
@@ -51,7 +50,6 @@ function loadCategories() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
         });
 }
-
 function loadcatcity() {
     ajaxPromise('module/home/controller/ctrl_home.php?op=homepagecity', 'GET', 'JSON')
         .then(function (data) {
@@ -72,7 +70,6 @@ function loadcatcity() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Types_car HOME";
         });
 }
-
 function loadCatTypes() {
     ajaxPromise('module/home/controller/ctrl_home.php?op=homepagetype', 'GET', 'JSON')
         .then(function (data) {
@@ -94,7 +91,6 @@ function loadCatTypes() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Types_car HOME";
         });
 }
-
 function loadoperation() {
     ajaxPromise('module/home/controller/ctrl_home.php?op=homepageoperation', 'GET', 'JSON')
         .then(function (data) {
@@ -115,9 +111,6 @@ function loadoperation() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
         });
 }
-
-
-
 function mas_visitadas() {
 
 
@@ -141,14 +134,12 @@ function mas_visitadas() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
         });
 }
-
-
 function ultimas_busquedas() {
 
     var filters_shop = localStorage.getItem('filters_shop');
 
 
-    ajaxPromise('module/home/controller/ctrl_home.php?op=ultimas_busquedas', 'GET', 'JSON')
+    ajaxPromise('module/home/controller/ctrl_home.php?op=ultimas_busquedas', 'GET', 'JSON', { filters_shop })
         .then(function (data) {
             for (row in data) {
                 $('<div></div>').attr('class', "div_busquedas").attr({ 'id': data[row].id_vivienda }).appendTo('#containerbusquedas')
@@ -168,14 +159,13 @@ function ultimas_busquedas() {
             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Type_Categories HOME";
         });
 }
-
 function clicks() { //función que se encarga de redirigir a la página de shop con los filtros seleccionados
 
 
     $(document).on("click", 'div.carousel__elements', function () { //recoge el click en el carrousel con el div.carousel__elements
+        remove_filters();
         var filters_home = [];
         filters_home.push({ "id_operation": [this.getAttribute('id')] });//añade el id del elemento seleccionado al array de filtros
-        localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
@@ -183,9 +173,9 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
     });
 
     $(document).on("click", 'div.div_cate', function () {  //recoge el click en el div.div_cate
+        remove_filters();
         var filters_home = [];
         filters_home.push({ "id_category": [this.getAttribute('id')] });
-        localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
@@ -193,9 +183,9 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
     });
 
     $(document).on("click", 'div.div_city', function () { //recoge el click en el div.div_city
+        remove_filters();
         var filters_home = [];
         filters_home.push({ "id_city": [this.getAttribute('id')] });
-        localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
@@ -203,9 +193,9 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
     });
 
     $(document).on("click", 'div.div_type', function () { //recoge el click en el div.div_type
+        remove_filters();
         var filters_home = [];
         filters_home.push({ "id_type": [this.getAttribute('id')] });
-        localStorage.removeItem('filters_home')
         localStorage.setItem('filters_home', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
@@ -213,10 +203,13 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
     });
 
     $(document).on('click', '#regreso_home', function () {
-        localStorage.removeItem('filters_home');
-        localStorage.removeItem('filters_shop');
-        localStorage.removeItem('filters_search');
+        remove_filters();
     });
+}
+function remove_filters() {
+    localStorage.removeItem('filters_home');
+    localStorage.removeItem('filters_shop');
+    localStorage.removeItem('filters_search');
 }
 
 $(document).ready(function () {
@@ -225,7 +218,7 @@ $(document).ready(function () {
     loadcatcity();
     loadCatTypes();
     loadoperation();
-    ultimas_busquedas();
+    //ultimas_busquedas();
     mas_visitadas();
     clicks();
 });

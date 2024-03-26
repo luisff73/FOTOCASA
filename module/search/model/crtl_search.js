@@ -107,7 +107,6 @@ function launch_search() {
     });
 }
 
-
 function button_search() {
     $('#search-btn').on('click', function () {
         var search = [];
@@ -138,7 +137,7 @@ function button_search() {
         }
         localStorage.removeItem('filters_search');
         if (search.length != 0) {
-            localStorage.setItem('filters_search', JSON.stringify(search));
+            localStorage.setItem('filters_search', JSON.stringify(search)); //guardamos en el localstorage los filtros de busqueda
         }
         window.location.href = 'index.php?page=ctrl_shop&op=list';
     });

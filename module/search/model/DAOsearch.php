@@ -20,7 +20,6 @@ class DAO_search
         }
         return $retrArray;
     }
-
     function search_category_null()
     {
         $select = "SELECT id_category, category_name FROM category;";
@@ -37,7 +36,6 @@ class DAO_search
         }
         return $retrArray;
     }
-
     function search_category($operation)
     {
         $select = "SELECT distinct c.id_category, c.category_name FROM viviendas v, category c
@@ -56,7 +54,6 @@ class DAO_search
         //return $select;
         return $retrArray;
     }
-
     function select_only_operation($operation, $complete)
     {
         $select = "SELECT v.*, c.city_name, o.operation_name FROM viviendas v, city c, operation o
@@ -74,7 +71,6 @@ class DAO_search
         }
         return $retrArray;
     }
-
     function select_only_category($category, $complete)
     {
         $select = "SELECT v.*, c.city_name, ca.category_name FROM viviendas v, city c, category ca
@@ -92,8 +88,6 @@ class DAO_search
         }
         return $retrArray;
     }
-
-
     function select_operation_category($complete, $operation, $category)
     {
         $select = "SELECT v.*, o.operation_name,ca.category_name, c.city_name FROM viviendas v, operation o, category ca, city c 
@@ -111,7 +105,6 @@ class DAO_search
         }
         return $retrArray;
     }
-
     function select_city($complete)
     {
         $select = "SELECT distinct c.city_name FROM viviendas v, city c WHERE v.id_city=c.id_city and city_name LIKE '$complete%';";

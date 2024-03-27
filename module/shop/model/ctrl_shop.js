@@ -102,7 +102,7 @@ function mapBox(id) {
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [id.long, id.lat], // starting position [lng, lat]
-        zoom: 10 // starting zoom
+        zoom: 9 // starting zoom
     });
     const marker = new mapboxgl.Marker()
     const minPopup = new mapboxgl.Popup()
@@ -120,7 +120,7 @@ function mapBox_all(data) {
         container: 'map',// id del contenedor HTML donde se mostrará el mapa
         style: 'mapbox://styles/mapbox/streets-v11',// estilo del mapa
         center: [-0.5209, 38.8254], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        zoom: 5 // starting zoom
     });
 
     for (row in data) {
@@ -159,6 +159,7 @@ function loadDetails(id_vivienda) {
             $('#content_shop_viviendas').empty();
             $('.date_img_dentro').empty();
             $('.date_vivienda_dentro').empty();
+            $('#pagination').empty();
 
             for (row in data[1][0]) { //recorremos el array de imagenes
                 console.log(data);
@@ -559,14 +560,10 @@ function pagination() {
         url = "module/shop/controller/ctrl_shop.php?op=count_all_viviendas";
     }
 
-    // console.log('valor de url al final de la funcion pagination ' + url);
-    // console.log('valor de filters_shop al final de la funcion pagination ' + filters_shop);
-    // console.log('valor de filters_search al final de la funcion pagination ' + filters_search);
-    // console.log('valor de filters_home al final de la funcion pagination ' + filters_home);
-
     ajaxPromise(url, 'POST', 'JSON', { 'filters_shop': filters_shop, 'filters_search': filters_search, 'filters_home': filters_home })
         //en este ajaxpromise podemos pasarle varios valores de varios filtros almacenados en el localstorage
         .then(function (data) {
+
             var offset = data[0].contador; //guardamos en la variable offset el valor de la posicion 0 del array data que es el total productos
 
             if (offset >= 3) {
@@ -574,24 +571,34 @@ function pagination() {
             } else {
                 total_pages = 1;
             }
-
-            for (var i = 0; i < total_pages; i++) {
-                $('<div></div>').attr({ 'id': i + 1, 'class': 'pagination-button' }).text(i + 1).appendTo('#pagination');
-            }
+            if (total_pages > 1) {
+                //$('<div></div>').attr({ 'id': 0, 'class': 'pagination-button-first' }).text('<<').appendto('#pagination');
+                for (var i = 0; i < total_pages; i++) {
+                    $('<div></div>').attr({ 'id': i + 1, 'class': 'pagination-button' }).text(i + 1).appendTo('#pagination');
+                }
+            };
             $(document).on('click', '.pagination-button', function () {
 
                 var page = this.getAttribute('id');
                 localStorage.setItem('page', page); //guardamos en el localstorage el valor de la pagina
                 offset = 3 * (page - 1);
                 if (filters != undefined) { //si la variable filter es distinta de undefined
-                    ajaxForSearch("module/shop/controller/ctrl_shop.php?op=filters_home", 'POST', 'JSON', { filters: filters, offset: offset, items_page: 3 });
+
+                    if (filters_home != undefined) {
+                        ajaxForSearch("module/shop/controller/ctrl_shop.php?op=filters_home", 'POST', 'JSON', { filters: filters, offset: offset, items_page: 3 })
+                    };
+                    if (filters_search != undefined) {
+                        ajaxForSearch("module/shop/controller/ctrl_shop.php?op=filters_search", 'POST', 'JSON', { filters: filters, offset: offset, items_page: 3 })
+                    };
+                    if (filters_shop != undefined) {
+                        ajaxForSearch("module/shop/controller/ctrl_shop.php?op=filters_shop", 'POST', 'JSON', { filters: filters, offset: offset, items_page: 3 })
+                    };
                 } else {
                     ajaxForSearch("module/shop/controller/ctrl_shop.php?op=all_viviendas", 'POST', 'JSON', { sData: undefined, offset: offset, items_page: 3 });
                 }
-
                 $('html, body').animate({ scrollTop: $(".wrap") });
-
-            });
+            }
+            );
 
         })
 }

@@ -851,3 +851,29 @@ small {
 .pagination-button:hover {
   background-color: #e0e0e0;
 }
+
+#details-shop {
+  border-radius: 20px;
+  margin-bottom: 20px !important;
+  margin-left: 40px;
+  background-color: #f8f9fa;
+  /* Color de fondo suave */
+  width: 43%;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* Sombra para darle profundidad */
+  padding: 20px;
+  /* Espacio interior alrededor del contenido */
+  transition: all 0.3s ease;
+  /* Transición suave para los cambios de estilo */
+}
+
+#details-shop:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  /* Sombra más grande al pasar el ratón */
+  transform: scale(1.02);
+  /* Ligeramente más grande al pasar el ratón */
+}
+
+#details-shop:empty {
+  display: none;
+}

@@ -74,18 +74,19 @@
 .slick-slide {
     display: none;
     float: left;
-
+    align-content: center;
     height: 100%;
-    min-height: 1px;
+    min-height: 100px;
 }
 
 [dir='rtl'] .slick-slide {
-    float: right;
+    float: center;
 }
 
 .slick-slide img {
     display: block;
     height: 300px;
+    align-content: center;
 }
 
 .slick-slide.slick-loading img {

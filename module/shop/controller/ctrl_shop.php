@@ -90,9 +90,9 @@ switch ($_GET['op']) {
         break;
     case 'count_filters_home':    
         $daoshop = new DAOShop();
-        $selSlide = $daoshop -> count_filters_home($_POST['filters_home']);
-        if (!empty($selSlide)) {
-            echo json_encode($selSlide);
+        $resultado = $daoshop -> count_filters_home($_POST['filters_home']);
+        if (!empty($resultado)) {
+            echo json_encode($resultado);
         }
         else {
             echo "error";
@@ -100,9 +100,9 @@ switch ($_GET['op']) {
         break;
     case 'count_filters_shop':    
         $daoshop = new DAOShop();
-        $selSlide = $daoshop -> count_filters_shop($_POST['filters_shop']);
-        if (!empty($selSlide)) {
-            echo json_encode($selSlide);
+        $resultado = $daoshop -> count_filters_shop($_POST['filters_shop']);
+        if (!empty($resultado)) {
+            echo json_encode($resultado);
         }
         else {
             echo json_encode("error en php filters_shop");
@@ -111,9 +111,9 @@ switch ($_GET['op']) {
 
     case 'count_filters_search':    
         $daoshop = new DAOShop();
-        $selSlide = $daoshop -> count_filters_shop($_POST['filters_search']);
-        if (!empty($selSlide)) {// si no esta vacia
-            echo json_encode($selSlide);
+        $resultado = $daoshop -> count_filters_shop($_POST['filters_search']);
+        if (!empty($resultado)) {// si no esta vacia
+            echo json_encode($resultado);
         }
         else {
             echo json_encode("error en php count filters_search");
@@ -139,10 +139,10 @@ switch ($_GET['op']) {
         }
 
         if (!empty($Details_viviendas || $Date_images)) { // si hay datos details e images
-            $rdo = array();
-            $rdo[0] = $Details_viviendas;
-            $rdo[1][] = $Date_images;
-            echo json_encode($rdo);
+            $resultado = array();
+            $resultado[0] = $Details_viviendas;
+            $resultado[1][] = $Date_images;
+            echo json_encode($resultado);
         } else {
 
             echo json_encode("error");
@@ -152,13 +152,13 @@ switch ($_GET['op']) {
     case 'select_categories':
         try {
             $daohome = new DAOShop();
-            $Select = $daohome->select_categories();
+            $resultado = $daohome->select_categories();
         } catch (Exception $e) {
             echo json_encode("error");
         }
 
-        if (!empty($Select)) {
-            echo json_encode($Select);
+        if (!empty($resultado)) {
+            echo json_encode($resultado);
         } else {
             echo json_encode("error");
         }
@@ -235,11 +235,46 @@ switch ($_GET['op']) {
         }
         break;
 
+    case 'viviendas_related':
+        try {
+            $dao = new DAOShop();
+            $resultado = $dao->select_viviendas_related($_POST['id_city'],$_POST['offset'],$_POST['items_page']);
+        } catch (Exception $e) {
+            echo json_encode("error viviendas related");
+            exit;
+        }
+        if (!$resultado) {
+            echo json_encode("error viviendas related");
+            exit;
+        } else {
+            $dinfo = array();
+            foreach ($resultado as $row) {
+                array_push($dinfo, $row);
+            }
+            echo json_encode($dinfo);
+        }
+        break;
 
-
+    case 'count_viviendas_related':
+        try {
+            $dao = new DAOShop();
+            $resultado = $dao->count_more_viviendas_related($_POST['id_city']);
+        } catch (Exception $e) {
+            echo json_encode("error");
+            exit;
+        }
+        if (!$resultado) {
+            echo json_encode("error");
+            exit;
+        } else {
+            $dinfo = array();
+            foreach ($resultado as $row) {
+                array_push($dinfo, $row);
+            }
+            echo json_encode($dinfo);
+        }
+        break;
     
-
-      
     default:
     include("view/inc/error404.php");
     break;

@@ -18,12 +18,12 @@ class DAOShop
         INNER JOIN type t ON v.id_type = t.id_type 
         LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda where v.id_vivienda>0 LIMIT $offset,$items_page;";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; 
             }
         }
@@ -35,12 +35,12 @@ class DAOShop
 
         $sql = "SELECT COUNT(*) as contador FROM viviendas;";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; 
             }
         }
@@ -49,23 +49,31 @@ class DAOShop
     function select_one_vivienda($id)
     {
         //return $id;
-        $sql = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda = '$id';";
+        $sql = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, 
+        v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, a.adapted, v.id_city 
+        FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        WHERE v.id_vivienda = '$id';";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql)->fetch_object();
+        $resultado = mysqli_query($conexion, $sql)->fetch_object();
         connect::close($conexion);
-        return $res;
+        return $resultado;
     }
     function select_img_viviendas($id)
     {
         $sql = "SELECT id_vivienda, id_image, image_name FROM images WHERE id_vivienda = '$id';";
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $imgArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            foreach ($res as $row) {
+        if (mysqli_num_rows($resultado) > 0) {
+            foreach ($resultado as $row) {
                 array_push($imgArray, $row);
             }
         }
@@ -102,12 +110,12 @@ class DAOShop
             $select .= " LIMIT $offset,$items_page";
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $select);
+        $resultado = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res->num_rows > 0) {
-            while ($row = mysqli_fetch_assoc($res)) {
+        if ($resultado->num_rows > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) {
                 $retrArray[] = $row;
             }
         }
@@ -144,12 +152,12 @@ class DAOShop
         }
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $select);
+        $resultado = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res->num_rows > 0) {
-            while ($row = mysqli_fetch_assoc($res)) {
+        if ($resultado->num_rows > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) {
                 $retrArray[] = $row;
             }
         }
@@ -177,12 +185,12 @@ class DAOShop
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $select);
+        $resultado = mysqli_query($conexion, $select);
         connect::close($conexion);
         
         $retrArray = array();
-        if ($res->num_rows > 0) { // Si hay más de 0 filas
-            while ($row = mysqli_fetch_assoc($res)) {
+        if ($resultado->num_rows > 0) { // Si hay más de 0 filas
+            while ($row = mysqli_fetch_assoc($resultado)) {
                 $retrArray[] = $row;
             }
         }
@@ -210,12 +218,12 @@ class DAOShop
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $select);
+        $resultado = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res->num_rows > 0) { // Si hay más de 0 filas
-            while ($row = mysqli_fetch_assoc($res)) {
+        if ($resultado->num_rows > 0) { // Si hay más de 0 filas
+            while ($row = mysqli_fetch_assoc($resultado)) {
                 $retrArray[] = $row;
             }
         }
@@ -242,12 +250,12 @@ class DAOShop
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
 
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $select);
+        $resultado = mysqli_query($conexion, $select);
         connect::close($conexion);
 
         $retrArray = array();
-        if ($res->num_rows > 0) { // Si hay más de 0 filas
-            while ($row = mysqli_fetch_assoc($res)) {
+        if ($resultado->num_rows > 0) { // Si hay más de 0 filas
+            while ($row = mysqli_fetch_assoc($resultado)) {
                 $retrArray[] = $row;
             }
         }
@@ -258,12 +266,12 @@ class DAOShop
     {
         $sql = "SELECT * FROM category";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; //array_push($retrArray, $row);
             }
         }
@@ -273,12 +281,12 @@ class DAOShop
     {
         $sql = "SELECT * FROM type";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; //array_push($retrArray, $row);
             }
         }
@@ -288,12 +296,12 @@ class DAOShop
     {
         $sql = "SELECT * FROM city";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; //array_push($retrArray, $row);
             }
         }
@@ -303,12 +311,12 @@ class DAOShop
     {
         $sql = "SELECT * FROM operation";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
+        $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
 
         $retrArray = array();
-        if (mysqli_num_rows($res) > 0) {
-            while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+        if (mysqli_num_rows($resultado) > 0) {
+            while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
                 $retrArray[] = $row; //array_push($retrArray, $row);
             }
         }
@@ -318,27 +326,72 @@ class DAOShop
     {
         $sqlupdate = "UPDATE most_visited SET visitas = visitas + 1 WHERE id_vivienda = '$id';";
         $conexion = connect::con();
-        $res = mysqli_query($conexion, $sqlupdate);
+        $resultado = mysqli_query($conexion, $sqlupdate);
         connect::close($conexion);
-        return $res;
+        return $resultado;
     }
 
     // function select_recientes()
     // {
     //     $sql = "SELECT * FROM operation";
     //     $conexion = connect::con();
-    //     $res = mysqli_query($conexion, $sql);
+    //     $resultado = mysqli_query($conexion, $sql);
     //     connect::close($conexion);
 
     //     $retrArray = array();
-    //     if (mysqli_num_rows($res) > 0) {
-    //         while ($row = mysqli_fetch_assoc($res)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
+    //     if (mysqli_num_rows($resultado) > 0) {
+    //         while ($row = mysqli_fetch_assoc($resultado)) { // fetch_assoc() devuelve un array asociativo con los datos de la fila
     //             $retrArray[] = $row; //array_push($retrArray, $row);
     //         }
     //     }
     //     return $retrArray;
     // }
 
+    function select_viviendas_related($id_city, $offset, $items){
+		$sql = "SELECT v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,
+        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted, ci.city_name 
+        FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE ci.id_city = '$id_city' LIMIT $offset, $items";
+
+		$conexion = connect::con();
+		$resultado = mysqli_query($conexion, $sql);
+		connect::close($conexion);
+
+		
+		$retrArray = array();
+		if (mysqli_num_rows($resultado) > 0) {
+			while ($row = mysqli_fetch_assoc($resultado)) {
+				$retrArray[] = $row;
+			}
+		}
+		return $retrArray;
+	}
+    
+	function count_more_viviendas_related($id_city){
+		$sql = "SELECT COUNT(*) AS num_viviendas,v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,
+        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted 
+        FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE ci.id_city = '$id_city'";
+		$conexion = connect::con();
+		$resultado = mysqli_query($conexion, $sql);
+		connect::close($conexion);
+
+		$retrArray = array();
+		if (mysqli_num_rows($resultado) > 0) {
+			while ($row = mysqli_fetch_assoc($resultado)) {
+				$retrArray[] = $row;
+			}
+		}
+		return $retrArray;
+	}
 
 
 }

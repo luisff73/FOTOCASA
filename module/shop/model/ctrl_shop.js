@@ -141,12 +141,11 @@ function clicks_details() {
     $(document).on("click", ".detalles_inmueble", function () {
         var id_vivienda = this.getAttribute('id');
         loadDetails(id_vivienda);
-
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
-            .then(function (data) {
+            .then(function () {
                 console.log('Visita incrementada con éxito');
             })
-            .catch(function (error) {
+            .catch(function () {
             });
     });
 }
@@ -176,32 +175,41 @@ function loadDetails(id_vivienda) {
                     "<div class='list_product_details'>" +
                     "<div class='product-info_details'>" +
                     "<div class='product-content_details'>" +
-                    "<h1><b>" + data[0].category_name + " " + data[0].vivienda_name + "</b></h1>" +
+                    "<h1><b>" + data[0].vivienda_name + "</b></h1>" +
                     "<hr class=hr-shop>" +
                     "<table id='table-shop'> <tr>" +
-                    "<td> <i id='col-ico' class='fa-solid fa-money-check-dollar'></i> &nbsp;" + data[0].vivienda_price + "€" + "</td>" +
-                    "<td> <i id='col-ico' class='fa-solid fa-flag-usa'></i> &nbsp;" + data[0].state + "</td>  </tr>" +
-                    "<td> <i id='col-ico' class='fa-regular fa-font-awesome'></i> &nbsp;" + data[0].category_name + "</td>" +
-                    "<td> <i id='col-ico' class='fa-solid fa-money-bill-wave'></i> &nbsp;" + data[0].operation_name + "</td>  </tr>" +
-                    "<td> <i id='col-ico' class='fa-solid fa-vector-square'></i> &nbsp;" + data[0].m2 + "</td>" +
-                    "<td> <i id='col-ico' class='fa-solid fa-signal'></i> &nbsp;" + data[0].status + "</td>  </tr>" +
+                    "<td>" +
+                    "<td> <i id='col-ico' class='fa-solid fa-money-check-dollar'></i> &nbsp;" + data[0].vivienda_price + " €" + "</td>" +
+                    "<td> <i id='col-ico' class='fa-solid fa-flag-usa'></i> &nbsp;" + data[0].state + "</td> " +
+                    "<td> <i id='col-ico' class='fa-regular fa-font-awesome'></i> &nbsp;" + data[0].category_name + "</td> " +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
+                    "<td> <i id='col-ico' class='fa-solid fa-money-bill-wave'></i> &nbsp;" + data[0].operation_name + " </td>" +
+                    "<td> <i id='col-ico' class='fa-solid fa-vector-square'></i> &nbsp;" + data[0].m2 + " m2" + "</td>" +
+                    "<td> <i id='col-ico' class='fa-solid fa-signal'></i> &nbsp;" + data[0].status + "</td>" +
+                    "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" +
                     "<td> <i id='col-ico' class='fa-solid fa-city'></i> &nbsp;" + data[0].city_name + "</td>" +
-                    "<td> <i id='col-ico' class='fa-regular fa-chart-bar'></i> &nbsp;" + data[0].type_name + "</td> </tr>" +
+                    "<td> <i id='col-ico' class='fa-regular fa-chart-bar'></i> &nbsp;" + data[0].type_name + " </td>" +
                     "</table>" +
                     "<hr class=hr-shop>" +
                     "<h3><b>" + "Mas información:" + "</b></h3>" +
                     "<p>Inmueble con certificado de eficiencia energetica.</p>" +
                     "<div class='buttons_details'>" +
-                    "<a class='button add' href='#'>Añadir a la cesta</a>" +
-                    "<a class='button buy' href='#'>Compra directa</a>" +
+                    "<span class='button add' href='#'>Añadir a la cesta</span>" +
+                    "<span class='button buy' href='#'>Compra directa</span>" +
                     "<span class='button' id='price_details'>" + data[0].vivienda_price + "<i class='fa-solid fa-euro-sign'></i> </span>" +
                     "<a class='details__heart' id='" + data[0].id_vivienda + "'><i id=" + data[0].id_vivienda + " class='fa-solid fa-heart fa-lg'></i></a>" +
+                    "</td>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
                     "</div>"
                 )
-
 
             $('.date_img').slick({
                 dots: true,
@@ -211,6 +219,7 @@ function loadDetails(id_vivienda) {
                 cssEase: 'linear',
                 arrows: true,
             });
+            more_viviendas_related(data[0].id_city)// PASAMOS EL ID DE LA CIUDAD PARA QUE NOS DEVUELVA LOS INMUEBLES RELACIONADOS
 
             mapBox(data[0]);
 
@@ -602,8 +611,105 @@ function pagination() {
 
         })
 }
+function viviendas_related(offset = 0, id_city, total_items) {
+    let items_page = 3;
 
+    ajaxPromise("module/shop/controller/ctrl_shop.php?op=viviendas_related", 'POST', 'JSON', { 'id_city': id_city, 'offset': offset, 'items_page': items_page })
+        .then(function (data) {
+            if (offset == 0) {
+                $('<div></div>').attr({ 'id': 'title_content', class: 'title_content' }).appendTo('.related_viviendas_title')
+                    .html(
+                        `<h2 class="cat">Viviendas en ${data[0].city_name}</h2>` // lee la ciudad de la primera vivienda
+                    )
+                $('<div></div>').attr({ 'id': 'viviendas_content', 'class': 'viviendas_content' }).appendTo('.related_viviendas');
 
+                for (row in data) {
+                    if (data[row].id_vivienda != undefined) {
+                        $('<div></div>').attr({ 'id': data[row].id_vivienda, 'class': 'more_info_list' }).appendTo('.viviendas_content')
+                            .html(
+                                "<li class='portfolio-item'>" +
+                                "<div class='item-main'>" +
+                                "<div class='portfolio-image'>" +
+                                "<img src = " + data[row].image_name + " alt='imagen vivienda' </img> " +
+                                "</div>" +
+                                "<h6>" + data[row].status + "  " + data[row].vivienda_name + "</h6>" +
+                                "</div>" +
+                                "</li>"
+                            )
+                    }
+                }
+                $('<div></div>').attr({ 'id': 'more_viviendas_button', 'class': 'more_viviendas_button' }).appendTo('.viviendas_content')
+                    .html(
+                        '<button class="load_more_button" id="load_more_button">MAS VIVIENDAS</button>'
+                    )
+            }
+            if (offset >= 3) {
+                for (row in data) {
+                    if (data[row].id_vivienda != undefined) {
+                        $('<div></div>').attr({ 'id': data[row].id_vivienda, 'class': 'more_info_list' }).appendTo('.viviendas_content')
+                            .html(
+                                "<li class='portfolio-item'>" +
+                                "<div class='item-main'>" +
+                                "<div class='portfolio-image'>" +
+                                "<img src = " + data[row].image_name + " alt='imagen vivienda' </img> " +
+                                "</div>" +
+                                "<h6>" + data[row].status + "  " + data[row].vivienda_name + "</h6>" +
+                                "</div>" +
+                                "</li>"
+
+                            )
+                    }
+                }
+                var total_viviendas = total_items - 3;
+                if (total_viviendas <= offset) {
+                    $('.more_viviendas_button').remove();
+                } else {
+                    $('.more_viviendas_button').empty();
+                    $('<div></div>').attr({ 'id': 'more_viviendas_button', 'class': 'more_viviendas_button' }).appendTo('.viviendas_content')
+                        .html(
+                            '<button class="load_more_button" id="load_more_button">MAS VIVIENDAS</button>'
+                        )
+                }
+
+            }
+        }).catch(function () {
+            console.log("error viviendas_related");
+        });
+
+}
+
+function more_viviendas_related(id_city) {
+    //alert('has entrado en more viviendas related con el id de city ' + id_city);
+    var id_city = id_city;
+    var items_page = 0;
+    ajaxPromise('module/shop/controller/ctrl_shop.php?op=count_viviendas_related', 'POST', 'JSON', { 'id_city': id_city })
+        .then(function (data) {
+            var total_items = data[0].num_viviendas;
+            //var total_items = math.ceil(num_viviendas / 3) * 3;
+            viviendas_related(0, id_city, total_items);
+            $(document).on("click", '.load_more_button', function () {
+                items_page = items_page + 3;
+                $('.more_viviendas_button').empty();
+                viviendas_related(items_page, id_city, total_items);
+            });
+        }).catch(function () {
+            console.log('error total_items');
+        });
+    $('html, body').animate({ scrollTop: $(".wrap") });
+}
+
+function clicks_details_related() {
+    $(document).on("click", ".related_viviendas", function () {
+        var id_vivienda = this.getAttribute('id');
+        loadDetails(id_vivienda);
+        ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
+            .then(function () {
+                console.log('Visita incrementada con éxito');
+            })
+            .catch(function () {
+            });
+    });
+}
 $(document).ready(function () {
     print_filters();
     loadCategoriesfilter();
@@ -613,6 +719,7 @@ $(document).ready(function () {
     //loadPricefilter(); //De momento no es dinamico
     loadviviendas();
     clicks_details();
+    clicks_details_related();
     filter_button();
     pagination();
 });

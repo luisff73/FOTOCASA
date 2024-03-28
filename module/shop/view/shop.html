@@ -2,32 +2,39 @@
 
 <body>
 
-  <div style="height: 175px;"> </div> <!-- Elemento estático que ocupa 250px -->
+  <div style="height: 100px;"> </div> <!-- Elemento estático que ocupa 250px -->
 
-  <div class="filters"></div>
-
+  <!-- <div class="filters"></div> comentado porque no se usa -->
 
   <div class="shopdivide">
-    <!-- <script> console.log("has entrado en shop.html"); </script> -->
-    <div class="filters_shop_html" id="filters_shop">
+    <div class="filters_shop_html" id="filters_shop"> <!-- aqui van los selectores de los filtros-->
     </div>
     <!-- list-viviendas -->
-    <table class="listadoviviendas" style="width: 100%; border: 1px; color:black;">
+    <table class="listadoviviendas" style="width: 100%; top: 0; height: auto; border: 1px; color:black;">
       <tr>
         <!-- Columna de la izquierda -->
-        <td style="width: 50%">
+        <td style="width: 50%; height: 100%;">
           <h3>&nbsp;&nbsp;&nbsp;&nbsp;Listado de Inmuebles</h3>
           <ul style="width: 100%; border:1px; color:black">
             <li>
               <div class="container_shop" id="content_shop_viviendas"> </div>
             </li>
+            <!-- details-viviendas -->
+            <div id="details-shop">
+              <div class="date_img" id="date_img"> <!-- aqui van las imagenes del slider -->
+              </div>
+              <div class="date_viviendas" id="date_viviendas"> <!-- aqui van los detalles de las viviendas -->
+              </div>
+            </div>
           </ul>
 
-          <div id="pagination"> </div>
+          <div id="pagination" class='pagination'> </div>
+
 
         </td>
         <!-- Columna de la derecha -->
-        <td style="position: fixed; width: 50%;"> <!-- con esto hacemos que la columna de la derecha este fija -->
+        <td style="position:sticky; width: 50%">
+          <!-- con esto hacemos que la columna de la derecha este fija -->
           <h3>Ubicación del Inmueble</h3>
           <div style="width: 100%; border:1px; color:black;">
           </div>
@@ -39,16 +46,11 @@
 
   </div>
 
-  <!-- details-viviendas -->
-  <div id="details-shop">
-    <div class="date_img" id="container-date-img1">
-      <!-- Contenido del primer elemento -->
-    </div>
-    <div class="date_viviendas" id="container-date-img2">
-      <!-- Contenido del segundo elemento -->
-    </div>
-  </div>
 
+
+  <!-- related-viviendas -->
+  <div class="related_viviendas_title"></div>
+  <div class="related_viviendas"></div>
 
 
 </body>

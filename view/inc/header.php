@@ -6,7 +6,7 @@
 
         <!-- ======SEARCH====== -->
         <div class="header__container">
-            <div class="search__form">
+            <div class="search_form">
                 <select id="search_operation"></select>
                 <select id="search_category"></select>
                 <input type="text" id="autocompletar" autocomplete="off" />
@@ -14,16 +14,13 @@
                 <input type="button" value="..." id="search-btn" />
             </div>
         </div>
+        <!-- ======OPCIONES====== -->
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li id="regreso_home"><a href="index.php?page=ctrl_home&op=list">Home</a></li>
-                <!-- <li><a href="index.php?page=ctrl_home&op=list">Viviendas</a></li> -->
+                <li><a href="index.php?page=ctrl_home&op=list">Home</a></li>
                 <li><a href="index.php?page=ctrl_shop&op=list">Shop</a></li>
-                <!-- <li><a href="index.php?page=ctrl_shop&op=all_viviendas">Viviendas2</a></li> -->
-                <!-- <li><a href="index.php?page=aboutus">Conocenos</a></li>
-                    <li><a href="index.php?page=contactus">Contacto</a></li> -->
+                <li><a href="index.php?page=ctrl_login&op=login-register_view">Login/Register</a></li>
             </ul>
         </div>
     </div>
 </div>
-<!--/.NAVBAR END-->

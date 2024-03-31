@@ -3,19 +3,19 @@
 // ENRUTADOR A CONTROLADORES.
 if (isset($_GET['page'])) { // Si existe la variable $_GET['page']...
 
-	// echo "El valor de page es " . ($_GET['page']);
-	// Según el valor de $_GET['page'] se incluirá un controlador u otro.
-
 	switch ($_GET['page']) {
-		case "homepage":
+		
+		case "ctrl_home":
+			error_log("entrando en ctrl_home ".$_GET['page'].$_GET['op']);
 			include("module/home/view/home.html"); // Incluye la pagina de inicio
 			break;
 		case "ctrl_shop":
+			error_log("entrando en ctrl_shop ".$_GET['page'].$_GET['op']);
 			include("module/shop/controller/" . $_GET['page'] . ".php"); // Incluye el controlador de viviendas.
 			break;
-			//este case
-		case "services":
-			include("module/services/" . $_GET['page'] . ".php"); // Incluye el controlador de servicios.
+		case "ctrl_login":
+			error_log("entrando en login-register_view");
+			include("module/login/controller/" . $_GET['page'] . ".php"); // Incluye el controlador de usuarios.
 			break;
 		case "aboutus":
 			include("module/aboutus/" . $_GET['page'] . ".php"); // Incluye el controlador de aboutus.
@@ -29,7 +29,8 @@ if (isset($_GET['page'])) { // Si existe la variable $_GET['page']...
 		case "503":
 			include("view/inc/error" . $_GET['page'] . ".php");	// Incluye la vista de error.
 			break;
-		default;
+		default:
+		error_log("entrando en default ".$_GET['page'].$_GET['op']);
 			include("module/home/view/home.html"); // Incluye la vista de inicio.
 			break;
 	}
@@ -42,10 +43,4 @@ if (isset($_GET['page'])) { // Si existe la variable $_GET['page']...
 		die('<script>console.log(' . json_encode($data) . ');</script>');
 	}
 
-	// Intenta incluir el segundo archivo
-	echo $_GET['page'];
-	include_once($path . "/view/inc/top_page_home.php");
-	if ($php_errormsg) {
-		echo "Error al incluir top_pages_viviendas.php: " . $php_errormsg;
-	}
 }

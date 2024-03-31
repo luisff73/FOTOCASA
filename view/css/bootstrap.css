@@ -5058,27 +5058,27 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 }
 
 .navbar-inverse .navbar-brand {
-  color: #999;
+  color: #c5c4c4;
   width: 100%;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #fff;
+  color: #3f3f3f;
   background-color: transparent;
 }
 
 .navbar-inverse .navbar-text {
-  color: #999;
+  color: #c5c4c4;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-  color: #999;
+  color: #c5c4c4;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover,
 .navbar-inverse .navbar-nav>li>a:focus {
-  color: #fff;
+  color: #2b2b2b;
   background-color: transparent;
 }
 
@@ -5113,13 +5113,15 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
   border-color: #101010;
-  width: 150px;
+  /* width: 150px; comentado luis */
+  margin-left: auto;
+
 }
 
 .navbar-inverse .navbar-nav>.open>a,
 .navbar-inverse .navbar-nav>.open>a:hover,
 .navbar-inverse .navbar-nav>.open>a:focus {
-  color: #fff;
+  color: #da0000;
   background-color: #080808;
 }
 
@@ -5133,7 +5135,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
   }
 
   .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-    color: #999;
+    color: #ff0000;
   }
 
   .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover,

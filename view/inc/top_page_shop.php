@@ -7,17 +7,15 @@
     <title>Gestión de Inmuebles</title>
     <link href="view/css/prettyPhoto.css" rel="stylesheet" />
     <link href="view/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="view/css/bootstrap.css" rel="stylesheet" />
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel='stylesheet'>
     <link href="view/css/glider.css" rel="stylesheet" type="text/css" />
-    <link href="view/css/slick.css" rel="stylesheet" type="text/css" />
     <link href="view/css/slick.css" rel="stylesheet" type="text/css" />
     <link href="view/css/slick-theme.css" rel="stylesheet" type="text/css" />
 
     <!-- FONTAWESOME STYLE CSS -->
     <link href="view/css/font-awesome.min.css" rel="stylesheet" />
-    <!-- CUSTOM STYLE CSS -->
+
     <!-- GOOGLE FONT -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
@@ -37,11 +35,15 @@
     <script src="module/home/model/ctrl_home.js"></script>
     <script src="module/shop/model/ctrl_shop.js"></script>
     <script src="module/search/model/crtl_search.js"></script>
-    <!-- BOOTSTRAP SCRIPTS  -->
-    <script src="view/plugins/bootstrap.js"></script>
+    <script src="module/login/model/ctrl_login.js"></script>
+    <script src="module/login/model/ctrl_register.js"></script>
+
     <!-- CUSTOM SCRIPTS  -->
     <script src="view/js/custom.js"></script>
     <script src="https://kit.fontawesome.com/03b29eeaba.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="view/plugins/bootstrap.js"></script>
+    <link href="view/css/bootstrap.css" rel="stylesheet" />
 </head>

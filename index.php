@@ -30,8 +30,6 @@ if ((isset($_GET['page'])) && ($_GET['page'] === "ctrl_home")) { //Si la página
 session_start();
 ?>
 
-<!-- Este código PHP y HTML está estructurado incluye secciones de otras paginas web como header, menu, pages y footer. 
-	 utilizando la función INCLUDE.  -->
 
 <div id="wrapper">
     <!--wrapper es un contenedor que contiene todos los elementos de la página web.-->
@@ -53,7 +51,7 @@ session_start();
     <div id="footer">
         <!-- footer es el pie de la página web.-->
         <?php
-		include("view/inc/footer.php");
+//		include("view/inc/footer.php");
 		?>
     </div>
 

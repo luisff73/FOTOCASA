@@ -15,13 +15,13 @@ switch ($_GET['op']) {
             $daoshop = new DAOShop(); 
             $Dates_Viviendas = $daoshop->select_all_viviendas($_POST['offset'],$_POST['items_page']);
         } catch (Exception $e) {
-            echo json_encode("error en php all_viviendas");
+            echo json_encode("error");
         }
 
         if (!empty($Dates_Viviendas)) {
             echo json_encode($Dates_Viviendas);
         } else {
-            echo json_encode("error en php all_viviendas");
+            echo json_encode("error");
         }
         break;
     case 'count_all_viviendas':
@@ -35,7 +35,7 @@ switch ($_GET['op']) {
         if (!empty($SelectCount)) {
             echo json_encode($SelectCount);
         } else {
-            echo json_encode("error en php count_all_viviendas");
+            echo json_encode("error");
         }
         break;
 
@@ -50,11 +50,22 @@ switch ($_GET['op']) {
         if (!empty($Dates_Viviendas)) {
             echo json_encode($Dates_Viviendas);
         } else {
-            echo json_encode("error en php filters_home");
+            echo json_encode("error");
         }
 
         break;
-
+        
+    case 'count_filters_home':    
+        $daoshop = new DAOShop();
+        $resultado = $daoshop -> count_filters_home($_POST['filters_home']);
+        if (!empty($resultado)) {
+            echo json_encode($resultado);
+        }
+        else {
+            echo "error";
+        }
+        break;
+        
     case 'filters_shop':
         try {/// si no hay errores en la consulta
             $daoshop = new DAOShop();
@@ -70,12 +81,12 @@ switch ($_GET['op']) {
             echo json_encode($Dates_Viviendas);
             //echo ('<script>console.log(' . json_encode($Dates_Viviendas) . ');</script>');
         } else {
-            echo json_encode("error en php filters_shop");
+            echo json_encode("error");
         }
         break;
 
     case 'filters_search':
-        try {/// si no hay errores en la consulta
+        try {
             $daoshop = new DAOShop();
             $Dates_Viviendas = $daoshop->filters_search($_POST['filters'],$_POST['offset'],$_POST['items_page']); //llamamos a la funcion que nos devuelve todas las viviendas
 
@@ -85,17 +96,7 @@ switch ($_GET['op']) {
         if (!empty($Dates_Viviendas)) { /// si hay datos en la consulta
             echo json_encode($Dates_Viviendas);
         } else {
-            echo json_encode("error en php filters_search");
-        }
-        break;
-    case 'count_filters_home':    
-        $daoshop = new DAOShop();
-        $resultado = $daoshop -> count_filters_home($_POST['filters_home']);
-        if (!empty($resultado)) {
-            echo json_encode($resultado);
-        }
-        else {
-            echo "error";
+            echo json_encode("error");
         }
         break;
     case 'count_filters_shop':    
@@ -105,7 +106,7 @@ switch ($_GET['op']) {
             echo json_encode($resultado);
         }
         else {
-            echo json_encode("error en php filters_shop");
+            echo json_encode("error");
         }
         break;
 
@@ -116,7 +117,7 @@ switch ($_GET['op']) {
             echo json_encode($resultado);
         }
         else {
-            echo json_encode("error en php count filters_search");
+            echo json_encode("error");
         }
         break;
 

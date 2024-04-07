@@ -40,27 +40,28 @@ switch ($_GET['op']) {
         try {
             $dao = new DAO_search();
             if (!empty($_POST['operation']) && empty($_POST['category'])) {//si operation no esta vacio y category si
-                $rdo = $dao->select_only_operation($_POST['complete'], $_POST['operation']);//llamamos a la funcion select_only_city
+                $resultado = $dao->select_only_operation($_POST['complete'], $_POST['operation']);//llamamos a la funcion select_only_city
 
             } else if (empty($_POST['operation']) && !empty($_POST['category'])) {//si operation esta vacio y category no esta vacio
-                $rdo = $dao->select_only_category($_POST['category'], $_POST['complete']); //llamamos a la funcion select_only_category
+                $resultado = $dao->select_only_category($_POST['category'], $_POST['complete']); //llamamos a la funcion select_only_category
 
             } else if (!empty($_POST['operation']) && !empty($_POST['category'])) {//si operation no esta vacio y category no esta vacio
-                $rdo = $dao->select_operation_category($_POST['complete'], $_POST['operation'], $_POST['category']);//llamamos a la funcion select_brand_category
+                
+                $resultado = $dao->select_operation_category($_POST['complete'], $_POST['operation'], $_POST['category']);//llamamos a la funcion select_brand_category
 
             } else {
-                $rdo = $dao->select_city($_POST['complete']);
+                $resultado = $dao->select_city($_POST['complete']);
             }
         } catch (Exception $e) {
             echo json_encode("catch");
             exit;
         }
-        if (!$rdo) {
-            echo json_encode("rdo!!!");
+        if (!$resultado) {//si no hay resultado
+            echo json_encode("no hay resultados en autocomplete");
             exit;
         } else {
             $dinfo = array();
-            foreach ($rdo as $row) {
+            foreach ($resultado as $row) {
                 array_push($dinfo, $row);
             }
             echo json_encode($dinfo);

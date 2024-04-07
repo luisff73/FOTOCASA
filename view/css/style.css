@@ -263,7 +263,7 @@ small {
 
 .portfolio-item .portfolio-image {
   position: relative;
-  height: auto;
+  height: 150px;
 
 }
 
@@ -757,9 +757,9 @@ footer {
 #search_auto {
   visibility: hidden;
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+  top: 73%;
+  left: 40%;
+  width: 20%;
   padding: 10px;
   background-color: white;
   border: 1px solid #ddd;

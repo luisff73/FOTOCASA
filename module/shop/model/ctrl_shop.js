@@ -74,23 +74,28 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
 
 function loadviviendas() {
 
-    var verificate_filters_home = localStorage.getItem('filters_home') || undefined; //si no hay un valor, devuelve une valor undefined
+    //var verificate_filters_home = localStorage.getItem('filters_home') || undefined; //si no hay un valor, devuelve une valor undefined
     var verificate_filters_shop = localStorage.getItem('filters_shop') || undefined; //si no hay un valor, devuelve une valor undefined
-    var verificate_filters_search = localStorage.getItem('filters_search') || undefined; //si no hay un valor, devuelve une valor undefined
+    //var verificate_filters_search = localStorage.getItem('filters_search') || undefined; //si no hay un valor, devuelve une valor undefined
     var offset = 0;
     var items_page = 3;
 
-    if (verificate_filters_home != undefined) { // comprueba si la variable verificate_filters es distinta de false (si existe)
-        var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
-        ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page }); // si es distinta de false carga los filtros de la página de shop
-    } else if (verificate_filters_shop != undefined) {
+    //if (verificate_filters_home != undefined) { // comprueba si la variable verificate_filters es distinta de false (si existe)
+    //    var filters = JSON.parse(verificate_filters_home); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
+    //    ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_home', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page }); // si es distinta de false carga los filtros de la página de shop
+    //} else 
+    if (verificate_filters_shop != undefined) {
         var filters = JSON.parse(verificate_filters_shop); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_shop', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page }); // si es distinta de false carga los filtros de la página de shop
-    } else if (verificate_filters_search != undefined) {
-        var filters = JSON.parse(verificate_filters_search); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
-        ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_search', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page });
-        //ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_search', 'POST', 'JSON', { 'filters': filters }, { 'offset': offset }, { 'items_page': items_page }); // si es distinta de false carga los filtros de la página de shop
     } else {
+        // if (verificate_filters_search != undefined) {
+        //     alert('valor de filters_search en load viviendas' + verificate_filters_search)
+        //     var filters = JSON.parse(verificate_filters_search); // convierte la variable json a un objeto de javascript pasamos del string al objeto array
+        //     ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_search', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page });
+        //ajaxForSearch('module/shop/controller/ctrl_shop.php?op=filters_search', 'POST', 'JSON', { 'filters': filters }, { 'offset': offset }, { 'items_page': items_page }); // si es distinta de false carga los filtros de la página de shop
+        // } else {
+
+        //console.log('no hay filtros en load viviendas');
         ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'POST', 'JSON', { 'filters': filters, 'offset': offset, 'items_page': items_page }); // si no carga todas las viviendas
 
     }
@@ -418,34 +423,35 @@ function filter_button() { //funcion para filtrar los productos
     });
 
     $(document).on('click', '.filter_remove', function () {
-
+        var filter_array = [];
         remove_filters();
-        if (filter_array == 0) {//si el array filter es igual a 0
+        if (filter_array == 0 || filter_array == undefined) {//si el array filter es igual a 0
             ajaxForSearch('module/shop/controller/ctrl_shop.php?op=all_viviendas', 'POST', 'JSON', { 'offset': 0, 'items_page': 3 });
             location.reload();//recargamos la página
         }
     });
     setTimeout(() => {
         highlightFilters();
-    }, "500");
+    }, "100");
 }
 function highlightFilters() {
 
     var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
-    //var all_filters = JSON.parse(localStorage.getItem('filters_home'));
     //console.log('filtros highlight ' + all_filters[0][1]);
 
     if (all_filters && all_filters.length > 0) { // Verifica que el array tenga datos y no esté vacío
         all_filters.forEach(function (filter) {//recorremos el array de filtros
-            //console.log('filtro ' + filter[0]);
+            //console.log('filtro higligt ' + filter[0]);
 
             switch (filter[0]) { // El primer elemento de cada filtro es el identificador
                 case 'id_category':
                     $('#select_category').val(filter[1]); // El segundo elemento es el valor del filtro
-                    //console.log(filter[1]);
+                    $('#search_category').val(filter[1]);
+                    //console.log('valor de category en higlight =' + filter[1]);
                     break;
                 case 'id_operation':
                     $('#select_operation').val(filter[1]); // El segundo elemento es el valor del filtro
+                    $('#search_operation').val(filter[1]);
                     //console.log(filter[1]);
                     break;
                 case 'id_type':
@@ -469,7 +475,7 @@ function highlightFilters() {
             }
         });
     } else {
-        console.log('No hay filtros en highlightFilters');
+        //console.log('No hay filtros en highlightFilters');
     }
 }
 function remove_filters() {
@@ -482,7 +488,7 @@ function remove_filters() {
     localStorage.removeItem('filter_city');
     localStorage.removeItem('filter_price');
     localStorage.removeItem('filter_order');
-    filters_shop.length = 0;
+    localStorage.removeItem('page');
     location.reload();
 }
 function loadCategoriesfilter() {
@@ -562,19 +568,20 @@ function pagination() {
     } else if (filters_search != undefined) {
         url = "module/shop/controller/ctrl_shop.php?op=count_filters_search";
         filters = filters_search;
-    } else if (filters_home != undefined) {
-        url = "module/shop/controller/ctrl_shop.php?op=count_filters_home";
-        filters = filters_home;
+        //} else if (filters_home != undefined) {
+        //    url = "module/shop/controller/ctrl_shop.php?op=count_filters_home";
+        //    filters = filters_home;
     } else {
         url = "module/shop/controller/ctrl_shop.php?op=count_all_viviendas";
     }
-
+    //alert('filters .... despues del if ' + filters);
+    //alert('valor de la url ' + url);
     ajaxPromise(url, 'POST', 'JSON', { 'filters_shop': filters_shop, 'filters_search': filters_search, 'filters_home': filters_home })
+
         //en este ajaxpromise podemos pasarle varios valores de varios filtros almacenados en el localstorage
         .then(function (data) {
-
             var offset = data[0].contador; //guardamos en la variable offset el valor de la posicion 0 del array data que es el total productos
-
+            //console.log('valor de offset ' + offset);
             if (offset >= 3) {
                 total_pages = Math.ceil(offset / 3)
             } else {
@@ -722,6 +729,7 @@ $(document).ready(function () {
     clicks_details_related();
     filter_button();
     pagination();
+    //highlightFilters();
 });
 
 

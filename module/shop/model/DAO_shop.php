@@ -6,8 +6,6 @@ class DAOShop
 {
     function select_all_viviendas($offset, $items_page) 
     {
-        //$prueba = "hola dao";
-        //return $prueba;
         
         $sql = "SELECT v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,
         v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted 
@@ -81,30 +79,38 @@ class DAOShop
     }
     function filters_home($filters, $offset, $items_page)
     {
-        $select = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type INNER JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        $select = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, 
+        v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, 
+        c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
-        //return $select;
+        //return $filters;
+        //return $filters[0][0];
 
-        if (isset($filters[0]['id_operation'])) {  // Si el array de filtros contiene el índice id_operation((iel isset obliga)
-            $add_filter = $filters[0]['id_operation'][0];
+        if (isset($filters[0][0]) && $filters[0][0] == 'id_operation') {  // Si el array de filtros contiene el índice id_operation((iel isset obliga)
+            $add_filter = $filters[0][1];
             $select .= " and o.id_operation = '$add_filter'";
-        } else if (isset($filters[0]['id_category'])) { // Si el array de filtros contiene el índice id_category
-            $add_filter = $filters[0]['id_category'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] =='id_category') { // Si el array de filtros contiene el índice id_category
+            $add_filter = $filters[0][1];
             $select .= " and c.id_category = '$add_filter'";
-        } else if (isset($filters[0]['id_city'])) { // Si el array de filtros contiene el índice id_city
-            $add_filter = $filters[0]['id_city'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] =='id_city') { // Si el array de filtros contiene el índice id_city
+            $add_filter = $filters[0][1];
             $select .= " and ci.id_city = '$add_filter'";
-        } else if (isset($filters[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
-            $add_filter = $filters[0]['id_type'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] =='id_type') { // Si el array de filtros contiene el índice id_type
+            $add_filter = $filters[0][1];
             $select .= " and t.id_type = '$add_filter'";
-        } else if (isset($filters[0]['adapted'])) { // Si el array de filtros contiene el índice adapted
-            $add_filter = $filters[0]['adapted'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] =='adapted') { // Si el array de filtros contiene el índice adapted
+            $add_filter = $filters[0][1];
             $select .= " and a.adapted = '$add_filter'";
-        } else if (isset($filters[0]['vivienda_price'])) { // Si el array de filtros contiene el índice vivienda_price
-            $add_filter = $filters[0]['vivienda_price'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] =='vivienda_price') { // Si el array de filtros contiene el índice vivienda_price
+            $add_filter = $filters[0][1];
             $select .= " and v.vivienda_price = '$add_filter'";
         } else if (isset($filters[0]['filter_order'])) { // Si el array de filtros contiene el índice filter_order
-            $add_filter = $filters[0]['filter_order'][0];
+            $add_filter = $filters[0][1];
             $select .= " ORDER BY v.vivienda_price $add_filter";
         }
             $select .= " LIMIT $offset,$items_page";
@@ -119,36 +125,39 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        // return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
+        //return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
     function count_filters_home($filters)
     {
-        $select = "SELECT COUNT(*) as contador,v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type INNER JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        $select = "SELECT COUNT(*) as contador,v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, 
+        v.vivienda_price, v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, 
+        t.type_name, c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted 
+        FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
-        //return $select;
-
-        if (isset($filters[0]['id_operation'])) {  // Si el array de filtros contiene el índice id_operation((iel isset obliga)
-            $add_filter = $filters[0]['id_operation'][0];
+        if (isset($filters[0][0]) && $filters[0][0] == 'id_operation') {  // Si el array de filtros contiene el índice id_operation((iel isset obliga)
+            $add_filter = $filters[0][1];
             $select .= " and o.id_operation = '$add_filter'";
-        } else if (isset($filters[0]['id_category'])) { // Si el array de filtros contiene el índice id_category
-            $add_filter = $filters[0]['id_category'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] == 'id_category') { // Si el array de filtros contiene el índice id_category
+            $add_filter = $filters[0][1];
             $select .= " and c.id_category = '$add_filter'";
-        } else if (isset($filters[0]['id_city'])) { // Si el array de filtros contiene el índice id_city
-            $add_filter = $filters[0]['id_city'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] == 'id_city') { // Si el array de filtros contiene el índice id_city
+            $add_filter = $filters[0][1];
             $select .= " and ci.id_city = '$add_filter'";
-        } else if (isset($filters[0]['id_type'])) { // Si el array de filtros contiene el índice id_type
-            $add_filter = $filters[0]['id_type'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] == 'id_type') { // Si el array de filtros contiene el índice id_type
+            $add_filter = $filters[0][1];
             $select .= " and t.id_type = '$add_filter'";
-        } else if (isset($filters[0]['adapted'])) { // Si el array de filtros contiene el índice adapted
-            $add_filter = $filters[0]['adapted'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] == 'adapted') { // Si el array de filtros contiene el índice adapted
+            $add_filter = $filters[0][1];
             $select .= " and a.adapted = '$add_filter'";
-        } else if (isset($filters[0]['vivienda_price'])) { // Si el array de filtros contiene el índice vivienda_price
-            $add_filter = $filters[0]['vivienda_price'][0];
+        } else if (isset($filters[0][0]) && $filters[0][0] == 'vivienda_price') { // Si el array de filtros contiene el índice vivienda_price
+            $add_filter = $filters[0][1];
             $select .= " and v.vivienda_price = '$add_filter'";
-        } else if (isset($filters[0]['filter_order'])) { // Si el array de filtros contiene el índice filter_order
-            $add_filter = $filters[0]['filter_order'][0];
-            $select .= " ORDER BY v.vivienda_price $add_filter";
         }
 
         $conexion = connect::con();
@@ -161,12 +170,20 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        // return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
+        //return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
     function filters_shop($filters, $offset, $items_page)
     {
-        $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,
+        v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,
+        o.id_operation,ci.id_city,t.id_type,
+        a.adapted,v.long,v.lat FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
@@ -180,9 +197,9 @@ class DAOShop
             } else {
                 $select .= " AND v." . $filters[$i][0] . "=" . $filters[$i][1];
             }
-            $select .= " LIMIT $offset,$items_page";
         }
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
+        $select .= " LIMIT $offset,$items_page";
 
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $select);
@@ -199,7 +216,14 @@ class DAOShop
     }
     function count_filters_shop($filters)
     {
-        $select = "SELECT COUNT(*) as contador,v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        $select = "SELECT COUNT(*) as contador,v.id_vivienda,v.vivienda_name,ci.city_name,v.state,
+        v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,
+        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
 
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
@@ -231,8 +255,15 @@ class DAOShop
     }
     function filters_search($filters, $offset, $items_page)
     {
-        $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat FROM viviendas v INNER JOIN category c ON v.id_category = c.id_category INNER JOIN operation o ON v.id_operation = o.id_operation INNER JOIN city ci ON v.id_city = ci.id_city INNER JOIN type t ON v.id_type = t.id_type LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
-
+        $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,
+        v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,
+        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat 
+        FROM viviendas v 
+        INNER JOIN category c ON v.id_category = c.id_category 
+        INNER JOIN operation o ON v.id_operation = o.id_operation 
+        INNER JOIN city ci ON v.id_city = ci.id_city 
+        INNER JOIN type t ON v.id_type = t.id_type 
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
         for ($i = 0; $i < count($filters); $i++) {
@@ -244,10 +275,10 @@ class DAOShop
                 $order = " ORDER BY " . $filters[$i][1];
             } else {
                 $select .= " AND v." . $filters[$i][0] . "=" . $filters[$i][1];
-            }
-            $select .= " LIMIT $offset,$items_page";
+            }      
         }
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
+        $select .= " LIMIT $offset,$items_page";
 
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $select);
@@ -259,7 +290,7 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        // return $select; IMPORTANTE PARA DEVOLVER EL VALOR DE LA CONSULTA
+        //return $select; //IMPORTANTE PARA DEVOLVER EL VALOR DE LA CONSULTA
         return $retrArray;
     }
     function select_categories()

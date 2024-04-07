@@ -163,53 +163,68 @@ function clicks() { //función que se encarga de redirigir a la página de shop 
 
 
     $(document).on("click", 'div.carousel__elements', function () { //recoge el click en el carrousel con el div.carousel__elements
-        remove_filters();
+        remove_filters_home();
+        localStorage.setItem('filter_operation', this.getAttribute('id'));
         var filters_home = [];
-        filters_home.push({ "id_operation": [this.getAttribute('id')] });//añade el id del elemento seleccionado al array de filtros
-        localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        filters_home.push(["id_operation", this.getAttribute('id')]);//añade el id del elemento seleccionado al array de filtros
+        //localStorage.setItem('filters_home', JSON.stringify(filters_home))
+        localStorage.setItem('filters_shop', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
     });
 
     $(document).on("click", 'div.div_cate', function () {  //recoge el click en el div.div_cate
-        remove_filters();
+        remove_filters_home();
+        localStorage.setItem('filter_category', this.getAttribute('id'));
         var filters_home = [];
-        filters_home.push({ "id_category": [this.getAttribute('id')] });
-        localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        filters_home.push(["id_category", this.getAttribute('id')]);
+        //localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        localStorage.setItem('filters_shop', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
     });
 
     $(document).on("click", 'div.div_city', function () { //recoge el click en el div.div_city
-        remove_filters();
+        remove_filters_home();
+        localStorage.setItem('filter_city', this.getAttribute('id'));
         var filters_home = [];
-        filters_home.push({ "id_city": [this.getAttribute('id')] });
-        localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        filters_home.push(["id_city", this.getAttribute('id')]);
+        //localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        localStorage.setItem('filters_shop', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
     });
 
     $(document).on("click", 'div.div_type', function () { //recoge el click en el div.div_type
-        remove_filters();
+        remove_filters_home();
+        localStorage.setItem('filter_type', this.getAttribute('id'));
         var filters_home = [];
-        filters_home.push({ "id_type": [this.getAttribute('id')] });
-        localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        filters_home.push(["id_type", this.getAttribute('id')]);
+        //localStorage.setItem('filters_home', JSON.stringify(filters_home));
+        localStorage.setItem('filters_shop', JSON.stringify(filters_home));
         setTimeout(function () {
             window.location.href = 'index.php?page=ctrl_shop&op=list'; //redirige a la página de shop con la opcion de ver los productos filtrados.
         }, 200);
     });
 
     $(document).on('click', '#regreso_home', function () {
-        remove_filters();
+        remove_filters_home();
     });
 }
-function remove_filters() {
+function remove_filters_home() {
     localStorage.removeItem('filters_home');
     localStorage.removeItem('filters_shop');
     localStorage.removeItem('filters_search');
+    localStorage.removeItem('filter_category');
+    localStorage.removeItem('filter_operation');
+    localStorage.removeItem('filter_type');
+    localStorage.removeItem('filter_city');
+    localStorage.removeItem('filter_price');
+    localStorage.removeItem('filter_order');
+    localStorage.removeItem('page');
 }
 
 $(document).ready(function () {
@@ -221,4 +236,4 @@ $(document).ready(function () {
     //ultimas_busquedas();
     mas_visitadas();
     clicks();
-});
+});                

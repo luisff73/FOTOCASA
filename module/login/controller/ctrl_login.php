@@ -1,7 +1,12 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $path = $_SERVER['DOCUMENT_ROOT'] . '/compracasa/';
 include($path . "/module/login/model/DAOlogin.php");
-//include($path . "/model/middleware_auth.php");
+include($path . "/model/middleware_auth.php");
 @session_start();
 
 switch ($_GET['op']) {
@@ -56,14 +61,13 @@ switch ($_GET['op']) {
                 exit;
             } else {
                 if (password_verify($_POST['passwd_log'], $rdo['password'])) { //comprueba que la contraseña sea correcta
-       //             $token= create_token($rdo["username"]);
-       //             $_SESSION['username'] = $rdo['username']; //Guardamos el usuario 
-       //             $_SESSION['tiempo'] = time(); //Guardamos el tiempo que se logea
-       //             echo json_encode($token); 
-                      echo json_encode("todo ok");
+                   $token= create_token($rdo["username"]);
+                    $_SESSION['username'] = $rdo['username']; //Guardamos el usuario 
+                    $_SESSION['tiempo'] = time(); //Guardamos el tiempo que se logea
+                    echo json_encode($token); //devuelve el token
                     exit;
                 } else {
-                    echo json_encode("error_password"); 
+                    echo json_encode("error_password");                 
                     exit;
                 }
             }

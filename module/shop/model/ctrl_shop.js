@@ -145,6 +145,7 @@ function mapBox_all(data) {
 function clicks_details() {
     $(document).on("click", ".detalles_inmueble", function () {
         var id_vivienda = this.getAttribute('id');
+        alert ('id_vivienda ' + id_vivienda);
         loadDetails(id_vivienda);
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
             .then(function () {
@@ -684,9 +685,7 @@ function viviendas_related(offset = 0, id_city, total_items) {
         });
 
 }
-
 function more_viviendas_related(id_city) {
-    //alert('has entrado en more viviendas related con el id de city ' + id_city);
     var id_city = id_city;
     var items_page = 0;
     ajaxPromise('module/shop/controller/ctrl_shop.php?op=count_viviendas_related', 'POST', 'JSON', { 'id_city': id_city })
@@ -707,7 +706,12 @@ function more_viviendas_related(id_city) {
 
 function clicks_details_related() {
     $(document).on("click", ".related_viviendas", function () {
-        var id_vivienda = this.getAttribute('id');
+        //  $('<div></div>').attr({ 'id': data[row].id_vivienda, 'class': 'more_info_list' }).appendTo('.viviendas_content')
+
+        //"<button id='" + data[row].id_vivienda + "' class='detalles_inmueble button add' >Detalles</button>" +
+        var id_vivienda = data[row].id_vivienda
+
+        alert('has entrado en more viviendas related con el id de city ' + id_vivienda);
         loadDetails(id_vivienda);
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
             .then(function () {

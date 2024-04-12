@@ -6,7 +6,7 @@ function register() {
         data.push({ name: 'passwd2_reg', value: document.getElementById('passwd2_reg').value });
         data.push({ name: 'email_reg', value: document.getElementById('email_reg').value });
 
-        console.log(data);
+        //console.log(data);
 
         ajaxPromise('module/login/controller/ctrl_login.php?op=register', 'POST', 'JSON', data)
             .then(function (result) {

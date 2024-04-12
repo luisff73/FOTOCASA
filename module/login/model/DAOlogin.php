@@ -14,7 +14,7 @@
         function insert_user($username, $email, $password){
             $hashed_pass = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]); //funcion de php para encriptar la contraseña
             $hashavatar = md5(strtolower(trim($email))); //genera un hash a partir del email
-            $avatar = "https://i.pravatar.cc/500?u=$hashavatar"; //genera un avatar aleatorio
+            $avatar = "https://i.pravatar.cc/500?u=$hashavatar"; //genera un avatar aleatorio con el nombre de usuario
             $sql ="   INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`) 
             VALUES ('$username','$hashed_pass','$email','client','$avatar')";
 
@@ -43,6 +43,7 @@
 			$conexion = connect::con();
             $res = mysqli_query($conexion, $sql)->fetch_object();
             connect::close($conexion);
+            echo $username;
             return $res;
         }
 

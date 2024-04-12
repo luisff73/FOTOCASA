@@ -23,7 +23,7 @@
 
 
     <script src="view/inc/promises.js"></script>
-
+    <script src="view/js/main.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -35,6 +35,7 @@
     <script src="module/search/model/crtl_search.js"></script>
     <script src="module/login/model/ctrl_login.js"></script>
     <script src="module/login/model/ctrl_register.js"></script>
+
 
     <!-- CUSTOM SCRIPTS  -->
     <script src="view/js/custom.js"></script>

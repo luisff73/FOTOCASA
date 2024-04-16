@@ -86,8 +86,13 @@ switch ($_GET['op']) {
         break;
 
     case 'data_user':
- //       $json = decode_token($_POST['token']);
+        
+        $json = decode_token($_POST['token']);
+        //echo json_encode ($json);
+        //exit;
         $daoLog = new DAOLogin();
+        //echo json_encode ($json['username']);
+        //exit;
         $rdo = $daoLog->select_data_user($json['username']);
         echo json_encode($rdo);
         exit;
@@ -109,7 +114,7 @@ switch ($_GET['op']) {
         break;
 
     case 'controluser':
- //       $token_dec = decode_token($_POST['token']);
+        $token_dec = decode_token($_POST['token']);
 
         if ($token_dec['exp'] < time()) {
             echo json_encode("Wrong_User");

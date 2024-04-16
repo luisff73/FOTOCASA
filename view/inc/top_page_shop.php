@@ -27,12 +27,12 @@
 
 
     <!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
+    <script src="view/js/main.js"></script>
     <script src="view/plugins/glider.js"></script>
     <script src="view/plugins/slick.js"></script>
     <script type="text/javascript" src="view/plugins/slick.min.js"></script>
     <script src="view/plugins/jquery.prettyPhoto.js"></script>
     <script src="view/inc/promises.js"></script>
-    <script src="view/js/main.js"></script>
     <script src="module/home/model/ctrl_home.js"></script>
     <script src="module/shop/model/ctrl_shop.js"></script>
     <script src="module/search/model/crtl_search.js"></script>

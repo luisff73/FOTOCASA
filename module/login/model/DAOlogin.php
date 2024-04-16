@@ -43,7 +43,7 @@
 			$conexion = connect::con();
             $res = mysqli_query($conexion, $sql)->fetch_object();
             connect::close($conexion);
-            echo $username;
+            //return $sql;
             return $res;
         }
 

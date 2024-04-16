@@ -5,12 +5,11 @@ include($path . "model/JWT.php"); // INCLUIMOS LA LIBRERIA JWT
 function decode_token($token){
     $jwt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/compracasa/model/jwt.ini');
     $secret = $jwt['secret'];
-
     $JWT = new JWT;
     $token_dec = $JWT->decode($token, $secret);
     $rt_token = json_decode($token_dec, TRUE);
-    //return $rt_token;
-    return $rt_token["username"];
+    return $rt_token;
+
 }
 
 function create_token($username){

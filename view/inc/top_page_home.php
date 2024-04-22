@@ -22,10 +22,11 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
 
 
-    <script src="view/js/main.js"></script>
-    <script src="view/inc/promises.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="view/js/main.js"></script>
+    <script src="view/js/activity_user.js"></script>
+    <script src="view/inc/promises.js"></script>
 
     <!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
     <script src="view/plugins/glider.js"></script>

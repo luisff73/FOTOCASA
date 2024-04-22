@@ -5,15 +5,21 @@ function login() {
         data.push({ name: 'passwd_log', value: document.getElementById('passwd_log').value });
         //console.log('valor de data ');
         //console.log(data);
-        ajaxPromise('module/login/controller/ctrl_login.php?op=login', 'POST', 'JSON', data)
-            .then(function (result) {
-                console.log('VALOR DE RESULT :' + result); //esto es lo que devuelve el php en formato json QUE ES EL TOKEN
+        ajaxPromise('module/login/controller/ctrl_login.php?op=login', 'POST', 'JSON', data) //data lleva el usuario y la contraseña
+            .then(function (result) {//result es lo que devuelve el php
+                var accestoken = result.accestoken; //accestoken es el token que devuelve el php EN UN ARRAY
+                var refreshtoken = result.refreshtoken; //refreshtoken es el token que devuelve el php EN UN ARRAY
+
+
                 if (result == "error_select_user") {
                     document.getElementById('error_username_log').innerHTML = "El usario no existe,asegurase de que lo a escrito correctamente"
                 } else if (result == "error_password") {
                     document.getElementById('error_passwd_log').innerHTML = "La contraseña es incorrecta"
                 } else {
-                    localStorage.setItem("token", result);
+
+                    localStorage.setItem("accestoken", accestoken);
+                    localStorage.setItem("refreshtoken", refreshtoken);
+
                     toastr.success("Loged succesfully");
 
                     // if (localStorage.getItem('redirect_like')) {
@@ -22,7 +28,7 @@ function login() {
                     setTimeout(' window.location.href = "index.php?page=ctrl_shop&op=list"; ', 3000);
                     // }
                 }
-            }).catch(function (textStatus) {
+            }).catch(function (textStatus) { //
                 if (console && console.log) { //
                     console.log("La solicitud ha fallado en el login : " + textStatus);
                 }

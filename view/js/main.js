@@ -1,11 +1,5 @@
-// ================AJAX-PROMISE================
+
 function ajaxPromises(sUrl, sType, sTData, sData = undefined) {
-
-    console.log('valor de sUrl en ajaxPromise: ' + sUrl);
-    console.log('valor de sType en ajaxPromise: ' + sType);
-    console.log('valor de sTData en ajaxPromise: ' + sTData);
-    console.log('valor de sData en ajaxPromise: ' + sData);
-
 
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -32,35 +26,33 @@ function ajaxPromises(sUrl, sType, sTData, sData = undefined) {
 
 //================LOAD-HEADER================
 function load_menu() {
-    var token = localStorage.getItem('token');
+    var accestoken = localStorage.getItem('accestoken');
 
 
-    if (token) { //si hay un valor en token
+    if (accestoken) { //si hay un valor en token
 
-        console.log('valor de tocken en main js: ' + token);
-
-        ajaxPromises('module/login/controller/ctrl_login.php?op=data_user', 'POST', 'JSON', { 'token': token })
+        ajaxPromises('module/login/controller/ctrl_login.php?op=data_user', 'POST', 'JSON', { 'accestoken': accestoken })
             .then(function (data) {
-                console.log('valor de data en main js: ');
-                console.log(data);
+                //console.log('valor de data en main js: ');
+                //console.log(data);
                 if (data.type_user == "client") {
                     console.log("Cliente logeado");
-                    $('.opc_CRUD').empty();
-                    $('.opc_exceptions').empty();
+                    $('#login-register').empty();
+                    // $('.opc_CRUD').empty();
+                    // $('.opc_exceptions').empty();
                 } else {
                     console.log("Admin loged");
-                    $('.opc_CRUD').show();
-                    $('.opc_exceptions').show();
+                    // $('.opc_CRUD').show();
+                    // $('.opc_exceptions').show();
                 }
 
                 $('.log-icon').empty();
                 $('#user_info').empty();
+                $('login-register').empty();
                 $('<img src="' + data.avatar + '"alt="Robot">').appendTo('.log-icon');
-                $('<p></p>').attr({ 'id': 'user_info' }).appendTo('#des_inf_user')
-                    .html(
-                        '<a id="logout"><i id="icon-logout" class="fa-solid fa-right-from-bracket"></i></a>' +
-                        '<a>' + data.username + '<a/>'
-
+                $('<p></p>').attr({ 'id': 'username' }).appendTo('#des_inf_user')
+                    .html('<a>' + data.username + '<a/>&nbsp;&nbsp;' +
+                        '<a id="logout"><i id="icon-logout" class="fa-solid fa-right-from-bracket"></i></a>'
                     )
 
             }).catch(function () {
@@ -79,20 +71,26 @@ function load_menu() {
 }
 
 
-//================CLICK-LOGIUT================
+//================CLICK-LOGUT================
 function click_logout() {
+
     $(document).on('click', '#logout', function () {
-        localStorage.removeItem('total_prod');
-        toastr.success("Logout succesfully");
+
+        //toastr.success("Logout succesfully");
+
         setTimeout('logout(); ', 1000);
     });
 }
 
 //================LOG-OUT================
 function logout() {
-    ajaxPromises('module/login/controller/ctrl_login.php?op=logout', 'POST', 'JSON')
+    ajaxPromise('module/login/controller/ctrl_login.php?op=logout', 'POST', 'JSON')
         .then(function (data) {
-            localStorage.removeItem('token');
+            //localStorage.removeItem('token');
+            localStorage.removeItem('accestoken');   /// usamos siempre el ACCESStoken
+            localStorage.removeItem('refreshtoken');
+            localStorage.removeItem('total_prod');
+            console.log('Logout succesfully');
             window.location.href = "index.php?module=ctrl_home&op=list";
         }).catch(function () {
             console.log('Something has occured');

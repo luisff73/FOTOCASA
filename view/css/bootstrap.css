@@ -551,7 +551,8 @@ h6,
 }
 
 p {
-  margin: 0 0 10px;
+  margin: 0 0 0px;
+  /* modificado luis 10px a 0 */
 }
 
 .lead {

@@ -1,6 +1,10 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'] . '/compracasa/';
 include($path . "/module/home/model/DAOhome.php");
+@session_start();
+if (isset($_SESSION["tiempo"])) {  
+    $_SESSION["tiempo"] = time(); //Devuelve la fecha actual
+}
 
 switch ($_GET['op']) {
     case 'list':

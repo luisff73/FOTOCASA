@@ -38,8 +38,10 @@ if (isset($_GET['page'])) { // Si existe la variable $_GET['page']...
 	// Intenta incluir el primer archivo
 	include_once("module/home/view/home.html");
 
-	if ($php_errormsg) {
-		echo "Error al incluir home.html: " . $php_errormsg;
+	$error = error_get_last();
+
+	if ($error) {
+		echo "Error al incluir home.html: " . $error['message'];
 		die('<script>console.log(' . json_encode($data) . ');</script>');
 	}
 

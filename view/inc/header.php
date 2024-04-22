@@ -19,7 +19,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="index.php?page=ctrl_home&op=list">Home</a></li>
                 <li><a href="index.php?page=ctrl_shop&op=list">Shop</a></li>
-                <li><a href="index.php?page=ctrl_login&op=login-register_view">Login/Register</a></li>
+                <li><a id="login-register" href="index.php?page=ctrl_login&op=login-register_view">Login/Register</a></li>
+                <li><a id="des_inf_user"></a></li>
+                <li><a class="log-icon"></a></li>
             </ul>
         </div>
     </div>

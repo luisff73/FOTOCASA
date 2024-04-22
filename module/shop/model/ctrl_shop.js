@@ -65,8 +65,10 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
                         )
                 }
             }
+            console.log(data);
             mapBox_all(data);
         }).catch(function () {
+            console.log(data);
             console.log('error catch');
         });
 }
@@ -145,7 +147,7 @@ function mapBox_all(data) {
 function clicks_details() {
     $(document).on("click", ".detalles_inmueble", function () {
         var id_vivienda = this.getAttribute('id');
-        alert ('id_vivienda ' + id_vivienda);
+        alert('id_vivienda ' + id_vivienda);
         loadDetails(id_vivienda);
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
             .then(function () {

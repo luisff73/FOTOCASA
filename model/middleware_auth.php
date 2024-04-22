@@ -8,17 +8,26 @@ function decode_token($token){
     $JWT = new JWT;
     $token_dec = $JWT->decode($token, $secret);
     $rt_token = json_decode($token_dec, TRUE);
+    //json_decode en una funcion de php que convierte un string json en un array asociativo
     return $rt_token;
 
 }
-
-function create_token($username){
+function create_accestoken($username){
+    $jwt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/compracasa/model/jwt.ini');
+    $header = $jwt['header']; // OBTENEMOS EL HEADER DEL ARCHIVO INI
+    $secret = $jwt['secret']; // OBTENEMOS EL SECRET DEL ARCHIVO INI
+    $payload = '{"iat":"' . time() . '","exp":"' . time() + (600) . '","username":"' . $username . '"}';
+    $JWT = new JWT;  // CREACION DE OBJETO JWT
+    $token = $JWT->encode($header, $payload, $secret); // CODIFICAMOS EL TOKEN
+    return $token;
+}
+function create_refreshtoken($username){
     $jwt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/compracasa/model/jwt.ini');
     $header = $jwt['header'];
     $secret = $jwt['secret'];
-    $payload = '{"iat":"' . time() . '","exp":"' . time() + (600) . '","username":"' . $username . '"}';
+    $payload = '{"iat":"' . time() . '","exp":"' . time() + (1600) . '","username":"' . $username . '"}';
     $JWT = new JWT;  // CREACION DE OBJETO JWT
-    $token = $JWT->encode($header, $payload, $secret);
+    $token = $JWT->encode($header, $payload, $secret); // CODIFICAMOS EL TOKEN
     return $token;
 }
 

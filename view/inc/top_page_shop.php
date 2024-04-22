@@ -12,6 +12,8 @@
     <link href="view/css/glider.css" rel="stylesheet" type="text/css" />
     <link href="view/css/slick.css" rel="stylesheet" type="text/css" />
     <link href="view/css/slick-theme.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- FONTAWESOME STYLE CSS -->
     <link href="view/css/font-awesome.min.css" rel="stylesheet" />
@@ -28,6 +30,7 @@
 
     <!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
     <script src="view/js/main.js"></script>
+    <script src="view/js/activity_user.js"></script>
     <script src="view/plugins/glider.js"></script>
     <script src="view/plugins/slick.js"></script>
     <script type="text/javascript" src="view/plugins/slick.min.js"></script>

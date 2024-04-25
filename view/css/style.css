@@ -1032,3 +1032,9 @@ footer {
   border-radius: 50%;
   display: flex;
 }
+
+#img_like {
+  width: 30px;
+  height: 30px;
+  display: flex;
+}

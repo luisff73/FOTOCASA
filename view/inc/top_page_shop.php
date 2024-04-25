@@ -50,4 +50,7 @@
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="view/plugins/bootstrap.js"></script>
     <link href="view/css/bootstrap.css" rel="stylesheet" />
+    <!-- TOASTR -->
+    <link href="view/css/toastr.scss" rel="stylesheet" />
+    <script src="view/plugins/toastr.js"></script>
 </head>

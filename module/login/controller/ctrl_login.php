@@ -67,10 +67,7 @@ switch ($_GET['op']) {
                     $_SESSION['username'] = $rdo['username']; //Guardamos el usuario en la sesion
                     $_SESSION['tiempo'] = time(); //Guardamos el tiempo que se logea
 
-                    //echo json_encode('accestoken' => $accestoken); //devuelve el token de acceso
-                    //echo json_encode('refreshtoken' => $refreshtoken); //devuelve el token de refresco
-                    //echo json_encode(array('accestoken' => $accestoken, 'refreshtoken' => $refreshtoken));
-                   
+                
                     $response = array(
                         'accestoken' => $accestoken,
                         'refreshtoken' => $refreshtoken

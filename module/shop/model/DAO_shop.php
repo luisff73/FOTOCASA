@@ -8,13 +8,15 @@ class DAOShop
     {
         
         $sql = "SELECT v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,
-        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted 
+        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted, count(l.id_vivienda) as total_likes 
         FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda where v.id_vivienda>0 LIMIT $offset,$items_page;";
+        LEFT JOIN likes l on v.id_vivienda=l.id_vivienda
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda where v.id_vivienda>0 group by v.id_vivienda LIMIT $offset,$items_page;";
+
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $sql);
         connect::close($conexion);
@@ -48,14 +50,17 @@ class DAOShop
     {
         //return $id;
         $sql = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, v.description, 
-        v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, a.adapted, v.id_city 
+        v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, a.adapted, v.id_city,  count(l.id_vivienda) as total_likes 
         FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
-        WHERE v.id_vivienda = '$id';";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda
+        LEFT JOIN likes l on v.id_vivienda=l.id_vivienda 
+        WHERE v.id_vivienda = '$id'
+        GROUP BY v.id_vivienda;";
+
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $sql)->fetch_object();
         connect::close($conexion);
@@ -81,12 +86,15 @@ class DAOShop
     {
         $select = "SELECT v.id_vivienda, v.vivienda_name, ci.city_name, v.state, v.status, v.vivienda_price, 
         v.description, v.image_name, v.m2, v.long, v.lat, c.category_name, o.operation_name, t.type_name, 
-        c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted FROM viviendas v 
+        c.id_category, o.id_operation, ci.id_city, t.id_type, a.adapted, count(l.id_vivienda) as total_likes  
+        FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        LEFT JOIN likes l on v.id_vivienda=l.id_vivienda
+        WHERE v.id_vivienda>0";
 
         //return $filters;
         //return $filters[0][0];
@@ -113,7 +121,8 @@ class DAOShop
             $add_filter = $filters[0][1];
             $select .= " ORDER BY v.vivienda_price $add_filter";
         }
-            $select .= " LIMIT $offset,$items_page";
+        $select .= " GROUP BY v.id_vivienda";
+        $select .= " LIMIT $offset,$items_page";
 
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $select);
@@ -125,7 +134,7 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        //return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
+        return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
     function count_filters_home($filters)
@@ -170,7 +179,7 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        //return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
+        return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
     function filters_shop($filters, $offset, $items_page)
@@ -178,12 +187,14 @@ class DAOShop
         $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,v.vivienda_price,
         v.description,v.image_name,v.m2,c.category_name,o.operation_name,t.type_name,c.id_category,
         o.id_operation,ci.id_city,t.id_type,
-        a.adapted,v.long,v.lat FROM viviendas v 
+        a.adapted,v.long,v.lat, count(l.id_vivienda) as total_likes FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        LEFT JOIN likes l ON v.id_vivienda = l.id_vivienda
+        WHERE v.id_vivienda>0";
 
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
@@ -199,7 +210,8 @@ class DAOShop
             }
         }
         $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
-        $select .= " LIMIT $offset,$items_page";
+        $select .= " GROUP BY V.id_vivienda";
+        $select .= " LIMIT $offset,$items_page ";
 
         $conexion = connect::con();
         $resultado = mysqli_query($conexion, $select);
@@ -218,12 +230,14 @@ class DAOShop
     {
         $select = "SELECT COUNT(*) as contador,v.id_vivienda,v.vivienda_name,ci.city_name,v.state,
         v.status,v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,
-        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat FROM viviendas v 
+        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat
+        FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        WHERE v.id_vivienda>0";
 
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
@@ -257,13 +271,15 @@ class DAOShop
     {
         $select = "SELECT v.id_vivienda,v.vivienda_name,ci.city_name,v.state,v.status,
         v.vivienda_price,v.description,v.image_name,v.m2,c.category_name,o.operation_name,
-        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat 
+        t.type_name,c.id_category,o.id_operation,ci.id_city,t.id_type,a.adapted,v.long,v.lat, count(l.id_vivienda) as total_likes
         FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE v.id_vivienda>0";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        LEFT JOIN likes l on v.id_vivienda=l.id_vivienda
+        WHERE v.id_vivienda>0";
         $order = ""; // Variable para almacenar la cláusula ORDER BY
 
         for ($i = 0; $i < count($filters); $i++) {
@@ -277,7 +293,8 @@ class DAOShop
                 $select .= " AND v." . $filters[$i][0] . "=" . $filters[$i][1];
             }      
         }
-        $select .= $order; // Añadimos la cláusula ORDER BY a la consulta
+        $select .= $order; 
+        $select .= " GROUP BY V.id_vivienda";
         $select .= " LIMIT $offset,$items_page";
 
         $conexion = connect::con();
@@ -290,7 +307,7 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        //return $select; //IMPORTANTE PARA DEVOLVER EL VALOR DE LA CONSULTA
+        //return $select;
         return $retrArray;
     }
     function select_categories()
@@ -380,13 +397,15 @@ class DAOShop
 
     function select_viviendas_related($id_city, $offset, $items){
 		$sql = "SELECT v.id_vivienda,v.vivienda_name,v.long,v.lat,ci.city_name,state,status,v.vivienda_price,
-        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted, ci.city_name 
+        v.description,v.image_name,v.m2,c.category_name,o.operation_name, t.type_name,a.adapted, ci.city_name
         FROM viviendas v 
         INNER JOIN category c ON v.id_category = c.id_category 
         INNER JOIN operation o ON v.id_operation = o.id_operation 
         INNER JOIN city ci ON v.id_city = ci.id_city 
         INNER JOIN type t ON v.id_type = t.id_type 
-        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda WHERE ci.id_city = '$id_city' LIMIT $offset, $items";
+        LEFT JOIN adapted a ON v.id_vivienda = a.id_vivienda 
+        WHERE ci.id_city = '$id_city' 
+        LIMIT $offset, $items";
 
 		$conexion = connect::con();
 		$resultado = mysqli_query($conexion, $sql);
@@ -423,6 +442,13 @@ class DAOShop
 		}
 		return $retrArray;
 	}
-
+    function incrementa_like($id_vivienda, $id_user)
+    {
+        $sql = "CALL ACTUALIZA_LIKES('$id_vivienda', '$id_user');";
+        $conexion = connect::con();
+        $resultado = mysqli_query($conexion, $sql);
+        connect::close($conexion);
+        return $resultado;
+    }
 
 }

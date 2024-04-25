@@ -1,7 +1,9 @@
 <?php
 $path = $_SERVER['DOCUMENT_ROOT'] . '/compracasa/';
 include($path . "/module/shop/model/DAO_shop.php");
+include($path . "/model/middleware_auth.php");
 @session_start();
+
 if (isset($_SESSION["tiempo"])) {  
     $_SESSION["tiempo"] = time(); //Devuelve la fecha actual
 }
@@ -279,7 +281,25 @@ switch ($_GET['op']) {
         }
         break;
     
-    default:
+    case 'incrementa_like':
+        $token_dec = decode_token($_POST['accestoken']); //decodificamos el token
+         //echo json_encode($token_dec ['username']); //devolvemos el token decodificado
+         //echo json_encode($_POST['id_vivienda']);
+         //exit();
+
+        try {
+            $daoshop = new DAOShop();
+            //$json = decode_token($_POST['accestoken']);
+            //var_dump($_POST['id']);
+            //var_dump($token_dec['username']);
+            $daoshop->incrementa_like($_POST['id_vivienda'],$token_dec['username']);
+            //echo json_encode("Like incrementado con éxitoA");
+            
+        } catch (Exception $e) {
+            echo json_encode("Error incrementando el likeA: " . $e->getMessage());
+            
+        }
+        default:
     include("view/inc/error404.php");
     break;
 }   

@@ -1,6 +1,6 @@
 function protecturl() {
     var accestoken = localStorage.getItem('accestoken');
-    console.log("Control activity recogemos el token EN PROTECTURL: " + accestoken);
+    //console.log("Control activity recogemos el token EN PROTECTURL: " + accestoken);
     ajaxPromise('module/login/controller/ctrl_login.php?op=controluser', 'POST', 'JSON', { 'accestoken': accestoken })
         .then(function (data) {
             if (data == "Correct_User") {
@@ -37,7 +37,7 @@ function refresh_cookie() {
     ajaxPromise('module/login/controller/ctrl_login.php?op=refresh_cookie', 'POST', 'JSON')
         //.then(function (response) {??RESPONSE NO SE USA??
         .then(function (response) {
-            console.log("Refresh cookie correctly");
+            //console.log("Refresh cookie correctly");
         });
 }
 

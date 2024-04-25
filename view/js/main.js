@@ -93,7 +93,7 @@ function logout() {
             console.log('Logout succesfully');
             window.location.href = "index.php?module=ctrl_home&op=list";
         }).catch(function () {
-            console.log('Something has occured');
+            console.log('No se ha podido cerrar la sesión');
         });
 }
 

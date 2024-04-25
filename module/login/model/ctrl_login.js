@@ -21,15 +21,11 @@ function login() {
                     localStorage.setItem("refreshtoken", refreshtoken);
 
                     toastr.success("Loged succesfully");
-
-                    // if (localStorage.getItem('redirect_like')) {
-                    //     setTimeout(' window.location.href = "index.php?module=ctrl_shop&op=list"; ', 3000);
-                    // } else {
                     setTimeout(' window.location.href = "index.php?page=ctrl_shop&op=list"; ', 3000);
-                    // }
+
                 }
-            }).catch(function (textStatus) { //
-                if (console && console.log) { //
+            }).catch(function (textStatus) {
+                if (console && console.log) {
                     console.log("La solicitud ha fallado en el login : " + textStatus);
                 }
             });

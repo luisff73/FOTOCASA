@@ -17,11 +17,25 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
 
                 for (row in data) {
                     var imageHtml = "";
+                    var imagelike = "";
+                    var imageunlike = "";
+                    var resultHtml = "";
+                    var resultlike = "";
+
                     if (data[row].adapted) {
                         imageHtml = "<img src='view/img/logo_minusvalido_mini.png'>";
-
-                        var resultHtml = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageHtml + " " + data[row].adapted + " €";
-                    } else { resultHtml = "" }
+                        resultHtml = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageHtml + "</br> &nbsp;&nbsp;&nbsp; Vivienda " + data[row].adapted;
+                    } else {
+                        resultHtml = "";
+                    }
+                    if (data[row].total_likes) {
+                        imagelike = "<img src='view/img/like.png'>";
+                        resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+                    }
+                    if (data[row].total_likes == 0) {
+                        imageunlike = "<img src='view/img/unlike.png'>";
+                        resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+                    }
 
                     $('<div></div>').attr({ 'id': data[row].id_vivienda, 'class': 'list_content_shop' }).appendTo('#content_shop_viviendas')
 
@@ -57,7 +71,9 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
                             "<div class='buttons'>" +
                             "<button id='" + data[row].id_vivienda + "' class='detalles_inmueble button add' >Detalles</button>" +
                             "<button class='button buy' >Comprar</button>" + "&nbsp;&nbsp;&nbsp;" +
+                            "<li id='boton_like' data-id-vivienda='" + data[row].id_vivienda + "'><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultlike + "</li>" +
                             "<h1><b><span class='button' id='price'>" + data[row].vivienda_price + ' €' + "</span></b></h1>" +
+
                             "</div>" +
                             "</div>" +
                             "</div>" +
@@ -65,10 +81,8 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
                         )
                 }
             }
-            console.log(data);
             mapBox_all(data);
         }).catch(function () {
-            console.log(data);
             console.log('error catch');
         });
 }
@@ -168,6 +182,28 @@ function loadDetails(id_vivienda) {
             $('.date_vivienda_dentro').empty();
             $('#pagination').empty();
 
+            // var imageHtml = "";
+            // var imagelike = "";
+            // var imageunlike = "";
+            // var resultHtml = "";
+            // var resultlike = "";
+
+            // if (data[row].adapted) {
+            //     imageHtml = "<img src='view/img/logo_minusvalido_mini.png'>";
+            //     resultHtml = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageHtml + "</br> &nbsp;&nbsp;&nbsp; Vivienda " + data[row].adapted;
+            // } else {
+            //     resultHtml = "";
+            // }
+            // if (data[row].total_likes) {
+            //     imagelike = "<img src='view/img/like.png'>";
+            //     resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+            // }
+            // if (data[row].total_likes == 0) {
+            //     imageunlike = "<img src='view/img/unlike.png'>";
+            //     resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+            // }
+
+
             for (row in data[1][0]) { //recorremos el array de imagenes
                 console.log(data);
                 $('<div></div>').attr({ 'id': data[1][0].id_image, class: 'date_img_dentro' }).appendTo('.date_img')
@@ -206,11 +242,13 @@ function loadDetails(id_vivienda) {
                     "</table>" +
                     "<hr class=hr-shop>" +
                     "<h3><b>" + "Mas información:" + "</b></h3>" +
+                    //"<li><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultHtml + "</li>" +
                     "<p>Inmueble con certificado de eficiencia energetica.</p>" +
                     "<div class='buttons_details'>" +
                     "<span class='button add' href='#'>Añadir a la cesta</span>" +
                     "<span class='button buy' href='#'>Compra directa</span>" +
                     "<span class='button' id='price_details'>" + data[0].vivienda_price + "<i class='fa-solid fa-euro-sign'></i> </span>" +
+                    // aqui añadimos el corazon para añadir a favoritos y hay que hacer un select para que cuente los likes
                     "<a class='details__heart' id='" + data[0].id_vivienda + "'><i id=" + data[0].id_vivienda + " class='fa-solid fa-heart fa-lg'></i></a>" +
                     "</td>" +
                     "</div>" +
@@ -723,6 +761,56 @@ function clicks_details_related() {
             });
     });
 }
+
+function click_like() {
+    $(document).on("click", "#boton_like", function () {
+        var id_vivienda = $(this).data('id-vivienda');
+        localStorage.setItem('id_vivienda_like', id_vivienda);
+
+        if (localStorage.getItem('accestoken') == null) {
+            toastr["info"]("Debes estar logeado para hacer un like en una vivienda", "Control de acceso")
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "500",
+                "timeOut": "3000",
+                "extendedTimeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            setTimeout(function () {
+                window.location.href = "index.php?page=ctrl_login&op=login-register_view";
+            }, 3000);
+
+            return;
+        }
+
+        let accestoken = localStorage.getItem('accestoken');
+
+
+        ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_like', 'POST', 'JSON', { 'id_vivienda': id_vivienda, 'accestoken': accestoken })
+
+            //ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_like', 'POST', 'id_vivienda=' + encodeURIComponent(id_vivienda) + '&accestoken=' + encodeURIComponent(accestoken))
+            .then(function (data) {
+                console.log(data);
+                console.log('Like incrementado con éxitoS');
+            })
+            .catch(function () {
+                console.log('Error al incrementar el likeS');
+            });
+    });
+}
+
 $(document).ready(function () {
     print_filters();
     loadCategoriesfilter();
@@ -735,6 +823,7 @@ $(document).ready(function () {
     clicks_details_related();
     filter_button();
     pagination();
+    click_like();
     //highlightFilters();
 });
 

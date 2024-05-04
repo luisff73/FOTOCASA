@@ -128,8 +128,7 @@ switch ($_GET['op']) {
 
 
     case 'details_vivienda':  //request al servidor
-        //echo json_encode('Has entrado en details vivienda con el id ' . $_GET['id']);
-        //break;
+
         try {
             $daoshop = new DAOShop();
             $Details_viviendas = $daoshop->select_one_vivienda($_GET['id']);

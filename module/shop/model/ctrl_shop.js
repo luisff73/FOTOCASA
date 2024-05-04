@@ -16,25 +16,23 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
             } else {
 
                 for (row in data) {
-                    var imageHtml = "";
+                    var imageAdapted = "";
                     var imagelike = "";
                     var imageunlike = "";
-                    var resultHtml = "";
+                    var resultAdapted = "";
                     var resultlike = "";
 
                     if (data[row].adapted) {
-                        imageHtml = "<img src='view/img/logo_minusvalido_mini.png'>";
-                        resultHtml = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageHtml + "</br> &nbsp;&nbsp;&nbsp; Vivienda " + data[row].adapted;
-                    } else {
-                        resultHtml = "";
+                        imageAdapted = "<img src='view/img/logo_minusvalido_mini.png'>";
+                        resultAdapted = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageAdapted + "</br> &nbsp;&nbsp;&nbsp; Vivienda " + data[row].adapted;
                     }
                     if (data[row].total_likes) {
                         imagelike = "<img src='view/img/like.png'>";
-                        resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+                        resultlike = "<i id='col-ico1' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
                     }
                     if (data[row].total_likes == 0) {
                         imageunlike = "<img src='view/img/unlike.png'>";
-                        resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
+                        resultlike = "<i id='col-ico2' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
                     }
 
                     $('<div></div>').attr({ 'id': data[row].id_vivienda, 'class': 'list_content_shop' }).appendTo('#content_shop_viviendas')
@@ -52,7 +50,7 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
                             "<h1><b><a class='list__house' id='" + data[row].id_vivienda + "'><i id='" + data[row].id_vivienda + "' class='fa-solid fa-house-chimney-window'></i></a>   " + data[row].vivienda_name + "</b></h1>" +
                             "<table>" +
                             "<tr>" +
-                            "<td rowspan='5'>" + // Aquí ajusta el valor según cuántas filas desees que abarque resultHtml
+                            "<td rowspan='5'>" + // Aquí ajusta el valor según cuántas filas desees que abarque resultAdapted
                             "<ul>" +
                             "<li><i id='col-ico' class='fa-solid fa-city'></i>&nbsp;&nbsp; Localidad " + data[row].city_name + "</li>" +
                             "<li><i id='col-ico' class='fa-solid fa-flag-usa'></i>&nbsp;&nbsp; Provincia " + data[row].state + "</li>" +
@@ -63,7 +61,7 @@ function ajaxForSearch(url, type, dataType, sData = undefined, offset = 0, items
                             "</td>" +
                             "<td>" +
                             "<ul>" +
-                            "<li><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultHtml + "</li>" +
+                            "<li><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultAdapted + "</li>" +
                             "</ul>" +
                             "</td>" +
                             "</tr>" +
@@ -117,7 +115,7 @@ function loadviviendas() {
     }
 }
 function mapBox(id) {
-    console.log(id);
+    //console.log('id del token', id);
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
     const map = new mapboxgl.Map({
         container: 'map',
@@ -161,7 +159,6 @@ function mapBox_all(data) {
 function clicks_details() {
     $(document).on("click", ".detalles_inmueble", function () {
         var id_vivienda = this.getAttribute('id');
-        alert('id_vivienda ' + id_vivienda);
         loadDetails(id_vivienda);
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_visita&id=' + id_vivienda, 'POST', 'JSON')
             .then(function () {
@@ -182,37 +179,51 @@ function loadDetails(id_vivienda) {
             $('.date_vivienda_dentro').empty();
             $('#pagination').empty();
 
-            // var imageHtml = "";
-            // var imagelike = "";
-            // var imageunlike = "";
-            // var resultHtml = "";
-            // var resultlike = "";
-
-            // if (data[row].adapted) {
-            //     imageHtml = "<img src='view/img/logo_minusvalido_mini.png'>";
-            //     resultHtml = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageHtml + "</br> &nbsp;&nbsp;&nbsp; Vivienda " + data[row].adapted;
-            // } else {
-            //     resultHtml = "";
-            // }
-            // if (data[row].total_likes) {
-            //     imagelike = "<img src='view/img/like.png'>";
-            //     resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
-            // }
-            // if (data[row].total_likes == 0) {
-            //     imageunlike = "<img src='view/img/unlike.png'>";
-            //     resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp;" + data[row].total_likes + " Likes ";
-            // }
-
+            console.log('Details viviendas', data);
 
             for (row in data[1][0]) { //recorremos el array de imagenes
-                console.log(data);
+
+
+
                 $('<div></div>').attr({ 'id': data[1][0].id_image, class: 'date_img_dentro' }).appendTo('.date_img')
                     .html(
                         "<div class='content-img-details'>" +
                         "<img src= '" + data[1][0][row].image_name + "'" + "</img>" +
                         "</div>"
                     )
+
             }
+
+            var imageAdapted = "";
+            var imagelike = "";
+            var imageunlike = "";
+            var resultAdapted = "";
+            var resultlike = "";
+
+            if (data[0].adapted) {
+                console.log('adapted ', data[0].adapted);
+                imageAdapted = "<img src='view/img/logo_minusvalido_mini.png'>";
+                resultAdapted = "<i id='col-ico3' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageAdapted + "</br> &nbsp;&nbsp;&nbsp; Vivienda "
+            } else {
+                resultAdapted = "";
+            }
+            if (data[0].total_likes) {
+                console.log('total_likes ', data[0].total_likes);
+                imagelike = "<img src='view/img/like1.png'>";
+                //resultlike = "<i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp;"
+                resultlike = "<i id='col-ico4' class='image'></i>&nbsp;&nbsp;&nbsp;" + imagelike + "</br> &nbsp;&nbsp;&nbsp; "
+            } else {
+                resultlike = "";
+            }
+            if (data[0].total_likes == 0) {
+                console.log('unlike ', data[0].total_likes);
+                imageunlike = "<img src='view/img/unlike1.png'>";
+                resultlike = "<i id='col-ico4' class='image'></i>&nbsp;&nbsp;&nbsp;" + imageunlike + "</br> &nbsp;&nbsp;&nbsp; "
+            } else {
+                resultlike = "";
+            }
+
+
 
             $('<div></div>').attr({ 'id': data[0].id_vivienda, class: 'date_vivienda_dentro' }).appendTo('.date_viviendas')
                 .html(
@@ -242,14 +253,18 @@ function loadDetails(id_vivienda) {
                     "</table>" +
                     "<hr class=hr-shop>" +
                     "<h3><b>" + "Mas información:" + "</b></h3>" +
-                    //"<li><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultHtml + "</li>" +
+                    //"<li><i id='col-ico' class='image'></i>&nbsp;&nbsp;&nbsp;" + resultAdapted + "</li>" +
                     "<p>Inmueble con certificado de eficiencia energetica.</p>" +
+                    // aqui añadimos el corazon para añadir a favoritos y hay que hacer un select para que cuente los likes
+                    // "<a class='details__heart' id='" + data[0].id_vivienda + "'><i id=" + data[0].id_vivienda + " class='fa-solid fa-heart fa-lg'></i></a>" +
+                    "<a class='details__heart' id='" + data[0].id_vivienda + "'><i id='" + data[0].id_vivienda + "'>" + resultAdapted + "</i></a>" + data[0].adapted +
+                    "<a class='details__hear1' id='" + data[0].id_vivienda + "'><i id='" + data[0].id_vivienda + "'>" + resultLike + "</i></a>" + data[0].total_likes + " Likes" +
+                    //"<a>" + resultLike + "</a>" + data[0].total_likes + " Likes" +
+                    "</br></br></br>" +
                     "<div class='buttons_details'>" +
                     "<span class='button add' href='#'>Añadir a la cesta</span>" +
                     "<span class='button buy' href='#'>Compra directa</span>" +
                     "<span class='button' id='price_details'>" + data[0].vivienda_price + "<i class='fa-solid fa-euro-sign'></i> </span>" +
-                    // aqui añadimos el corazon para añadir a favoritos y hay que hacer un select para que cuente los likes
-                    "<a class='details__heart' id='" + data[0].id_vivienda + "'><i id=" + data[0].id_vivienda + " class='fa-solid fa-heart fa-lg'></i></a>" +
                     "</td>" +
                     "</div>" +
                     "</div>" +
@@ -795,18 +810,18 @@ function click_like() {
             return;
         }
 
-        let accestoken = localStorage.getItem('accestoken');
+        let accestoken = localStorage.getItem('accestoken');  //obtenemos el token de acceso del localstorage
 
-
+        // Hacemos una promesa y le paso el id de la vivienda y el token de acceso al servidor
         ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_like', 'POST', 'JSON', { 'id_vivienda': id_vivienda, 'accestoken': accestoken })
 
-            //ajaxPromise('module/shop/controller/ctrl_shop.php?op=incrementa_like', 'POST', 'id_vivienda=' + encodeURIComponent(id_vivienda) + '&accestoken=' + encodeURIComponent(accestoken))
             .then(function (data) {
                 console.log(data);
-                console.log('Like incrementado con éxitoS');
+                console.log('Like incrementado con éxito');
             })
             .catch(function () {
-                console.log('Error al incrementar el likeS');
+                console.log(data)
+                console.log('Error al incrementar el like');
             });
     });
 }

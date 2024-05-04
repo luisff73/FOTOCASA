@@ -66,7 +66,7 @@ function load_menu() {
         $('.opc_exceptions').empty();
         $('#user_info').hide();
         $('.log-icon').empty();
-        $('<a href="index.php?module=ctrl_login&op=login-register_view"><i id="col-ico" class="fa-solid fa-user fa-2xl"></i></a>').appendTo('.log-icon');
+        $('<a href="index.php?module=ctrl_login&op=login-register_view"><i id="col-ico" class="fa-solid fa-user fa-2xl"></i></a>').appendTo('.log-icon'); //añadimos el icono de login
     }
 }
 
@@ -76,7 +76,7 @@ function click_logout() {
 
     $(document).on('click', '#logout', function () {
 
-        //toastr.success("Logout succesfully");
+        toastr.success("Logout succesfully");
 
         setTimeout('logout(); ', 1000);
     });

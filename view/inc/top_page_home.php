@@ -30,7 +30,6 @@
 
     <!-- <script src="view/plugins/jquery-1.10.2.js"></script> -->
     <script src="view/plugins/glider.js"></script>
-
     <script src="view/plugins/jquery.prettyPhoto.js"></script>
     <script src="module/home/model/ctrl_home.js"></script>
     <script src="module/search/model/crtl_search.js"></script>

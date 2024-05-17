@@ -134,7 +134,7 @@ class DAOShop
                 $retrArray[] = $row;
             }
         }
-        return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
+        //return $select; //Esto no devuelve $select, con estro comprobamos que resuelve ajaxs desde el console.log
         return $retrArray;
     }
     function count_filters_home($filters)
